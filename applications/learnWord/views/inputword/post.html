@@ -1,0 +1,91 @@
+{{extend 'layout.html'}}
+<style>
+#suggestions { position: relative; }
+.suggestions { background: white; border: solid 1px #55A6C8; }
+.suggestions DIV { padding: 2px 4px 2px 4px; }
+</style>
+
+
+<div class="post_article">
+  <div>
+    <h1>Add new word</h1>
+    <!-- end #header --></div>
+  <div id="mainContent">
+    <h1>  </h1>
+    <form>
+        <input type="text" id="word" name="word_info" style="width: 250px" />
+        <!-- <button id ="submit1" type="button" >Click Me!</button>-->
+        <br />
+         <div style="position: absolute;" id="suggestions" class="suggestions"></div>
+    </form>
+      <div id="target"></div>
+    <form>
+        <input type="text" id="month" name="example_sentence" style="width: 250px" />
+         <button id ="example" type="button" >+</button>
+        <br />
+         <div style="position: absolute;" id="suggestions" class="suggestions"></div>
+    </form>
+      <div id="example_added"></div>
+    <button id ="submit1" type="button" >save word</button>
+    <script>
+    var example_store = [];
+
+
+
+
+        jQuery("#word").keyup(function(){
+      ajax('word_validation', ['word_info'], 'suggestions')});
+     $('#submit1').click(function () {
+        ajax('add_word', '', ':eval');
+
+    });
+
+
+
+     $('#example').click(function () {
+        //var bla = $('#month').val();
+       // alert(bla);
+       // example_store.push(bla);
+        // $('#example_added').after('<p>'+bla+'</p>');
+        ajax('post_example', ['example_sentence'], ':eval');
+    });
+
+
+
+var inputs = $(':input').keypress(function(e){
+
+
+    if (e.which == 13) {
+       e.preventDefault();
+       var focused = document.activeElement;
+       if (focused.id === "month") {
+
+            if (e.which == 13){
+                <!--alert('add line');-->
+                ajax('post_example', ['example_sentence'], ':eval');
+                document.getElementById("month").value = '';
+            }
+        } else {
+       var nextInput = inputs.get(inputs.index(this) + 1);
+       if (nextInput) {
+          nextInput.focus();
+       }
+       }
+    }
+});
+
+    </script>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <h2></h2>
+    <p></p>
+    <!-- end #mainContent --></div>
+  <div id="footer">
+
+  <!-- end #footer --></div>
+<!-- end #container --></div>
+
+</html>
+
+

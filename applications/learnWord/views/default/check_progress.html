@@ -1,0 +1,52 @@
+{{extend 'layout_check_word.html'}}
+{{block center}}
+
+
+
+<div id="article_list_containter">
+
+  <div class="header">
+      <div id="score_board_data">
+          <a id="score_point_info" ></a>
+          <a id="score_board" >10</a>
+      </div>
+
+      <span id="countdown"></span>
+
+
+    <!-- end #header --></div>
+  <div class = "content">
+    <h1>  </h1>
+
+      <div id="word_info">{{=item}} </div>
+      <input id="store_value_of_selection"  type="hidden"  name="meanning_option" style="width: 250px" value ="" />
+      <input type="hidden"  name="meanning_option2" style="width: 250px" value ="option2" />
+      <div id="word_meanning_explain_1" name="example_sentence">{{=word_meanning_info1}} </div>
+      <div id="word_meanning_explain_2">{{=word_meanning_info2}} </div>
+      <input type="hidden" id="id" name="id" value="" />
+      <div>
+      <button id ="user_click_next_button" type="button" >next word</button>
+         </div>
+       <script>
+
+      </script>
+
+<script src="{{=URL('static','js/check_progress.js')}}"></script>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <h2></h2>
+    <p></p>
+    <!-- end #mainContent --></div>
+  <div id="footer">
+
+  <!-- end #footer --></div>
+<!-- end #container --></div>
+{{end}}
+
+<!--
+{{block right_sidebar}}
+{{end}}
+-->
+</html>
+
+
