@@ -376,7 +376,7 @@ def get_article_id(name):
     return False;
 
 
-#@auth.requires_login()
+@auth.requires_login()
 def post():
     log.info("request.vars = %s",request.vars)
     #save example for later store in database
@@ -386,40 +386,55 @@ def post():
     return dict(article_tag_list ="" )
 
 
-#@auth.requires_login()
+@auth.requires_login()
 def add_word():
     log.info("add new word")
-    add_word_to_db()
+    log.info("request.vars = %s",request.vars.sheets)
+    result = json.loads(request.vars.sheets)
+    print 'result after json'
+    print result
+    print len(result)
+    for temp in result:
+        print temp
+    #import pdb;pdb.set_trace()
+    word_id = add_word_to_db()
+    add_example_to_db(word_id, result)
     #import pdb;pdb.set_trace()
     #return json.dumps(request.vars.tag_info)
     temp_var = 'lalal'
     return "var x=$('#target'); x.html(x.html()+ '%s');" % temp_var
 
-#@auth.requires_login()
+@auth.requires_login()
 def post_example():
     log.info("post_example")
     log.info("request.vars = %s",request.vars.example_sentence)
+
     session.example_list_store.append(request.vars.example_sentence)
     log.info("session.tag list = %s", session.example_list_store)
     #return json.dumps(request.vars.tag_info)
     return "var x=$('#example_added'); x.html(x.html()+'<br>' + '%s' );" % request.vars.example_sentence.replace("'","\\'")
 
 ### add word
-def add_example_to_db(word_id):
+def add_example_to_db(word_id, example_list):
     log.info("add example to db")
-    for ex_sentence in session.example_list_store:
-        example_id = db.example_tbl.insert(example = ex_sentence,
+    print example_list
+    import pdb;pdb.set_trace()
+    log.info("len of example list = %d", len(example_list))
+    for sentence in example_list:
+        example_id = db.example_tbl.insert(example = sentence,
                                        word_id = word_id)
+    #import pdb;pdb.set_trace()
 
 def add_word_to_db():
     log.info("add word to db")
-    print auth.user.id
+    import pdb;pdb.set_trace()
+    #print auth.user.id
     word_id = db.word_tbl.insert(word = session.word_store,
                                  user_info = auth.user)
-    add_example_to_db(word_id)
+    return word_id
 
 
-#@auth.requires_login()
+@auth.requires_login()
 def post_article():
     log.info("post")
     log.info("request.vars = %s",request.vars)

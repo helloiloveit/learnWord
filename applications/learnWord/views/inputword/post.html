@@ -9,7 +9,82 @@
 <div class="post_article">
   <div>
     <h1>Add new word</h1>
+
+
+<script>
+    $(function() {
+        var scntDiv = $('#p_scents');
+        var i = $('#p_scents p').size() ;
+        var example_store = [];
+
+        $('#addScnt').live('click', function() {
+                //alert(i);
+                $('<p><input type="text" id="p_scnt'+ i +'" size="20" name="p_scnt_' + i +'" value =" " /> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+                i++;
+                return false;
+        });
+
+        $('#remScnt').live('click', function() {
+
+                if( i > 1 ) {
+                        $(this).parents('p').remove();
+                        i--;
+                }
+                return false;
+        });
+
+        function get_example_value_from_input(){
+            //alert("get_example_value_from_input");
+            //alert(i);
+            var j = i;
+
+
+            for (var z=0;z<j;z++)
+            {
+                var temp_id ='p_scnt' ;
+                if (z != 0)
+                {
+                    temp_id = 'p_scnt' +z;
+                }
+                //alert(temp_id);
+                var bla = $('#' + temp_id).val();
+                //alert(bla);
+                example_store.push(bla);
+                //alert(example_store);
+                //alert(z);
+
+            }
+            //alert(example_store);
+            send_array_to_server();
+        }
+
+        function send_array_to_server(){
+            alert("send to server");
+            $.ajax({
+        url: 'add_word',
+        type: 'POST',
+        data: {sheets:JSON.stringify(example_store)},
+        dataType: "json",
+        success : function (data) {
+            // Code here
+        }
+    });
+        }
+
+        $('#submit1').click(function () {
+           //alert(i);
+           get_example_value_from_input();
+
+    });
+
+
+
+
+});
+
+</script>
     <!-- end #header --></div>
+
   <div id="mainContent">
     <h1>  </h1>
     <form>
@@ -20,25 +95,39 @@
     </form>
       <div id="target"></div>
     <form>
-        <input type="text" id="month" name="example_sentence" style="width: 250px" />
-         <button id ="example" type="button" >+</button>
+<div id="p_scents">
+    <p>
+        <input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Input Value" />
+        <a href="#" id="addScnt">add</a>
+    </p>
+</div>
         <br />
          <div style="position: absolute;" id="suggestions" class="suggestions"></div>
+          <button id ="submit1" type="button" >save word</button>
     </form>
       <div id="example_added"></div>
-    <button id ="submit1" type="button" >save word</button>
+
     <script>
     var example_store = [];
 
+    function get_example_value_from_input(){
+        alert("get_example_value_from_input");
+        alert(i);
+             var bla = $('#p_scnt').val();
+                alert(bla);
 
+    }
 
 
         jQuery("#word").keyup(function(){
       ajax('word_validation', ['word_info'], 'suggestions')});
-     $('#submit1').click(function () {
-        ajax('add_word', '', ':eval');
 
-    });
+
+//     $('#submit1').click(function () {
+
+  //      get_example_value_from_input();
+    //    ajax('add_word', '', ':eval');
+    //});
 
 
 
@@ -47,7 +136,8 @@
        // alert(bla);
        // example_store.push(bla);
         // $('#example_added').after('<p>'+bla+'</p>');
-        ajax('post_example', ['example_sentence'], ':eval');
+        //ajax('post_example', ['example_sentence'], ':eval');
+
     });
 
 

@@ -1,29 +1,29 @@
-timestamp: 2014-02-13T22:23:36.859159
+timestamp: 2014-02-19T23:14:08.493132
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
     last_name CHAR(128),
+    username CHAR(128) UNIQUE,
     email CHAR(128) UNIQUE,
-    username CHAR(128),
     password CHAR(256),
     registration_key CHAR(128)
 );
 success!
-timestamp: 2014-02-13T22:23:36.862196
+timestamp: 2014-02-19T23:14:08.496814
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2014-02-13T22:23:36.865523
+timestamp: 2014-02-19T23:14:08.499685
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
 );
 success!
-timestamp: 2014-02-13T22:23:36.868484
+timestamp: 2014-02-19T23:14:08.502214
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
@@ -32,7 +32,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2014-02-13T22:23:36.871530
+timestamp: 2014-02-19T23:14:08.504650
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -42,7 +42,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2014-02-13T22:23:36.874551
+timestamp: 2014-02-19T23:14:08.507043
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
@@ -52,20 +52,17 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
-timestamp: 2014-02-13T22:23:36.877999
+timestamp: 2014-02-19T23:14:08.510136
 CREATE TABLE word_tbl(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     word TEXT,
     user_info INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
 );
 success!
-timestamp: 2014-02-13T22:23:36.880947
+timestamp: 2014-02-19T23:14:08.512832
 CREATE TABLE example_tbl(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     word_id INTEGER REFERENCES word_tbl (id) ON DELETE CASCADE,
     example TEXT
 );
-success!
-success!
-success!
 success!
