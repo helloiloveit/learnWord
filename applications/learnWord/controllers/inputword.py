@@ -394,8 +394,7 @@ def add_word():
     print 'result after json'
     print result
     print len(result)
-    for temp in result:
-        print temp
+
     #import pdb;pdb.set_trace()
     word_id = add_word_to_db()
     add_example_to_db(word_id, result)
@@ -415,19 +414,25 @@ def post_example():
     return "var x=$('#example_added'); x.html(x.html()+'<br>' + '%s' );" % request.vars.example_sentence.replace("'","\\'")
 
 ### add word
-def add_example_to_db(word_id, example_list):
+def add_example_to_db(word_id, example):
     log.info("add example to db")
-    print example_list
-    import pdb;pdb.set_trace()
-    log.info("len of example list = %d", len(example_list))
-    for sentence in example_list:
-        example_id = db.example_tbl.insert(example = sentence,
+    print example
+    #import pdb;pdb.set_trace()
+    log.info("len of example list = %d", len(example))
+    if type(example) is list:
+        for unit in example:
+            if len(unit) !=0:
+                example_id = db.example_tbl.insert(example = unit,
+                                       word_id = word_id)
+    else:
+        if len(example) != 0:
+            example_id = db.example_tbl.insert(example = example,
                                        word_id = word_id)
     #import pdb;pdb.set_trace()
 
 def add_word_to_db():
     log.info("add word to db")
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     #print auth.user.id
     word_id = db.word_tbl.insert(word = session.word_store,
                                  user_info = auth.user)

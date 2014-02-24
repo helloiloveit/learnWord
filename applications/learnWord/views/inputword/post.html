@@ -19,8 +19,16 @@
 
         $('#addScnt').live('click', function() {
                 //alert(i);
-                $('<p><input type="text" id="p_scnt'+ i +'" size="20" name="p_scnt_' + i +'" value =" " /> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+                //alert(example_store_temp);
+                if ($('#p_scnt').val() == '') {
+                    alert("pls write an example here");
+                    $('#p_scnt').focus();
+                    return;
+                }
+                $('<p><input type="text" id="p_scnt'+ i +'" size="20" name="p_scnt_' + i +'" value ="'+example_store_temp+' " /> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
                 i++;
+                $('#p_scnt').focus();
+                $('#p_scnt').val('');
                 return false;
         });
 
@@ -58,8 +66,25 @@
             send_array_to_server();
         }
 
+        function clean_up(){
+            alert('clear ');
+            var j = i;
+
+
+            for (var z=0;z<j;z++)
+            {
+                var temp_id ='p_scnt' ;
+                if (z != 0)
+                {
+                    temp_id = 'p_scnt' +z;
+                    $('#' + temp_id).parents('p').remove();
+                }
+            }
+            example_store = [];
+            example_store_temp ='';
+        }
         function send_array_to_server(){
-            alert("send to server");
+            //alert("send to server");
             $.ajax({
         url: 'add_word',
         type: 'POST',
@@ -67,8 +92,10 @@
         dataType: "json",
         success : function (data) {
             // Code here
+            clean_up();
         }
-    });
+        });
+            clean_up();
         }
 
         $('#submit1').click(function () {
@@ -77,7 +104,22 @@
 
     });
 
+var inputs = $(':input').keypress(function(e){
 
+
+    if (e.which == 13) {
+         var focused = document.activeElement;
+         if (focused.id === "word") {
+            //alert("focus on word");
+            $('#p_scnt').focus();
+        } else {
+            //alert("press enter");
+            example_store_temp =  $('#p_scnt').val();
+            $( '#addScnt').trigger( "click" );
+        }
+        //alert(example_store_temp);
+    }
+});
 
 
 });
@@ -109,6 +151,10 @@
 
     <script>
     var example_store = [];
+    var example_store_temp ='';
+
+    //focus on word
+    $('#word').focus();
 
     function get_example_value_from_input(){
         alert("get_example_value_from_input");
@@ -146,15 +192,13 @@ var inputs = $(':input').keypress(function(e){
 
 
     if (e.which == 13) {
+       //alert("press enter");
+
        e.preventDefault();
        var focused = document.activeElement;
-       if (focused.id === "month") {
+       if (focused.id === "word") {
 
-            if (e.which == 13){
-                <!--alert('add line');-->
-                ajax('post_example', ['example_sentence'], ':eval');
-                document.getElementById("month").value = '';
-            }
+
         } else {
        var nextInput = inputs.get(inputs.index(this) + 1);
        if (nextInput) {

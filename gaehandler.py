@@ -32,7 +32,8 @@ import pickle
 import wsgiref.handlers
 import datetime
 
-import os; os.chdir(' /home/username/web2py')
+path = os.path.dirname(os.path.abspath(__file__))
+
 # os.chdir(path) ?
 
 if not os.path.isdir('applications'):
