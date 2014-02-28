@@ -8,7 +8,6 @@
 
 <div class="post_article">
   <div>
-    <h1>Add new word</h1>
 
 
 <script>
@@ -42,8 +41,8 @@
         });
 
         function get_example_value_from_input(){
-            alert("get_example_value_from_input");
-            alert(i);
+            //alert("get_example_value_from_input");
+            //alert(i);
             var j = i;
 
 
@@ -80,11 +79,16 @@
                     $('#' + temp_id).parents('p').remove();
                     i--;
                 }
+                if (z == 0)
+                {
+                    $('#p_scnt').val('');
+                }
             }
             example_store = [];
             example_store_temp ='';
             $('#word').val('');
         }
+
         function send_array_to_server(){
             //alert("send to server");
             $.ajax({
@@ -95,15 +99,21 @@
         success : function (data) {
             // Code here
             clean_up();
+
+
         }
         });
             clean_up();
+
+
         }
 
         $('#submit1').click(function () {
            //alert(i);
            get_example_value_from_input();
            send_array_to_server();
+      
+           //$('#word').focus();
 
     });
 
@@ -132,9 +142,11 @@ var inputs = $(':input').keypress(function(e){
     <!-- end #header --></div>
 
   <div id="mainContent">
-    <h1>  </h1>
+    <h1>    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    </h1>
     <form>
-        <input type="text" id="word" name="word_info" style="width: 250px" />
+        <input type="text" id="word" name="word_info" placeholder="new word" />
         <!-- <button id ="submit1" type="button" >Click Me!</button>-->
         <br />
          <div style="position: absolute;" id="suggestions" class="suggestions"></div>
@@ -143,7 +155,7 @@ var inputs = $(':input').keypress(function(e){
     <form>
 <div id="p_scents">
     <p>
-        <input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Input Value" />
+        <input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="example or meanning" />
         <a href="#" id="addScnt">add</a>
     </p>
 </div>

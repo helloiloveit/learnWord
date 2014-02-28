@@ -19,6 +19,18 @@ width: 1022px;
 width: 550px;
 }
 
+
+/************/
+/* input word */
+#word
+{
+    height:70px;
+    width: 300px;
+    font-size:14pt;
+}
+
+/*******/
+
 /****************/
 /* article page */
 
@@ -303,7 +315,7 @@ div.controls select +.error_wrapper {margin-left:5px;}
 .navbar {margin-bottom:0;
         margin-left:auto;
         margin-right:auto;
-        width:1022px;
+        width:700px;
         }
 .navbar-inverse .brand{color:#white;}
 .navbar-inverse .brand b{display:inline-block;margin-top:-1px;}
