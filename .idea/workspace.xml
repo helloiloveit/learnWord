@@ -26,28 +26,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="post.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/applications/learnWord/views/inputword/post.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="155" column="19" selection-start="4192" selection-end="4192" vertical-scroll-proportion="0.6885246" vertical-offset="1695" max-vertical-offset="3465">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="inputword.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/applications/learnWord/controllers/inputword.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="428" column="12" selection-start="13198" selection-end="13198" vertical-scroll-proportion="-19.36" vertical-offset="5921" max-vertical-offset="7560">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="review_word.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/learnWord/views/review/review_word.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="38" selection-start="454" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1950">
+            <state line="26" column="38" selection-start="454" selection-end="477" vertical-scroll-proportion="26.333334" vertical-offset="1022" max-vertical-offset="1950">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="post_word.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/learnWord/static/js/post_word.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
               <folding />
             </state>
           </provider>
@@ -62,11 +53,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout_check_word.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/applications/learnWord/views/layout_check_word.html">
+      <file leaf-file-name="post.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/applications/learnWord/views/inputword/post.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="3" selection-start="2285" selection-end="2285" vertical-scroll-proportion="-1.25" vertical-offset="570" max-vertical-offset="2730">
-              <folding />
+            <state line="173" column="0" selection-start="4569" selection-end="4569" vertical-scroll-proportion="0.34859154" vertical-offset="2298" max-vertical-offset="3240">
+              <folding>
+                <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#form#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,6 +70,15 @@
         <entry file="file://$PROJECT_DIR$/app.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state line="5" column="26" selection-start="245" selection-end="245" vertical-scroll-proportion="-3.0" vertical-offset="0" max-vertical-offset="1380">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inputword.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/learnWord/controllers/inputword.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="99" column="0" selection-start="2590" selection-end="2590" vertical-scroll-proportion="-6.0" vertical-offset="1320" max-vertical-offset="2640">
               <folding />
             </state>
           </provider>
@@ -112,7 +116,7 @@
       <file leaf-file-name="check_progress.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/learnWord/static/js/check_progress.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="832" selection-end="832" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="2070">
+            <state line="22" column="0" selection-start="832" selection-end="832" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2070">
               <folding />
             </state>
           </provider>
@@ -141,9 +145,11 @@
         <option value="$PROJECT_DIR$/applications/learnWord/views/default/get_word.html" />
         <option value="$PROJECT_DIR$/applications/learnWord/controllers/review_word.py" />
         <option value="$PROJECT_DIR$/applications/learnWord/controllers/review.py" />
-        <option value="$PROJECT_DIR$/applications/learnWord/views/layout.html" />
         <option value="$PROJECT_DIR$/app.yaml" />
         <option value="$PROJECT_DIR$/gaehandler.py" />
+        <option value="$PROJECT_DIR$/applications/learnWord/views/layout.html" />
+        <option value="$PROJECT_DIR$/router.py" />
+        <option value="$PROJECT_DIR$/applications/learnWord/static/js/post_word.js" />
         <option value="$PROJECT_DIR$/applications/learnWord/controllers/inputword.py" />
         <option value="$PROJECT_DIR$/applications/learnWord/views/inputword/post.html" />
       </list>
@@ -247,6 +253,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web2py" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web2py" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="learnWord" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inputword" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web2py" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web2py" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="learnWord" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -290,11 +344,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/applications/learnWord/static/js" />
       <recent name="$PROJECT_DIR$/applications/learnWord/controllers" />
       <recent name="$PROJECT_DIR$/applications/learnWord/views/default" />
       <recent name="C:\Users\vkx\Dropbox\Webdevelopment\web2py\applications\learnWord\static\js\qunit\test" />
       <recent name="C:\Users\vkx\Dropbox\Webdevelopment\web2py\applications\learnWord\views\default" />
-      <recent name="$PROJECT_DIR$/applications/learnWord/static/js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/applications/learnWord/views/inputword" />
@@ -471,6 +525,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.036889333" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24583334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -481,12 +536,14 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -537,7 +594,11 @@
     <entry file="file://$PROJECT_DIR$/applications/learnWord/views/inputword/post.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="8" selection-start="1317" selection-end="1317" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="2805">
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#form#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -607,7 +668,11 @@
     <entry file="file://$PROJECT_DIR$/applications/learnWord/views/inputword/post.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="30" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="885">
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#form#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -657,7 +722,11 @@
     <entry file="file://$PROJECT_DIR$/applications/learnWord/views/inputword/post.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="29" selection-start="0" selection-end="1520" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#form#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -698,13 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applications/learnWord/views/review/review_word.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="38" selection-start="454" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1950">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/applications/learnWord/controllers/review.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="385" column="4" selection-start="11076" selection-end="11076" vertical-scroll-proportion="0.0" vertical-offset="5775" max-vertical-offset="7215">
@@ -712,23 +774,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applications/learnWord/views/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="65" selection-start="5024" selection-end="5024" vertical-scroll-proportion="0.0" vertical-offset="1110" max-vertical-offset="3150">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/applications/learnWord/controllers/default.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="253" column="4" selection-start="7847" selection-end="7847" vertical-scroll-proportion="0.0" vertical-offset="3795" max-vertical-offset="7395">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/learnWord/static/js/check_progress.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="832" selection-end="832" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="2070">
           <folding />
         </state>
       </provider>
@@ -763,6 +811,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/applications/learnWord/views/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="40" selection-start="4572" selection-end="4572" vertical-scroll-proportion="-26.25" vertical-offset="750" max-vertical-offset="3135">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/learnWord/views/review/review_word.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="38" selection-start="454" selection-end="477" vertical-scroll-proportion="26.333334" vertical-offset="1022" max-vertical-offset="1950">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/learnWord/static/js/check_progress.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="832" selection-end="832" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="2070">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/applications/learnWord/views/default/check_progress.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="0" selection-start="969" selection-end="1034" vertical-scroll-proportion="-20.625" vertical-offset="0" max-vertical-offset="870">
@@ -770,17 +839,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="40" selection-start="5279" selection-end="5279" vertical-scroll-proportion="-0.7579408" vertical-offset="2207" max-vertical-offset="3120">
+          <folding>
+            <marker date="1393590578000" expanded="true" signature="-1:-1" placeholder="import ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/learnWord/static/js/post_word.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/applications/learnWord/controllers/inputword.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="428" column="12" selection-start="13198" selection-end="13198" vertical-scroll-proportion="-19.36" vertical-offset="5921" max-vertical-offset="7560">
+        <state line="99" column="0" selection-start="2590" selection-end="2590" vertical-scroll-proportion="-6.0" vertical-offset="1320" max-vertical-offset="2640">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/learnWord/views/inputword/post.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="19" selection-start="4192" selection-end="4192" vertical-scroll-proportion="0.6885246" vertical-offset="1695" max-vertical-offset="3465">
-          <folding />
+        <state line="173" column="0" selection-start="4569" selection-end="4569" vertical-scroll-proportion="0.34859154" vertical-offset="2298" max-vertical-offset="3240">
+          <folding>
+            <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#form#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -42,8 +42,8 @@
         });
 
         function get_example_value_from_input(){
-            //alert("get_example_value_from_input");
-            //alert(i);
+            alert("get_example_value_from_input");
+            alert(i);
             var j = i;
 
 
@@ -63,11 +63,11 @@
 
             }
             //alert(example_store);
-            send_array_to_server();
+
         }
 
         function clean_up(){
-            alert('clear ');
+            //alert('clear ');
             var j = i;
 
 
@@ -78,10 +78,12 @@
                 {
                     temp_id = 'p_scnt' +z;
                     $('#' + temp_id).parents('p').remove();
+                    i--;
                 }
             }
             example_store = [];
             example_store_temp ='';
+            $('#word').val('');
         }
         function send_array_to_server(){
             //alert("send to server");
@@ -101,6 +103,7 @@
         $('#submit1').click(function () {
            //alert(i);
            get_example_value_from_input();
+           send_array_to_server();
 
     });
 
@@ -123,6 +126,7 @@ var inputs = $(':input').keypress(function(e){
 
 
 });
+
 
 </script>
     <!-- end #header --></div>
@@ -167,25 +171,6 @@ var inputs = $(':input').keypress(function(e){
 
         jQuery("#word").keyup(function(){
       ajax('word_validation', ['word_info'], 'suggestions')});
-
-
-//     $('#submit1').click(function () {
-
-  //      get_example_value_from_input();
-    //    ajax('add_word', '', ':eval');
-    //});
-
-
-
-     $('#example').click(function () {
-        //var bla = $('#month').val();
-       // alert(bla);
-       // example_store.push(bla);
-        // $('#example_added').after('<p>'+bla+'</p>');
-        //ajax('post_example', ['example_sentence'], ':eval');
-
-    });
-
 
 
 var inputs = $(':input').keypress(function(e){
