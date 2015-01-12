@@ -45,21 +45,30 @@ def talk():
 
 def test_STT():
     return dict()
-def handle_user_saying():
+def handle_user_saying_json():
+    data = request.vars.keys()[0]
+    import json
+    json_data = json.loads(data)
+    #from now json_data act like a dict..nail it
+    return get_answer(json_data['outcomes'][0]['intent'])
 
-    if 'ask_age' in request.vars.info:
+def handle_user_saying():
+    return get_asnwer(request.vars.info)
+
+def get_answer(intention):
+    if 'ask_age' in intention:
         return 'im 32 years old'
-    elif 'ask_name' in request.vars.info:
+    elif 'ask_name' in intention:
         return 'im Huy'
-    elif 'ask_relationship' in request.vars.info:
+    elif 'ask_relationship' in intention:
         return 'im not. But i have a girl friend now'
-    elif 'ask_if_someone_have_a_meal' in request.vars.info:
+    elif 'ask_if_someone_have_a_meal' in  intention:
         return 'im looking forward to my delicious dinner'
-    elif 'ask_when_have_a_meal' in request.vars.info:
+    elif 'ask_when_have_a_meal' in intention:
         return 'i cant remember'
-    elif 'ask_job' in request.vars.info:
+    elif 'ask_job' in intention:
         return " i'm a software engineer"
-    elif 'ask_company' in request.vars.info:
+    elif 'ask_company' in intention:
         return "im working for vkx company"
 
     return 'Sorry, currently i could talk about my job, my age only'

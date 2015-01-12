@@ -5,13 +5,14 @@
   <body style="text-align: center;">
   <div id="avatar_image">
       <img src="{{=URL('static','images/agent.jpg')}}" width="10%"  />
-      <div id="avatar_saying">
-          say something
-
-      </div>
+      <div>
+      <input id = "avatar_saying" class="talking_sentence" type="text" name="avatar_saying" value ="type something here">
+       </div>
   </div>
 
+    <input id = "user_saying_box" class = "talking_sentence" type="text" name="user_saying" value ="type something here">
     <div id="user_image">
+        send
         <!--
         <img src="{{=URL('static','images/me_pic.jpg')}}" />
         -->
@@ -23,16 +24,73 @@
     <script src="{{=URL('static','microphone/microphone.min.js')}}"></script>
 <style>
     #user_image{
-        margin-top:40px;
+        margin-top:10px;
         margin-bottom:40px;
     }
     #avatar_saying{
     margin-top:20px;
     margin-bottom:80px;
+    }
+    #user_saying_box{
+    }
+    .talking_sentence{
+    height: 50px;
+    width: 600px;
+    font-size:1.5em;
 
     }
 </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+
+       $("#user_saying_box").click(function(){
+
+            $("#user_saying_box").val("");
+        });
+
+       $("#user_image").click(function(){
+            var text_value = $('#user_saying_box').val();
+            call_to_wit(text_value);
+        });
+
+
+        // leave this code here for using URL
+      function send_result_back_to_server(saying_info){
+         var request = $.ajax({
+                url: "{{=URL('handle_user_saying_json')}}",
+                type: "POST",
+                data: JSON.stringify( saying_info) ,
+                dataType: "html"
+          });
+
+
+        request.done(function( msg ) {
+            $("#avatar_saying").val(msg);
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            //alert( "Request failed: " + textStatus );
+        });
+
+      }
+
+      function call_to_wit(message_info){
+                $.ajax({
+                     url: 'https://api.wit.ai/message',
+                    data: {
+                        'q': message_info,
+                            'access_token' : 'JCBLXRJ3MDVBDLKNTVK3KU5XGSA6WVZF'
+                },
+                dataType: 'jsonp',
+                method: 'GET',
+                success: function(response) {
+                    console.log("success!", response);
+                    send_result_back_to_server(response);
+                }
+                });
+         }
+    </script>
     <script>
 
         // leave this code here for using URL
