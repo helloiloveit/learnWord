@@ -299,6 +299,7 @@ def wsgibase(environ, responder):
         [a-zA-Z0-9_]
       - file and sub may also contain '-', '=', '.' and '/'
     """
+    logger.info('wsgibase')
     eget = environ.get
     current.__dict__.clear()
     request = Request(environ)
@@ -449,7 +450,6 @@ def wsgibase(environ, responder):
 
                 if static_file:
                     return http_response.to(responder, env=env)
-
                 if request.body:
                     request.body.close()
 

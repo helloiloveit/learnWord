@@ -1315,7 +1315,7 @@ class Auth(object):
         else:
             raise HTTP(404)
 
-    def navbar(self, prefix='Welcome', action=None,
+    def navbar(self, prefix='', action=None,
                separators=(' [ ', ' | ', ' ] '), user_identifier=DEFAULT,
                referrer_actions=DEFAULT, mode='default'):
         """ Navbar with support for more templates
@@ -1376,6 +1376,8 @@ class Auth(object):
                 user_identifier = user_identifier % self.user
             if not user_identifier:
                 user_identifier = ''
+            #set user_identifier = '' as i dont need user name after logged in
+            user_identifier = ''
         else:  # User is not logged in
             items.append({'name': T('Login'), 'href': href('login'),
                           'icon': 'icon-off'})
@@ -2371,6 +2373,7 @@ class Auth(object):
 
         # process authenticated users
         if user:
+            print'successful got user'
             user = Row(table_user._filter_fields(user, id=True))
             # process authenticated users
             # user wants to be logged in for longer
@@ -2397,6 +2400,7 @@ class Auth(object):
         elif user:
             callback(onaccept, None)
 
+        print'session ', session
         if next == session._auth_next:
             del session._auth_next
         redirect(next, client_side=settings.client_side)

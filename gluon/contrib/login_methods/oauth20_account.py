@@ -113,9 +113,11 @@ server for requests.  It can be used for the optional"scope" parameters for Face
             path_info = next
         else:
             path_info = r.env.path_info
+        print 'make URI:url_scheme = %s', url_scheme
         uri = '%s://%s%s' % (url_scheme, http_host, path_info)
         if r.get_vars and not next:
             uri += '?' + urlencode(r.get_vars)
+        print 'uri = %s', uri
         return uri
 
 
@@ -160,9 +162,13 @@ server for requests.  It can be used for the optional"scope" parameters for Face
 
             open_url = None
             opener = self.__build_url_opener(self.token_url)
+            print 'debug self.token_url : %s', self.token_url
+            print'debug data : %s', data
+            print' current.session.redirect_Url %s', current.session.redirect_uri
             try:
                 open_url = opener.open(self.token_url, urlencode(data), self.socket_timeout)
             except urllib2.HTTPError, e:
+                print open_url
                 tmp = e.read()
                 raise Exception(tmp)
             finally:
@@ -172,6 +178,7 @@ server for requests.  It can be used for the optional"scope" parameters for Face
             if open_url:
                 try:
                     data = open_url.read()
+                    print data
                     resp_type = open_url.info().get('Content-Type')
                     # try json style first
                     if not resp_type or resp_type == 'application/json':

@@ -19,6 +19,7 @@ def index():
     return auth.wiki()
     """
     response.flash = T("Welcome to web2py!")
+    redirect(URL('talk'))
     return dict(message=T('Hello World'))
 
 
@@ -39,6 +40,29 @@ def user():
     """
     return dict(form=auth())
 
+def talk():
+    return dict()
+
+def test_STT():
+    return dict()
+def handle_user_saying():
+
+    if 'ask_age' in request.vars.info:
+        return 'im 32 years old'
+    elif 'ask_name' in request.vars.info:
+        return 'im Huy'
+    elif 'ask_relationship' in request.vars.info:
+        return 'im not. But i have a girl friend now'
+    elif 'ask_if_someone_have_a_meal' in request.vars.info:
+        return 'im looking forward to my delicious dinner'
+    elif 'ask_when_have_a_meal' in request.vars.info:
+        return 'i cant remember'
+    elif 'ask_job' in request.vars.info:
+        return " i'm a software engineer"
+    elif 'ask_company' in request.vars.info:
+        return "im working for vkx company"
+
+    return 'Sorry, currently i could talk about my job, my age only'
 @cache.action()
 def download():
     """

@@ -3,7 +3,7 @@
 #  See http://code.google.com/apocs/python/config/appconfig.html
 #  and http://web2py.com/book/default/chapter/11?search=app.yaml
 
-application: learnwordfast
+application: talktomenow12345
 version: 1
 api_version: 1
 
@@ -35,10 +35,22 @@ handlers:
   static_files: applications/welcome/static/robots.txt
   upload: applications/welcome/static/robots.txt
 
+
+- url: /fb_main
+  script: gaehandler.wsgiapp    # WSGI (Python 2.7 only)
+  secure: always
+
+- url: /fb_question_list
+  script: gaehandler.wsgiapp    # WSGI (Python 2.7 only)
+  secure: always
+
 - url: .*
 #  script: gaehandler.py         # CGI
   script: gaehandler.wsgiapp    # WSGI (Python 2.7 only)
   secure: optional
+
+- url: /static
+  static_dir: static
 
 admin_console:
   pages:

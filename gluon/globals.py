@@ -836,6 +836,7 @@ class Session(Storage):
             response.session_db_table = table
             if response.session_id:
                 # Get session data out of the database
+                print 'query from database'
                 try:
                     (record_id, unique_key) = response.session_id.split(':')
                     record_id = long(record_id)
@@ -847,11 +848,13 @@ class Session(Storage):
                     row = table(record_id) #,unique_key=unique_key)
                     # Make sure the session data exists in the database
                     if row:
+                        print'success'
                         # rows[0].update_record(locked=True)
                         # Unpickle the data
                         session_data = cPickle.loads(row.session_data)
                         self.update(session_data)
                     else:
+                        print 'faile'
                         record_id = None
                 if record_id:
                     response.session_id = '%s:%s' % (record_id, unique_key)
@@ -863,6 +866,7 @@ class Session(Storage):
             # if there is no session id yet, we'll need to create a 
             # new session
             else:
+                print'response.session_new = true'
                 response.session_new = True
 
         # set the cookie now if you know the session_id so user can set
@@ -1047,6 +1051,7 @@ class Session(Storage):
         # don't save if file-based sessions,
         # no session id, or session being forgotten
         # or no changes to session (Unless the session is new)
+        print '_try_store_in_db'
         if (not response.session_db_table or 
             self._forget or 
             (self._unchanged(response) and not response.session_new)):
@@ -1073,13 +1078,16 @@ class Session(Storage):
                   session_data=session_pickled,
                   unique_key=unique_key)
         if record_id:
+            print'record_id =',record_id
             if not table._db(table.id==record_id).update(**dd):
+                print'record_id = none'
                 record_id = None
         if not record_id:
             record_id = table.insert(**dd)
             response.session_id = '%s:%s' % (record_id, unique_key)
             response.session_db_unique_key = unique_key
             response.session_db_record_id = record_id
+            print' success update session',response.session_id
 
         self.save_session_id_cookie()
         return True

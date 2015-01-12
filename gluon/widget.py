@@ -1057,7 +1057,6 @@ def start(cron=True):
     """ Start server  """
 
     # ## get command line arguments
-
     (options, args) = console()
 
     if not options.nobanner:
@@ -1247,7 +1246,6 @@ end tell
                 line = None
         return line
     linecache.getline = getline
-
     server = main.HttpServer(ip=ip,
                              port=port,
                              password=options.password,

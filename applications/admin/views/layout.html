@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
     <head>
@@ -32,7 +33,10 @@
                     <div class="nav-collapse">
                         {{if response.menu is not None:}}
                         <ul id="menu" class="nav pull-right">
+                            {{=response.menu}}
+                            {{='huy'}}
                             {{for _name,_active,_link in response.menu:}}
+
                             <li>{{=A(SPAN(_name), _href=_link, _class=_active and 'button select' or 'button')}}</li>
                             {{pass}}
                         </ul>
