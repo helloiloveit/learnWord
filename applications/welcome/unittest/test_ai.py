@@ -40,6 +40,25 @@ class TestGoToSomeWhere(unittest.TestCase):
                      u'msg_id': u'95295c05-ca50-42bc-8c3d-a6a95ae5a4d3', u'_text': u'i want to go to the office'}
         return json_data
 
+    def json_no_entity(self, saying, intent):
+        json_data = {u'outcomes': [{u'entities': {
+                                                  },
+                                    u'confidence': 0.975,
+                                    u'intent': intent,
+                                    u'_text': saying}],
+                     u'msg_id': u'95295c05-ca50-42bc-8c3d-a6a95ae5a4d3', u'_text': u'i want to go to the office'}
+        return json_data
+
+    def json_talk_age(self, saying, intent, method):
+        json_data = {u'outcomes': [{u'entities': {u'age_of_person': [{u'value': method}],
+                                                  },
+                                    u'confidence': 0.975,
+                                    u'intent': intent,
+                                    u'_text': saying}],
+                     u'msg_id': u'95295c05-ca50-42bc-8c3d-a6a95ae5a4d3', u'_text': u'i want to go to the office'}
+        return json_data
+
+
 
     def check_reply_from_ai(self, intention, place, urgent, value, expected_return):
         question_msg = handler_user_saying(intention, place, urgent,value)
@@ -95,7 +114,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         self.check_reply_from_ai(intention, place, urgent, value, expected_return)
         """
 
-    def testHandleJson(self):
+    def testTalkToGoSomeWhere(self):
         json_data = self.json_data_go_to_place('',TO_GO_SOMEWHERE, 'office', 'want')
 
         msg = handle_topic_data(json_data)
@@ -108,6 +127,25 @@ class TestGoToSomeWhere(unittest.TestCase):
         json_data = self.json_data_method_to_go('', METHOD_TO_GO, 'bike')
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'you could go there')
+
+    def testTalkAboutPersonalThing(self):
+
+        json_data = self.json_no_entity('', ASK_AGE)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, '1 years old')
+
+        json_data = self.json_no_entity('', ASK_NAME)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'ai')
+
+        json_data = self.json_no_entity('', ASK_JOB)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'worker')
+
+        json_data = self.json_no_entity('', ASK_JOB_OPINION)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'this job is ok')
+
 
 
 

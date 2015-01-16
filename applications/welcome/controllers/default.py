@@ -93,6 +93,14 @@ def handle_topic_data(json_data):
 def handle_intent(intent, json_data):
     if intent == TO_GO_SOMEWHERE:
         msg = handler_go_to_some_where(json_data)
+    elif intent == ASK_AGE:
+        msg = handler_talk_about_user(json_data)
+    elif intent == ASK_NAME:
+        msg = handler_talk_about_user(json_data)
+    elif intent == ASK_JOB:
+        msg = handler_talk_about_user(json_data)
+    elif intent == ASK_JOB_OPINION:
+        msg = handler_talk_about_user(json_data)
     else:
         msg = get_answer(json_data['outcomes'][0]['intent'])
 
@@ -105,9 +113,7 @@ def handle_user_saying():
 
 
 def get_answer(intention):
-    if 'ask_age' in intention:
-        return 'im 32 years old'
-    elif 'ask_name' in intention:
+    if 'ask_name' in intention:
         return 'im Huy'
     elif 'ask_relationship' in intention:
         return 'im not. But i have a girl friend now'
@@ -155,7 +161,12 @@ def handler_go_to_some_where(json_data):
     question = handler.handle_user_saying(intent,entity)
     return question
 
+def handler_talk_about_user( json_data):
+    intent = json_data['outcomes'][0]['intent']
+    handler = talk_about_people('huy')
+    msg = handler.handler_user_saying(intent)
 
+    return msg
 
 
 def ask_and_get_answer(question):

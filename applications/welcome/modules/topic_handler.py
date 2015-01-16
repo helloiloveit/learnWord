@@ -13,6 +13,60 @@ log.setLevel(logging.DEBUG)
 
 session = current.session
 
+
+class talk_about_people(object):
+    """
+    talk about people
+        - introduce it self
+        - talk about hobby...etc
+    """
+    def __init__(self, name):
+        self.me = user_obj('ai')
+        self.talk_to = user_obj('huy')
+    def handle_user_saying(self, intention, entity):
+        """
+        same topic or new topic
+        """
+        if 'new topic':
+            msg =  'handle new topic'
+
+        elif 'old topic':
+            msg = ' old topic'
+        return msg
+
+    def handler_user_saying(self, intent):
+        if intent == ASK_AGE:
+            msg = self.me.get_age()
+        elif intent == ASK_NAME:
+            msg = self.me.get_name()
+        elif intent == ASK_JOB:
+            msg = self.me.get_job()
+        elif intent == ASK_JOB_OPINION:
+            msg = self.give_opinion_about_job()
+        return msg
+
+    def give_opinion_about_job(self):
+        handler = job_analysis(self.talk_to, self.talk_to.work)
+        return handler.analyze()
+
+
+class job_analysis(object):
+    """
+    analyze job of person
+    base on information about job
+                            - person info
+    """
+    def __init__(self, target_user, target_job):
+        self.user = target_user
+        self.job = target_job
+    def analyze(self):
+        """
+        get infor of this job form interger or db
+        """
+        msg = self.job.get_opinion()
+        return msg
+
+
 class go_to_place(object):
     """
     handle talk about place
@@ -20,7 +74,7 @@ class go_to_place(object):
     def __init__(self, place):
         self.to_do_list = {TIME_INFO:'',
                            METHOD_TO_GO:''}
-        self.expected_saying =None
+        self.expected_intention =None
         #intialize place object
         self.initialize_place_info(place)
         self.user = user_obj('huy')
@@ -32,6 +86,13 @@ class go_to_place(object):
         self.user = user_obj()
 
         pass
+
+    def _save_info_to_session(self):
+        """
+        session act as a brain to remember info
+        """
+        session.time_to_go = self.to_do_list[TIME_INFO]
+        session.by_what = self.to_do_list[METHOD_TO_GO]
 
     def _thinking_about_time_at_destination(self, time):
         """
@@ -78,40 +139,48 @@ class go_to_place(object):
         #load information from session .
         self.to_do_list[TIME_INFO] = session.time_to_go
         self.to_do_list[METHOD_TO_GO] = session.by_what
-        self.expected_saying = session.expected_saying
+        self.expected_intention = session.expected_saying
 
     def create_response(self):
         """
         create question for AI
+        if necessary infor is not existed , AI will ask question to get it
         """
         if self.to_do_list[TIME_INFO] == None:
             message = 'ask about time'
             session.time_to_go = message
-            self.expected_saying = TIME_INFO
-            session.expected_saying = self.expected_saying
+            self.expected_intention = TIME_INFO
+            session.expected_saying = self.expected_intention
             return message
         elif self.to_do_list[METHOD_TO_GO] ==None:
             message = 'ask method to go'
             session.by_what = message
-            self.expected_saying =METHOD_TO_GO
-            session.expected_saying = self.expected_saying
+            self.expected_intention =METHOD_TO_GO
+            session.expected_saying = self.expected_intention
             return message
         else:
             return self._thinking_()
 
     def _handler_new_saying(self):
-        question_msg = self.create_response()
-        return question_msg
+        """
+        verify information in this saying
+        if enought info.. go to analyze it
+        if not ..ask question
+        """
+        if self.to_do_list[TIME_INFO] and self.to_do_list[METHOD_TO_GO]:
+            msg = self._thinking_()
+        else:
+            msg = self.create_response()
+        return msg
 
-    def _handler_expected_saying(self, intention, value):
-        self.to_do_list[self.expected_saying] = value
+    def _handler_user_reply(self, intention, value):
+        self.to_do_list[self.expected_intention] = value
         #clear expected saying
-        self.expected_saying = None
+        self.expected_intention = None
         session.expected_saying = None
 
         response_msg =  self.create_response()
-        session.time_to_go = self.to_do_list[TIME_INFO]
-        session.by_what = self.to_do_list[METHOD_TO_GO]
+        self._save_info_to_session()
         return response_msg
 
     def _calculate_distance_from_user(self):
@@ -124,14 +193,16 @@ class go_to_place(object):
         """
         1.asnwer appropriate info
         """
-        if self.expected_saying == intention:
+        if self.expected_intention == intention:
+            #handle reply from user for AI question
             if intention == TIME_INFO:
                 value = entity['datetime'][0]['value']
             elif intention == METHOD_TO_GO:
                 value = entity['method'][0]['value']
 
-            msg = self._handler_expected_saying(intention, value)
+            msg = self._handler_user_reply(intention, value)
         else:
+            # handle sub intention of this
             msg = self._handler_intention_of_question(intention)
         return msg
 
@@ -141,7 +212,7 @@ class go_to_place(object):
             return self.place.where_is_it()
         elif intention == 'how_far_is_it':
             return self._calculate_distance_from_user()
-        elif intention =='go_to_some_where':
+        elif intention == TO_GO_SOMEWHERE:
             return self._handler_new_saying()
         else:
             return 'its not yet programed'
