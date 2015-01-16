@@ -9,6 +9,8 @@
 ## - call exposes all registered services (none by default)
 #########################################################################
 
+from topic_handler import *
+from intent_def import *
 
 def index():
     """
@@ -40,20 +42,67 @@ def user():
     """
     return dict(form=auth())
 
+
+
 def talk():
+    print'start'
+    #initialize session storage info
+
     return dict()
 
 def test_STT():
     return dict()
+
+
+
+
+
+
 def handle_user_saying_json():
-    data = request.vars.keys()[0]
+    """
+
+    """
+    if not session.topic_list:
+        session.topic_list =[]
+
     import json
+    data = request.vars.keys()[0]
     json_data = json.loads(data)
-    #from now json_data act like a dict..nail it
-    return get_answer(json_data['outcomes'][0]['intent'])
+    msg = handle_topic_data(json_data)
+    return msg
+
+
+def handle_topic_data(json_data):
+    """
+    - check if user start new topic
+    - check if user still talk about same topic
+    """
+    intent = json_data['outcomes'][0]['intent']
+    if session.expected_saying == intent:
+        #get last topic handler
+        #handle old topic
+        msg = handle_intent(session.topic_list[-1], json_data)
+        pass
+    else:
+        #new topic
+        clear_session_info()
+        msg = handle_intent(intent, json_data)
+    return msg
+
+
+def handle_intent(intent, json_data):
+    if intent == TO_GO_SOMEWHERE:
+        msg = handler_go_to_some_where(json_data)
+    else:
+        msg = get_answer(json_data['outcomes'][0]['intent'])
+
+    session.topic_list.append(intent)
+    return msg
 
 def handle_user_saying():
     return get_asnwer(request.vars.info)
+
+
 
 def get_answer(intention):
     if 'ask_age' in intention:
@@ -79,6 +128,53 @@ def download():
     http://..../[app]/default/download/[filename]
     """
     return response.download(request, db)
+
+
+
+
+
+
+
+
+def clear_session_info():
+    session.time_to_go = None
+    session.by_what = None
+    session.expected_saying = None
+
+def handler_go_to_some_where(json_data):
+    intent = json_data['outcomes'][0]['intent']
+    entity = json_data['outcomes'][0]['entities']
+    value =''
+    if intent != TO_GO_SOMEWHERE:
+        # different intent in topic go_to_somewhere
+        handler = go_to_place(session.place)
+    else:
+        # new request about place
+        place = entity['target_place'][0]['value']
+        handler = go_to_place(place)
+    question = handler.handle_user_saying(intent,entity)
+    return question
+
+
+
+
+def ask_and_get_answer(question):
+    if question =='ask about time':
+        return '3AM'
+    elif question =='ask method to go':
+        return 'bike'
+
+def handler_user_answer(answer):
+    if answer =='3AM':
+        intention ='time'
+        value ='3AM'
+        handler = go_to_place('')
+        handler.handle_user_saying(intention,value)
+    elif answer =='bike':
+        intention = 'vehicle'
+        value = 'bike'
+        handler = go_to_place('')
+        handler.handle_user_saying(intention,value)
 
 
 def call():
