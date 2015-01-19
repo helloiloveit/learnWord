@@ -91,6 +91,7 @@ def handle_topic_data(json_data):
 
 
 def handle_intent(intent, json_data):
+    import pdb; pdb.set_trace()
     if intent == TO_GO_SOMEWHERE:
         msg = handler_go_to_some_where(json_data)
     elif intent == ASK_AGE:

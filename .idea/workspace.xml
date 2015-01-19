@@ -29,16 +29,16 @@
       <file leaf-file-name="default.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="166" column="32" selection-start="4621" selection-end="4621" vertical-scroll-proportion="-22.52" vertical-offset="1912" max-vertical-offset="3315">
+            <state line="103" column="31" selection-start="2881" selection-end="2881" vertical-scroll-proportion="-15.84" vertical-offset="1134" max-vertical-offset="3330">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="topic_handler.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="topic_handler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/topic_handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="0" selection-start="1078" selection-end="1078" vertical-scroll-proportion="0.52901024" vertical-offset="255" max-vertical-offset="3375">
+            <state line="36" column="8" selection-start="693" selection-end="693" vertical-scroll-proportion="-11.4" vertical-offset="255" max-vertical-offset="3375">
               <folding>
                 <element signature="e#24#38#0" expanded="true" />
               </folding>
@@ -49,16 +49,16 @@
       <file leaf-file-name="obj_definition.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="8" selection-start="1366" selection-end="1366" vertical-scroll-proportion="-11.76" vertical-offset="531" max-vertical-offset="1530">
+            <state line="56" column="8" selection-start="1366" selection-end="1366" vertical-scroll-proportion="0.0" vertical-offset="639" max-vertical-offset="1545">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_ai.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="test_ai.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="146" column="45" selection-start="5916" selection-end="5916" vertical-scroll-proportion="-24.32" vertical-offset="1582" max-vertical-offset="2685">
+            <state line="144" column="49" selection-start="5816" selection-end="5816" vertical-scroll-proportion="0.58796823" vertical-offset="1642" max-vertical-offset="2685">
               <folding />
             </state>
           </provider>
@@ -67,7 +67,7 @@
       <file leaf-file-name="intent_def.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="14" selection-start="209" selection-end="209" vertical-scroll-proportion="-5.4" vertical-offset="0" max-vertical-offset="225">
+            <state line="9" column="46" selection-start="241" selection-end="241" vertical-scroll-proportion="-5.4" vertical-offset="0" max-vertical-offset="225">
               <folding />
             </state>
           </provider>
@@ -129,11 +129,11 @@
         <option value="$PROJECT_DIR$/applications/welcome/views/default/talk.html" />
         <option value="$PROJECT_DIR$/applications/welcome/unittest/setup_test.py" />
         <option value="$PROJECT_DIR$/applications/welcome/modules/intent_definition.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_def.py" />
         <option value="$PROJECT_DIR$/applications/welcome/modules/obj_definition.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/controllers/default.py" />
         <option value="$PROJECT_DIR$/applications/welcome/unittest/test_ai.py" />
         <option value="$PROJECT_DIR$/applications/welcome/modules/topic_handler.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_def.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/controllers/default.py" />
       </list>
     </option>
   </component>
@@ -927,38 +927,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="14" selection-start="209" selection-end="209" vertical-scroll-proportion="-5.4" vertical-offset="0" max-vertical-offset="225">
+        <state line="9" column="46" selection-start="241" selection-end="241" vertical-scroll-proportion="-5.4" vertical-offset="0" max-vertical-offset="225">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="32" selection-start="4621" selection-end="4621" vertical-scroll-proportion="-22.52" vertical-offset="1912" max-vertical-offset="3315">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="45" selection-start="5916" selection-end="5916" vertical-scroll-proportion="-24.32" vertical-offset="1582" max-vertical-offset="2685">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="8" selection-start="1366" selection-end="1366" vertical-scroll-proportion="-11.76" vertical-offset="531" max-vertical-offset="1530">
+        <state line="103" column="31" selection-start="2881" selection-end="2881" vertical-scroll-proportion="-15.84" vertical-offset="1134" max-vertical-offset="3330">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/topic_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1078" selection-end="1078" vertical-scroll-proportion="0.52901024" vertical-offset="255" max-vertical-offset="3375">
+        <state line="36" column="8" selection-start="693" selection-end="693" vertical-scroll-proportion="-11.4" vertical-offset="255" max-vertical-offset="3375">
           <folding>
             <element signature="e#24#38#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="8" selection-start="1366" selection-end="1366" vertical-scroll-proportion="0.0" vertical-offset="840" max-vertical-offset="1545">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="49" selection-start="5816" selection-end="5816" vertical-scroll-proportion="0.58796823" vertical-offset="1642" max-vertical-offset="2685">
+          <folding />
         </state>
       </provider>
     </entry>
