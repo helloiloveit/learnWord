@@ -91,7 +91,6 @@ def handle_topic_data(json_data):
 
 
 def handle_intent(intent, json_data):
-    import pdb; pdb.set_trace()
     if intent == TO_GO_SOMEWHERE:
         msg = handler_go_to_some_where(json_data)
     elif intent == ASK_AGE:
@@ -100,8 +99,15 @@ def handle_intent(intent, json_data):
         msg = handler_talk_about_user(json_data)
     elif intent == ASK_JOB:
         msg = handler_talk_about_user(json_data)
-    elif intent == ASK_JOB_OPINION:
-        msg = handler_talk_about_user(json_data)
+    elif intent == ASK_OPINION_ABOUT_SOMETHING:
+        #msg = handler_talk_about_user(json_data)
+        msg = ask_opinion_about_sth(json_data).return_msg()
+    elif intent == GREETING:
+        msg = greeting_handler(json_data).return_msg()
+    elif intent == ASK_WHAT_TO_DO:
+        msg = 'no idea'
+    elif intent == ASK_HOBBY:
+        msg = 'nothing'
     else:
         msg = get_answer(json_data['outcomes'][0]['intent'])
 

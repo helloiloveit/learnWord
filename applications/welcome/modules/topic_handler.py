@@ -41,31 +41,44 @@ class talk_about_people(object):
             msg = self.me.get_name()
         elif intent == ASK_JOB:
             msg = self.me.get_job()
-        elif intent == ASK_JOB_OPINION:
-            msg = self.give_opinion_about_job()
         return msg
 
-    def give_opinion_about_job(self):
-        handler = job_analysis(self.talk_to, self.talk_to.work)
-        return handler.analyze()
-
-
-class job_analysis(object):
-    """
-    analyze job of person
-    base on information about job
-                            - person info
-    """
-    def __init__(self, target_user, target_job):
-        self.user = target_user
-        self.job = target_job
-    def analyze(self):
-        """
-        get infor of this job form interger or db
-        """
-        msg = self.job.get_opinion()
+class greeting_handler(object):
+    def __init__(self, json_data):
+        pass
+    def return_msg(self):
+        msg = 'hello'
         return msg
 
+
+class ask_opinion_about_sth(object):
+    def __init__(self, json_data):
+        self.json_data = json_data
+        self.target = self.get_target_info()
+        self.opinion_of_user = self.get_whom_is_giving_opinion()
+        pass
+
+    def get_target_info(self):
+        """
+        - get target infor from json_data
+        - handle it
+        """
+        entity = self.json_data['outcomes'][0]['entities']
+        target_name = entity[TARGET_NAME][0]['value']
+        if target_name == IT_SUBJECT:
+            # load the last topic to decide the subject
+            print session.topic_list[-1]
+            job = job_obj('programmer')
+        else:
+            job = job_obj('programmer')
+        return  job
+    def get_whom_is_giving_opinion(self):
+        return user_obj('ai')
+
+
+    def return_msg(self):
+        msg = self.opinion_of_user.give_opinion(self.target)
+        return msg
 
 class go_to_place(object):
     """

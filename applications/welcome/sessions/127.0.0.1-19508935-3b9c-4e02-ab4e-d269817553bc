@@ -15,9 +15,13 @@ p6
 (lp7
 Vask_job
 p8
-asS'by_what'
+aVgreeting
 p9
-NsS'expected_saying'
+aVask_job
 p10
-NstRp11
+asS'by_what'
+p11
+NsS'expected_saying'
+p12
+NstRp13
 .

@@ -7,4 +7,19 @@ METHOD_TO_GO = 'method_to_go'
 ASK_AGE = 'ask_age'
 ASK_NAME = 'ask_name'
 ASK_JOB = 'ask_job'
-ASK_JOB_OPINION = 'ask_opinion_about_something'
+ASK_OPINION_ABOUT_SOMETHING = 'ask_opinion_about_something'
+
+ASK_WHAT_TO_DO = 'ask_what_to_do'
+GREETING = 'greeting'
+ASK_HOBBY = 'ask_hobby'
+
+
+
+#subect
+IT_SUBJECT = 'it'
+
+
+
+#wit.ai
+#entity definition
+TARGET_NAME = 'target_name'

@@ -54,13 +54,6 @@ class job_obj(object):
         self.social_status =social_status
     def get_name(self):
         return self.name
-    def get_opinion(self):
-        if self.salary > 20:
-            return 'this job is good'
-        elif self.salary <=10:
-            return 'this job is terrible'
-        else:
-            return 'this job is ok'
 
 
 
@@ -93,5 +86,17 @@ class user_obj(object):
 
     def get_available_time(self):
         return '1 2 3 4 5 6 7 8 9 10'
+
+    def give_opinion(self, target):
+        """
+        this user will use its own criteria to decide
+        """
+        if  target.__class__.__name__ =='job_obj':
+            if target.salary > 20:
+                return 'this job is good'
+            elif target.salary <=10:
+                return 'this job is terrible'
+            else:
+                return 'this job is ok'
 
 

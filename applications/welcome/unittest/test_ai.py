@@ -31,6 +31,15 @@ class TestGoToSomeWhere(unittest.TestCase):
                      u'msg_id': u'95295c05-ca50-42bc-8c3d-a6a95ae5a4d3', u'_text': u'i want to go to the office'}
         return json_data
 
+    def json_data_with_entity_info(self, saying, intent, entity_name, entity_value):
+        json_data = {u'outcomes': [{u'entities': {entity_name: [{u'value': entity_value}],
+                                                  },
+                                    u'confidence': 0.975,
+                                    u'intent': intent,
+                                    u'_text': saying}],
+                     u'msg_id': u'95295c05-ca50-42bc-8c3d-a6a95ae5a4d3', u'_text': u'i want to go to the office'}
+        return json_data
+
     def json_data_method_to_go(self, saying, intent, method):
         json_data = {u'outcomes': [{u'entities': {u'method': [{u'value': method}],
                                                   },
@@ -130,6 +139,10 @@ class TestGoToSomeWhere(unittest.TestCase):
 
     def testTalkAboutPersonalThing(self):
 
+        json_data = self.json_no_entity('', GREETING)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'hello')
+
         json_data = self.json_no_entity('', ASK_AGE)
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, '1 years old')
@@ -142,11 +155,38 @@ class TestGoToSomeWhere(unittest.TestCase):
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'worker')
 
-        json_data = self.json_no_entity('', ASK_JOB_OPINION)
+    def testAskIfSomeOneLikeTheirJob(self):
+        json_data = self.json_no_entity('', ASK_JOB)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'worker')
+
+        json_data = self.json_data_with_entity_info('', ASK_OPINION_ABOUT_SOMETHING, TARGET_NAME, 'it')
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'this job is ok')
 
+    def testABasicConversationInPublicPlace(self):
+        """
+        meet AI in public place
+        AI ask for time
+        AI make friend
+        basic thing
+        - sorry what time is it?
+        - Its 7AM
+        - Thanks, we re waiting for the bus to come
+        - Hey, Im AI . Nice to meet you
+        - Yes, Im Huy . Nice to meet you.
+        - Are u local people?
+        - Yes.
+        - Where're u from ?
+        - Canadia
+        .
+        .
+        ..Hey i need to go. See u later?
 
+
+        """
+
+        pass
 
 
 
