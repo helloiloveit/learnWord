@@ -14,6 +14,13 @@ log.setLevel(logging.DEBUG)
 session = current.session
 
 
+class base_intent_handler(object):
+    """
+    base for handling intent
+    """
+    def return_msg(self):
+        return 'not implement this intent yet'
+
 class talk_about_people(object):
     """
     talk about people
@@ -40,7 +47,7 @@ class talk_about_people(object):
         elif intent == ASK_NAME:
             msg = self.me.get_name()
         elif intent == ASK_JOB:
-            msg = self.me.get_job()
+            msg = self.me.get_job().get_name()
         return msg
 
 class greeting_handler(object):
@@ -51,11 +58,43 @@ class greeting_handler(object):
         return msg
 
 
+class user_factory(object):
+    def __init__(self):
+        pass
+    def me(self):
+        #return user_obj('ai')
+        return human_obj('ai', 'waiting')
+    def user(self):
+        return user_obj('huy')
+
+class generate_msg_to_say(object):
+    def __init__(self, intent, target):
+        self.intent = intent
+        #save to session
+    def msg(self):
+        if self.intent =='ask_time':
+            return 'could u help me to know the time the bus arrive?'
+        else:
+            return 'dont know what to say with this purpose'
+
+class handle_order_of_intent(object):
+    def __init__(self):
+        pass
+    def last_intent(self, intent):
+        session.topic_list.append(intent)
+        pass
+    def get_last_intent(self):
+        return session.topic_list[-1]
+
+
+
+
 class ask_opinion_about_sth(object):
     def __init__(self, json_data):
         self.json_data = json_data
         self.target = self.get_target_info()
-        self.opinion_of_user = self.get_whom_is_giving_opinion()
+        self.opinion_of_user = user_factory().me()
+        self.user = user_factory().user()
         pass
 
     def get_target_info(self):
@@ -67,18 +106,57 @@ class ask_opinion_about_sth(object):
         target_name = entity[TARGET_NAME][0]['value']
         if target_name == IT_SUBJECT:
             # load the last topic to decide the subject
-            print session.topic_list[-1]
-            job = job_obj('programmer')
+            return user_factory().user().get_job()
         else:
-            job = job_obj('programmer')
-        return  job
-    def get_whom_is_giving_opinion(self):
-        return user_obj('ai')
+            return user_factory().user().get_job()
 
 
     def return_msg(self):
         msg = self.opinion_of_user.give_opinion(self.target)
         return msg
+
+class receive_offer_help_handler(base_intent_handler):
+    def __init__(self, base_json):
+        self.receive_offer_user = user_factory().me()
+        self.offer_user = user_factory().user()
+        self.base_json = base_json
+        pass
+    def return_msg(self):
+        """
+        return mssage by call need_smth() of user activity
+        """
+        new_intent =  self.receive_offer_user.doing.need_smth()
+        handle_order_of_intent().last_intent(new_intent)
+        if new_intent == "ask_time":
+            msg = generate_msg_to_say('ask_time','bus').msg()
+            return msg
+        else:
+            return'no'
+
+
+class time_info_handler(base_intent_handler):
+    def __init__(self, base_json):
+        """
+        get previous sentence to know why user give time
+        """
+        pass
+    def return_msg(self):
+        if handle_order_of_intent().get_last_intent() == 'ask_time':
+            return'thank you.Im John. Nice to meet you'
+        else:
+            print'last intent is', handle_order_of_intent().get_last_intent()
+            return 'why you give me time?'
+
+class introduce_myself_handler(base_intent_handler):
+    def __init__(self, base_json):
+        pass
+
+class ask_duration_handler(base_intent_handler):
+    def __init__(self, base_json):
+        pass
+class ask_contact_info_handler(base_intent_handler):
+    def __init__(self, base_json):
+        pass
 
 class go_to_place(object):
     """

@@ -91,6 +91,15 @@ def handle_topic_data(json_data):
 
 
 def handle_intent(intent, json_data):
+    """
+    handle ajax call from user
+    """
+    if session.scenario_flag == True:
+        """
+        correct AI information should be initialized here
+        """
+        human_object = human_obj('ai')
+
     if intent == TO_GO_SOMEWHERE:
         msg = handler_go_to_some_where(json_data)
     elif intent == ASK_AGE:
@@ -104,6 +113,17 @@ def handle_intent(intent, json_data):
         msg = ask_opinion_about_sth(json_data).return_msg()
     elif intent == GREETING:
         msg = greeting_handler(json_data).return_msg()
+    elif intent == OFFER_HELP:
+        msg = receive_offer_help_handler(json_data).return_msg()
+    elif intent == TIME_INFO:
+        msg = time_info_handler(json_data).return_msg()
+    elif intent == INTRODUCE_MYSELF:
+        msg = introduce_myself_handler(json_data).return_msg()
+    elif intent == ASK_DURATION:
+        msg = ask_duration_handler(json_data).return_msg()
+    elif intent == ASK_CONTACT_INFO:
+        msg = ask_contact_info_handler(json_data).return_msg()
+
     elif intent == ASK_WHAT_TO_DO:
         msg = 'no idea'
     elif intent == ASK_HOBBY:

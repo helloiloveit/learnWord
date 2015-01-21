@@ -129,7 +129,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'ask about time')
 
-        json_data = self.json_data_time_info('',TIME_INFO,'3am')
+        json_data = self.json_data_time_info('its 3AM',TIME_INFO,'3am')
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'ask method to go')
 
@@ -164,7 +164,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'this job is ok')
 
-    def testABasicConversationInPublicPlace(self):
+    def testBasicConversationInPublicPlace(self):
         """
         meet AI in public place
         AI ask for time
@@ -185,9 +185,39 @@ class TestGoToSomeWhere(unittest.TestCase):
 
 
         """
+        # say hi . may i help u
+        # return yes yes . what time does the bus come
+        json_data = self.json_no_entity('hello may i help you?', OFFER_HELP)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'could u help me to know the time the bus arrive?')
+        """
+        # answer time .
+        # start make friend
+        json_data = self.json_data_with_entity_info('', TIME_INFO, DATETIME , '9AM')
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'thank you.Im John. Nice to meet you')
+
+        # introduce my self
+        # ask nationality
+        json_data = self.json_data_with_entity_info('im huy', INTRODUCE_MYSELF, NAME_INFO , 'huy')
+        self.assertEqual( handle_topic_data(json_data),
+                            'Nice to meet you.')
+
+        # Say yes
+        # How long have you been here
+        json_data = self.json_data_with_entity_info('how long have u been traveling?', ASK_DURATION,  ACTIVITY_INFO , 'huy')
+        self.assertEqual( handle_topic_data(json_data),
+                          '9 months. So i have to go see u soon')
+
+        # say good bye. Ask for contact
+        json_data = self.json_data_with_entity_info('could u give my your facebook account so we could stay in touch?', ASK_CONTACT_INFO,  CONTACT_TYPE , 'facebook_account')
+        self.assertEqual( handle_topic_data(json_data),
+                          'heres mine: hello.i.love.it@gmail.com. Add me. See ya')
+
+
 
         pass
-
+        """
 
 
 

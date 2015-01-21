@@ -81,7 +81,7 @@ class user_obj(object):
     def get_name(self):
         return self.name
     def get_job(self):
-        return self.work.get_name()
+        return self.work
 
 
     def get_available_time(self):
@@ -98,5 +98,48 @@ class user_obj(object):
                 return 'this job is terrible'
             else:
                 return 'this job is ok'
+
+
+class activity(object):
+    """
+    define action
+    exp: waiting
+    """
+    def __init__(self, name):
+        self.name = name
+        self.waiting_for = 'bus'
+        self.status = 'boring'
+        self.why_waiting = 'go to to Hoan Kiem lake'
+        self.have_time = 'yes'
+        #necesssary thing
+        self.time_arrive = ''
+        self.how_long = ''
+        self.seat_number = ''
+        pass
+    def need_smth(self):
+        """
+        return necessary thing that is missing
+        """
+        if self.time_arrive == '':
+            return 'ask_time'
+        else:
+            return 'nothing'
+
+
+class human_obj(user_obj):
+    """
+    simulate real people
+    - state
+    - activity
+    """
+    def __init__(self, name, activity_info):
+        #super class
+        super(human_obj, self).__init__(name)
+        self.doing = activity(activity_info)
+        pass
+    def get_doing_info(self):
+        return 'what he is doing'
+
+
 
 
