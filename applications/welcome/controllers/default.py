@@ -78,6 +78,7 @@ def handle_topic_data(json_data):
     - check if user still talk about same topic
     """
     intent = json_data['outcomes'][0]['intent']
+    """
     if session.expected_saying == intent:
         #get last topic handler
         #handle old topic
@@ -87,6 +88,9 @@ def handle_topic_data(json_data):
         #new topic
         clear_session_info()
         msg = handle_intent(intent, json_data)
+    """
+    msg = handle_intent(intent, json_data)
+
     return msg
 
 
@@ -99,7 +103,6 @@ def handle_intent(intent, json_data):
         correct AI information should be initialized here
         """
         human_object = human_obj('ai')
-
     if intent == TO_GO_SOMEWHERE:
         msg = handler_go_to_some_where(json_data)
     elif intent == ASK_AGE:
@@ -123,7 +126,8 @@ def handle_intent(intent, json_data):
         msg = ask_duration_handler(json_data).return_msg()
     elif intent == ASK_CONTACT_INFO:
         msg = ask_contact_info_handler(json_data).return_msg()
-
+    elif intent == ASK_WHAT_ARE_U_DOING:
+        msg = ask_what_are_u_doing_handler(json_data).return_msg()
     elif intent == ASK_WHAT_TO_DO:
         msg = 'no idea'
     elif intent == ASK_HOBBY:
@@ -131,7 +135,7 @@ def handle_intent(intent, json_data):
     else:
         msg = get_answer(json_data['outcomes'][0]['intent'])
 
-    session.topic_list.append(intent)
+    #session.topic_list.append(intent)
     return msg
 
 def handle_user_saying():

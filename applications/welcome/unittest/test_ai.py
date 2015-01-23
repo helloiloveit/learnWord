@@ -122,7 +122,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_return ='5km'
         self.check_reply_from_ai(intention, place, urgent, value, expected_return)
         """
-
+    """
     def testTalkToGoSomeWhere(self):
         json_data = self.json_data_go_to_place('',TO_GO_SOMEWHERE, 'office', 'want')
 
@@ -136,6 +136,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         json_data = self.json_data_method_to_go('', METHOD_TO_GO, 'bike')
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'you could go there')
+    """
 
     def testTalkAboutPersonalThing(self):
 
@@ -190,13 +191,11 @@ class TestGoToSomeWhere(unittest.TestCase):
         json_data = self.json_no_entity('hello may i help you?', OFFER_HELP)
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'could u help me to know the time the bus arrive?')
-        """
         # answer time .
         # start make friend
         json_data = self.json_data_with_entity_info('', TIME_INFO, DATETIME , '9AM')
         msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'thank you.Im John. Nice to meet you')
-
+        self.assertEqual(msg, 'thank you.Im John.Nice to meet you.')
         # introduce my self
         # ask nationality
         json_data = self.json_data_with_entity_info('im huy', INTRODUCE_MYSELF, NAME_INFO , 'huy')
@@ -207,8 +206,8 @@ class TestGoToSomeWhere(unittest.TestCase):
         # How long have you been here
         json_data = self.json_data_with_entity_info('how long have u been traveling?', ASK_DURATION,  ACTIVITY_INFO , 'huy')
         self.assertEqual( handle_topic_data(json_data),
-                          '9 months. So i have to go see u soon')
-
+                          '9 months.So i have to go see u soon')
+        """
         # say good bye. Ask for contact
         json_data = self.json_data_with_entity_info('could u give my your facebook account so we could stay in touch?', ASK_CONTACT_INFO,  CONTACT_TYPE , 'facebook_account')
         self.assertEqual( handle_topic_data(json_data),
@@ -219,9 +218,24 @@ class TestGoToSomeWhere(unittest.TestCase):
         pass
         """
 
+    def testBasicConversationInPublicPlace2(self):
 
+        json_data = self.json_no_entity('', GREETING)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'hello')
 
+        json_data = self.json_no_entity('whatre u doing', ASK_WHAT_ARE_U_DOING)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'im reading a travel guide book')
 
+        json_data = self.json_no_entity('hello may i help you?', OFFER_HELP)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'could u help me to know the time the bus arrive?')
+
+    def testBasicConversationInPublicPlace3(self):
+        """
+        test more situation of this case
+        """
 
         pass
 

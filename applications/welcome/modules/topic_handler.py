@@ -7,6 +7,7 @@ from gluon import *
 
 from obj_definition import *
 from intent_def import *
+from base_handler import *
 
 log = logging.getLogger("h")
 log.setLevel(logging.DEBUG)
@@ -14,12 +15,6 @@ log.setLevel(logging.DEBUG)
 session = current.session
 
 
-class base_intent_handler(object):
-    """
-    base for handling intent
-    """
-    def return_msg(self):
-        return 'not implement this intent yet'
 
 class talk_about_people(object):
     """
@@ -58,24 +53,41 @@ class greeting_handler(object):
         return msg
 
 
-class user_factory(object):
-    def __init__(self):
-        pass
-    def me(self):
-        #return user_obj('ai')
-        return human_obj('ai', 'waiting')
-    def user(self):
-        return user_obj('huy')
 
 class generate_msg_to_say(object):
     def __init__(self, intent, target):
-        self.intent = intent
+        """
+        intent data = {'intent':'','entity':''}
+        """
+        self.intent_data = intent
+        self.target_value = target
         #save to session
     def msg(self):
-        if self.intent =='ask_time':
-            return 'could u help me to know the time the bus arrive?'
-        else:
-            return 'dont know what to say with this purpose'
+        total_msg = ''
+        for data in self.intent_data:
+            intent = data['intent']
+            if intent == ASK_TIME:
+                msg = 'could u help me to know the time the bus arrive?'
+            elif intent == SAY_THANK:
+                msg = 'thank you.'
+            elif intent == INTRODUCE_MYSELF:
+                msg = 'Im John.'
+            elif intent == NICE_TO_MEET_YOU:
+                msg = 'Nice to meet you.'
+            elif intent == TIME_INFO:
+                msg = self.target_value + '.'
+            elif intent == STOP_CONVERSATION:
+                msg = 'So i have to go see u soon'
+            elif intent == READING_ACT:
+                msg = 'im reading a travel guide book'
+            elif intent == WAITING_ACT:
+                msg = 'im waiting'
+            else:
+                msg = 'dont know what to say with this purpose'
+            total_msg += msg
+        return total_msg
+
+
 
 class handle_order_of_intent(object):
     def __init__(self):
@@ -121,17 +133,33 @@ class receive_offer_help_handler(base_intent_handler):
         self.offer_user = user_factory().user()
         self.base_json = base_json
         pass
+    def generate_intent(self):
+        new_intent =  self.receive_offer_user.doing.need_smth()
+        data = [{'intent':new_intent,'entity':''}]
+        return data
+
     def return_msg(self):
         """
         return mssage by call need_smth() of user activity
         """
-        new_intent =  self.receive_offer_user.doing.need_smth()
+        new_intent = self.generate_intent()
         handle_order_of_intent().last_intent(new_intent)
-        if new_intent == "ask_time":
-            msg = generate_msg_to_say('ask_time','bus').msg()
-            return msg
-        else:
-            return'no'
+        msg = generate_msg_to_say(new_intent,'bus').msg()
+        return msg
+
+class ask_what_are_u_doing_handler(base_intent_handler):
+    def __init__(self, base_json):
+        self.me = user_factory().me()
+        self.user = user_factory().user()
+        self.base_json = base_json
+    def generate_intent(self):
+        data = self.me.get_doing_info()
+        return data
+    def return_msg(self):
+        new_intent = self.generate_intent()
+        handle_order_of_intent().last_intent(new_intent)
+        msg = generate_msg_to_say(new_intent, '').msg()
+        return msg
 
 
 class time_info_handler(base_intent_handler):
@@ -139,21 +167,63 @@ class time_info_handler(base_intent_handler):
         """
         get previous sentence to know why user give time
         """
+        self.intent = TIME_INFO
         pass
+
+    def generate_intent(self):
+        """
+        should have some algorithm here to decide new intent
+        """
+        data = [
+                {'intent':SAY_THANK,'entity':''},
+                {'intent':INTRODUCE_MYSELF,'entity':''},
+                {'intent':NICE_TO_MEET_YOU,'entity':''}
+                ]
+        return data
+
     def return_msg(self):
-        if handle_order_of_intent().get_last_intent() == 'ask_time':
-            return'thank you.Im John. Nice to meet you'
-        else:
-            print'last intent is', handle_order_of_intent().get_last_intent()
-            return 'why you give me time?'
+        new_intent = self.generate_intent()
+        handle_order_of_intent().last_intent(new_intent)
+        msg = generate_msg_to_say(new_intent,'').msg()
+        return msg
 
 class introduce_myself_handler(base_intent_handler):
     def __init__(self, base_json):
+        self.base_json = base_json
+
+        entity = self.base_json['outcomes'][0]['entities']
+        self.target_name = entity[NAME_INFO][0]['value']
         pass
+
+    def generate_intent(self):
+        data = [{'intent':NICE_TO_MEET_YOU,'entity':''}]
+        return data
+
+    def return_msg(self):
+        new_intent = self.generate_intent()
+        handle_order_of_intent().last_intent(new_intent)
+        msg = generate_msg_to_say(new_intent,self.target_name).msg()
+        return msg
+
+
 
 class ask_duration_handler(base_intent_handler):
     def __init__(self, base_json):
+        self.base_json = base_json
         pass
+    def generate_intent(self):
+        data = [
+            {'intent':TIME_INFO,'entity':''},
+            {'intent':STOP_CONVERSATION,'entity':''}
+            ]
+        return data
+    def return_msg(self):
+        time = '9 months'
+        new_intent = self.generate_intent()
+        handle_order_of_intent().last_intent(new_intent)
+        msg = generate_msg_to_say(new_intent,time).msg()
+        return msg
+
 class ask_contact_info_handler(base_intent_handler):
     def __init__(self, base_json):
         pass

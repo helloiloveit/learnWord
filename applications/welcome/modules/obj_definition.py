@@ -107,7 +107,7 @@ class activity(object):
     """
     def __init__(self, name):
         self.name = name
-        self.waiting_for = 'bus'
+        self.target = 'bus'
         self.status = 'boring'
         self.why_waiting = 'go to to Hoan Kiem lake'
         self.have_time = 'yes'
@@ -124,6 +124,10 @@ class activity(object):
             return 'ask_time'
         else:
             return 'nothing'
+    def get_intent(self):
+        return self.name
+    def get_target(self):
+        return self.target
 
 
 class human_obj(user_obj):
@@ -138,7 +142,7 @@ class human_obj(user_obj):
         self.doing = activity(activity_info)
         pass
     def get_doing_info(self):
-        return 'what he is doing'
+        return [{'intent':self.doing.get_intent(), 'entity':self.doing.get_target()}]
 
 
 
