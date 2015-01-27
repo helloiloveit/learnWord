@@ -6,7 +6,6 @@ from gluon import *
 
 
 from obj_definition import *
-from intent_def import *
 from base_handler import *
 
 log = logging.getLogger("h")
@@ -82,6 +81,8 @@ class generate_msg_to_say(object):
                 msg = 'im reading a travel guide book'
             elif intent == WAITING_ACT:
                 msg = 'im waiting'
+            elif intent == WORKING_ACT:
+                msg = 'lets do some work sir'
             else:
                 msg = 'dont know what to say with this purpose'
             total_msg += msg
@@ -89,24 +90,23 @@ class generate_msg_to_say(object):
 
 
 
-class handle_order_of_intent(object):
-    def __init__(self):
+
+class ask_hobby_handler(base_intent_handler):
+    def __init__(self, base_json):
+        super(ask_hobby_handler, self).__init__()
+        self.base_json = base_json
         pass
-    def last_intent(self, intent):
-        session.topic_list.append(intent)
-        pass
-    def get_last_intent(self):
-        return session.topic_list[-1]
+    def return_msg(self):
+        hobby = self.me.hobby[0].get_name()
+        return 'i like ' + hobby
 
 
 
-
-class ask_opinion_about_sth(object):
+class ask_opinion_about_sth(base_intent_handler):
     def __init__(self, json_data):
         self.json_data = json_data
+        super(ask_opinion_about_sth, self).__init__()
         self.target = self.get_target_info()
-        self.opinion_of_user = user_factory().me()
-        self.user = user_factory().user()
         pass
 
     def get_target_info(self):
@@ -124,17 +124,16 @@ class ask_opinion_about_sth(object):
 
 
     def return_msg(self):
-        msg = self.opinion_of_user.give_opinion(self.target)
+        msg = self.me.give_opinion(self.target)
         return msg
 
 class receive_offer_help_handler(base_intent_handler):
     def __init__(self, base_json):
-        self.receive_offer_user = user_factory().me()
-        self.offer_user = user_factory().user()
+        super(receive_offer_help_handler, self).__init__()
         self.base_json = base_json
         pass
     def generate_intent(self):
-        new_intent =  self.receive_offer_user.doing.need_smth()
+        new_intent =  self.me.doing_now.need_smth()
         data = [{'intent':new_intent,'entity':''}]
         return data
 
@@ -149,11 +148,11 @@ class receive_offer_help_handler(base_intent_handler):
 
 class ask_what_are_u_doing_handler(base_intent_handler):
     def __init__(self, base_json):
-        self.me = user_factory().me()
-        self.user = user_factory().user()
+        super(ask_what_are_u_doing_handler, self).__init__()
         self.base_json = base_json
     def generate_intent(self):
-        data = self.me.get_doing_info()
+        intent = self.me.get_doing_now_info()
+        data = [{'intent':intent,'entity':''}]
         return data
     def return_msg(self):
         new_intent = self.generate_intent()
@@ -205,13 +204,51 @@ class introduce_myself_handler(base_intent_handler):
         msg = generate_msg_to_say(new_intent,self.target_name).msg()
         return msg
 
+class ask_advice(base_intent_handler):
+    def __init__(self, base_json):
+        self.base_json= base_json
+        pass
 
+    def generate_intent(self):
+        """
+        call ai_brain to think
+        """
+        data = [
+            {'intent': WORKING_ACT, 'entity':''},
+        ]
+        return data
+
+    def return_msg(self):
+        new_intent = self.generate_intent()
+        handle_order_of_intent().last_intent(new_intent)
+        msg = generate_msg_to_say(new_intent,'').msg()
+        return msg
 
 class ask_duration_handler(base_intent_handler):
     def __init__(self, base_json):
         self.base_json = base_json
+        super(ask_duration_handler, self).__init__()
+        self.base_json = base_json
+        self.intent = self.base_json['outcomes'][0]['intent']
+        entity = self.base_json['outcomes'][0]['entities']
+        try:
+            self.target_name = entity[TARGET_NAME][0]['value']
+        except:
+            self.target_name = ''
+        try:
+            self.activity_info = entity[ACTIVITY_INFO][0]['value']
+        except:
+            self.activity_info = ''
         pass
     def generate_intent(self):
+        if  self.me.get_doing_now_info() in self.activity_info:
+            data = self.me.doing_now.reply_info(self.intent)
+            return [data]
+
+        for act in self.me.get_doing_info():
+            if act.get_name() in self.activity_info:
+                data = act.reply_info(self.intent)
+                return [data]
         data = [
             {'intent':TIME_INFO,'entity':''},
             {'intent':STOP_CONVERSATION,'entity':''}

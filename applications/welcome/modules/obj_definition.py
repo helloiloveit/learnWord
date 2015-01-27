@@ -3,6 +3,7 @@ __author__ = 'huyheo'
 
 import logging
 from gluon import *
+from intent_def import *
 
 
 log = logging.getLogger("h")
@@ -99,17 +100,82 @@ class user_obj(object):
             else:
                 return 'this job is ok'
 
+class health_obj(object):
+    def __init__(self):
+        pass
+    def check_if_good_or_bad(self, activity):
+        return 'good'
+class fun_obj(object):
+    def __init__(self):
+        pass
+    def check_if_fun(self, activity):
+        return 'fun'
 
-class activity(object):
+class act_base(object):
+    def __init__(self, name,
+                 why_doing,
+                 resouce_consuming,
+                 impact_to_other):
+        self.name = name
+        self.motivation = why_doing
+        self.resource_consuming  = resouce_consuming,
+        self.impact_to_other = impact_to_other
+    def get_name(self):
+        return self.name
+    def reply_info(self,intent):
+        pass
+
+    def reply_info(self, intent):
+        if intent == ASK_DURATION:
+            return self.duration_info()
+        return ''
+
+class traveling_act(act_base):
+    def __init__(self):
+        super(traveling_act,self).__init__('travel', ['grow up','explore'], ['money', 'time'], '')
+        #necessary thing
+        #load and save to db
+        self.start_time = 'last month'
+        self.end_time = 'next month'
+        self.resource = ['money','time']
+    def duration_info(self):
+        intent = TIME_INFO
+        entity = DATETIME
+        value = '3 months'
+        data = {'intent':intent, 'entity':entity, 'value':'3 months'}
+        return data
+
+class working_act(act_base):
+    """
+
+    """
+    def __init__(self):
+        super(working_act, self).__init__('working', ['earn a living'], ['time'], '')
+        pass
+    def duration_info(self):
+        intent = TIME_INFO
+        entity = DATETIME
+        value = '1 year'
+        data = {'intent':intent, 'entity':entity, 'value':value}
+        return data
+
+class reading_act(act_base):
+    def __init__(self,name):
+        super(reading_act,self).__init__(READING_ACT, [health_obj,fun_obj], ['energy', 'time'], '')
+
+
+
+
+class waiting_act(act_base):
     """
     define action
     exp: waiting
     """
-    def __init__(self, name):
-        self.name = name
+    def __init__(self,name):
+        super(waiting_act,self).__init__(WAITING_ACT, [health_obj,fun_obj], ['energy', 'time'], '')
         self.target = 'bus'
         self.status = 'boring'
-        self.why_waiting = 'go to to Hoan Kiem lake'
+        self.motivation = 'go to to Hoan Kiem lake'
         self.have_time = 'yes'
         #necesssary thing
         self.time_arrive = ''
@@ -129,6 +195,35 @@ class activity(object):
     def get_target(self):
         return self.target
 
+class running_act(act_base):
+    """
+    define action
+    exp: waiting
+    """
+    def __init__(self):
+        super(running_act,self).__init__('running', [health_obj,fun_obj], ['energy', 'time'], '')
+        self.fun = 'fun or boring'
+        self.have_time_for_other_thing = 'yes'
+        #necesssary thing
+        self.place = ''
+        self.time = ''
+        self.weather = ''
+        pass
+    def need_smth(self):
+        """
+        return necessary thing that is missing
+        """
+        if self.time_arrive == '':
+            return 'ask_time'
+        else:
+            return 'nothing'
+    def get_intent(self):
+        return self.name
+    def suggest_time_to_do(self):
+        return 'now'
+    def suggest_thing_to_prepare(self):
+        return 'decide place, time, check weather'
+
 
 class human_obj(user_obj):
     """
@@ -139,10 +234,14 @@ class human_obj(user_obj):
     def __init__(self, name, activity_info):
         #super class
         super(human_obj, self).__init__(name)
-        self.doing = activity(activity_info)
+        self.doing_now = waiting_act(activity_info)
+        self.doing = [traveling_act(), working_act()]
+        self.hobby = [running_act()]
         pass
+    def get_doing_now_info(self):
+        return self.doing_now.get_name()
     def get_doing_info(self):
-        return [{'intent':self.doing.get_intent(), 'entity':self.doing.get_target()}]
+        return self.doing
 
 
 

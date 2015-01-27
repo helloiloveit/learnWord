@@ -988,7 +988,6 @@ def console():
         # If we have the applications package or if we should upgrade
         if not os.path.exists('applications/__init__.py'):
             write_file('applications/__init__.py', '')
-
     return options, args
 
 

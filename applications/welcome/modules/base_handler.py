@@ -16,6 +16,9 @@ class base_intent_handler(object):
     """
     base for handling intent
     """
+    def __init__(self):
+        self.me = user_factory().me()
+        self.user = user_factory().user()
     def generate_intent(self):
         pass
     def return_msg(self):

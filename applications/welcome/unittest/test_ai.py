@@ -67,7 +67,15 @@ class TestGoToSomeWhere(unittest.TestCase):
                      u'msg_id': u'95295c05-ca50-42bc-8c3d-a6a95ae5a4d3', u'_text': u'i want to go to the office'}
         return json_data
 
+    def check_message_with_no_entity(self, saying, intent, expected_msg):
+        json_data = self.json_no_entity(saying, intent)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, expected_msg)
 
+    def check_message_with_entity(self, saying, intent, entity_name, entity_value, expected_msg):
+        json_data = self.json_data_with_entity_info(saying, intent, entity_name, entity_value)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, expected_msg)
 
     def check_reply_from_ai(self, intention, place, urgent, value, expected_return):
         question_msg = handler_user_saying(intention, place, urgent,value)
@@ -140,30 +148,42 @@ class TestGoToSomeWhere(unittest.TestCase):
 
     def testTalkAboutPersonalThing(self):
 
-        json_data = self.json_no_entity('', GREETING)
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'hello')
 
-        json_data = self.json_no_entity('', ASK_AGE)
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, '1 years old')
+        expected_msg = 'hello'
+        self.check_message_with_no_entity('hello', GREETING, expected_msg)
 
-        json_data = self.json_no_entity('', ASK_NAME)
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'ai')
+        expected_msg = 'ai'
+        self.check_message_with_no_entity('what your name', ASK_NAME, expected_msg)
 
-        json_data = self.json_no_entity('', ASK_JOB)
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'worker')
+        expected_msg = '1 years old'
+        self.check_message_with_no_entity('how old are you', ASK_AGE, expected_msg)
+
+        expected_msg = 'worker'
+        self.check_message_with_no_entity('whats your job', ASK_JOB, expected_msg)
+
+        expected_msg = 'this job is ok'
+        self.check_message_with_entity('do you like your job?', ASK_OPINION_ABOUT_SOMETHING,TARGET_NAME, 'it', expected_msg)
+
+        expected_msg = '9 months.'
+        self.check_message_with_entity('how long have you been working?', ASK_DURATION, ACTIVITY_INFO, 'working', expected_msg)
+
+        expected_msg = 'i like running'
+        self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
+
+        """
+        expected_msg = 'i run 20 km every weekend'
+        self.check_message_with_no_entity('Nice. How long do you run?', ASK_DISTANCE , expected_msg)
+        """
 
     def testAskIfSomeOneLikeTheirJob(self):
         json_data = self.json_no_entity('', ASK_JOB)
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'worker')
 
-        json_data = self.json_data_with_entity_info('', ASK_OPINION_ABOUT_SOMETHING, TARGET_NAME, 'it')
+        json_data = self.json_data_with_entity_info('is it a good job', ASK_OPINION_ABOUT_SOMETHING, TARGET_NAME, 'it')
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'this job is ok')
+
 
     def testBasicConversationInPublicPlace(self):
         """
@@ -193,9 +213,8 @@ class TestGoToSomeWhere(unittest.TestCase):
         self.assertEqual(msg, 'could u help me to know the time the bus arrive?')
         # answer time .
         # start make friend
-        json_data = self.json_data_with_entity_info('', TIME_INFO, DATETIME , '9AM')
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'thank you.Im John.Nice to meet you.')
+        expected_msg = 'thank you.Im John.Nice to meet you.'
+        self.check_message_with_entity('', TIME_INFO, DATETIME, '9AM', expected_msg)
         # introduce my self
         # ask nationality
         json_data = self.json_data_with_entity_info('im huy', INTRODUCE_MYSELF, NAME_INFO , 'huy')
@@ -204,19 +223,9 @@ class TestGoToSomeWhere(unittest.TestCase):
 
         # Say yes
         # How long have you been here
-        json_data = self.json_data_with_entity_info('how long have u been traveling?', ASK_DURATION,  ACTIVITY_INFO , 'huy')
-        self.assertEqual( handle_topic_data(json_data),
-                          '9 months.So i have to go see u soon')
-        """
-        # say good bye. Ask for contact
-        json_data = self.json_data_with_entity_info('could u give my your facebook account so we could stay in touch?', ASK_CONTACT_INFO,  CONTACT_TYPE , 'facebook_account')
-        self.assertEqual( handle_topic_data(json_data),
-                          'heres mine: hello.i.love.it@gmail.com. Add me. See ya')
+        expected_msg = '9 months.'
+        self.check_message_with_entity('how long have u been traveling?', ASK_DURATION,  ACTIVITY_INFO , 'traveling', expected_msg)
 
-
-
-        pass
-        """
 
     def testBasicConversationInPublicPlace2(self):
 
@@ -226,18 +235,33 @@ class TestGoToSomeWhere(unittest.TestCase):
 
         json_data = self.json_no_entity('whatre u doing', ASK_WHAT_ARE_U_DOING)
         msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'im reading a travel guide book')
+        self.assertEqual(msg, 'im waiting')
 
         json_data = self.json_no_entity('hello may i help you?', OFFER_HELP)
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'could u help me to know the time the bus arrive?')
 
     def testBasicConversationInPublicPlace3(self):
-        """
-        test more situation of this case
-        """
+        json_data = self.json_no_entity('hello may i help you?', OFFER_HELP)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'could u help me to know the time the bus arrive?')
+
+        json_data = self.json_no_entity('', DONT_NO)
+        msg = handle_topic_data(json_data)
+        self.assertEqual(msg, 'thanks')
 
         pass
+
+
+    #test AI assistant
+    def testAssistant(self):
+        expected_msg = 'lets do some work sir'
+        self.check_message_with_no_entity('ai. What should i do', ASK_WHAT_SHOULD_I_DO, expected_msg)
+
+        expected_msg = 'youre productive and creative at the airport'
+        self.check_message_with_no_entity('why', ASK_WHY, expected_msg)
+
+
 
 
 

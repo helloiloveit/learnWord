@@ -3,7 +3,6 @@
 
 import os
 import sys
-
 if '__file__' in globals():
     path = os.path.dirname(os.path.abspath(__file__))
 elif hasattr(sys, 'frozen'):

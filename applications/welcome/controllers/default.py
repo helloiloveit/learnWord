@@ -97,6 +97,8 @@ def handle_topic_data(json_data):
 def handle_intent(intent, json_data):
     """
     handle ajax call from user
+    need a better algorithm for handle too many case
+    Exp: When talk about smth...only some intent are epxected . So it will requires less computing power
     """
     if session.scenario_flag == True:
         """
@@ -131,9 +133,19 @@ def handle_intent(intent, json_data):
     elif intent == ASK_WHAT_TO_DO:
         msg = 'no idea'
     elif intent == ASK_HOBBY:
-        msg = 'nothing'
+        msg = ask_hobby_handler(json_data).return_msg()
+    elif intent ==  DONT_NO:
+        msg = 'thanks'
+
+    #personal assistant
+    elif intent == ASK_WHAT_SHOULD_I_DO:
+        msg = ask_advice(json_data).return_msg()
+    elif intent == ASK_WHY:
+        msg = 'youre productive and creative at the airport'
+
     else:
         msg = get_answer(json_data['outcomes'][0]['intent'])
+
 
     #session.topic_list.append(intent)
     return msg

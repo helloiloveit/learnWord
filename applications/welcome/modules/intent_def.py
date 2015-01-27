@@ -6,7 +6,9 @@ TO_GO_SOMEWHERE = 'go_to_some_where'
 TIME_INFO = 'time_info'
 METHOD_TO_GO = 'method_to_go'
 
-
+#personal assistant
+ASK_WHAT_SHOULD_I_DO = 'ask_what_should_i_do'
+ASK_WHY = 'ask_why'
 
 
 #ask
@@ -22,13 +24,16 @@ ASK_HOBBY = 'ask_hobby'
 ASK_DURATION= 'ask_duration_of_doing_smth'
 ASK_CONTACT_INFO = 'ask_contact_info'
 ASK_WHAT_ARE_U_DOING = 'ask_what_are_u_doing'
-
+ASK_WHERE_ARE_U_FROM ='ask_where_are_u_from'
 
 #greeting
 GREETING = 'greeting'
+
+#common
 OFFER_HELP = 'offer_help'
 SAY_THANK = 'thank_you'
 NICE_TO_MEET_YOU = 'nice_to_meet_you'
+DONT_NO ='say_dont_no'
 
 #introduce
 INTRODUCE_MYSELF = 'introduce_myself'
@@ -41,6 +46,10 @@ STOP_CONVERSATION = 'stop_conversation'
 #activity
 READING_ACT = 'reading_act'
 WAITING_ACT = 'waiting_act'
+STUDYING_ACT = 'studying_act'
+RUNNING_ACT = 'running_act'
+WORKING_ACT = 'working_act'
+
 
 
 
