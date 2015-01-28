@@ -54,12 +54,11 @@ class greeting_handler(object):
 
 
 class generate_msg_to_say(object):
-    def __init__(self, intent, target):
+    def __init__(self, intent):
         """
-        intent data = {'intent':'','entity':''}
+        intent data = {'intent':'','entity':'','value':''}
         """
         self.intent_data = intent
-        self.target_value = target
         #save to session
     def msg(self):
         total_msg = ''
@@ -74,7 +73,7 @@ class generate_msg_to_say(object):
             elif intent == NICE_TO_MEET_YOU:
                 msg = 'Nice to meet you.'
             elif intent == TIME_INFO:
-                msg = self.target_value + '.'
+                msg = data['value']+'.'
             elif intent == STOP_CONVERSATION:
                 msg = 'So i have to go see u soon'
             elif intent == READING_ACT:
@@ -89,23 +88,45 @@ class generate_msg_to_say(object):
         return total_msg
 
 
+class ask_distance_handler(base_intent_handler):
+    def __init__(self, json_data):
+        super(ask_distance_handler, self).__init__(json_data)
+        self.target_name = self.entity[ACTIVITY_INFO][0]['value']
+    def generate_intent(self):
+        pass
+    def return_msg(self):
+        msg  = self.me.hobby.get_by_name(self.target_name).reply(self.intent)
+        return msg
+
+class ask_why_like_handler(base_intent_handler):
+    def __init__(self, json_data):
+        super(ask_why_like_handler, self).__init__(json_data)
+        self.activity_info = self.entity[ACTIVITY_INFO][0]['value']
+        # should search for this activity info in db
+    def return_msg(self):
+        msg = self.me.hobby.get_by_name(self.activity_info).reply(self.intent)
+        return msg
+
+
 
 
 class ask_hobby_handler(base_intent_handler):
     def __init__(self, base_json):
-        super(ask_hobby_handler, self).__init__()
+        super(ask_hobby_handler, self).__init__(base_json)
         self.base_json = base_json
-        pass
     def return_msg(self):
-        hobby = self.me.hobby[0].get_name()
-        return 'i like ' + hobby
+        hobby = self.me.hobby.get_all()
+        saying = 'i like '
+        if type(hobby) == list:
+            for temp in hobby:
+                saying += temp.get_name()
+        return saying
 
 
 
 class ask_opinion_about_sth(base_intent_handler):
     def __init__(self, json_data):
-        self.json_data = json_data
-        super(ask_opinion_about_sth, self).__init__()
+        super(ask_opinion_about_sth, self).__init__(json_data)
         self.target = self.get_target_info()
         pass
 
@@ -114,8 +135,7 @@ class ask_opinion_about_sth(base_intent_handler):
         - get target infor from json_data
         - handle it
         """
-        entity = self.json_data['outcomes'][0]['entities']
-        target_name = entity[TARGET_NAME][0]['value']
+        target_name = self.entity[TARGET_NAME][0]['value']
         if target_name == IT_SUBJECT:
             # load the last topic to decide the subject
             return user_factory().user().get_job()
@@ -129,8 +149,7 @@ class ask_opinion_about_sth(base_intent_handler):
 
 class receive_offer_help_handler(base_intent_handler):
     def __init__(self, base_json):
-        super(receive_offer_help_handler, self).__init__()
-        self.base_json = base_json
+        super(receive_offer_help_handler, self).__init__(base_json)
         pass
     def generate_intent(self):
         new_intent =  self.me.doing_now.need_smth()
@@ -143,13 +162,12 @@ class receive_offer_help_handler(base_intent_handler):
         """
         new_intent = self.generate_intent()
         handle_order_of_intent().last_intent(new_intent)
-        msg = generate_msg_to_say(new_intent,'bus').msg()
+        msg = generate_msg_to_say(new_intent).msg()
         return msg
 
 class ask_what_are_u_doing_handler(base_intent_handler):
     def __init__(self, base_json):
-        super(ask_what_are_u_doing_handler, self).__init__()
-        self.base_json = base_json
+        super(ask_what_are_u_doing_handler, self).__init__(base_json)
     def generate_intent(self):
         intent = self.me.get_doing_now_info()
         data = [{'intent':intent,'entity':''}]
@@ -157,7 +175,7 @@ class ask_what_are_u_doing_handler(base_intent_handler):
     def return_msg(self):
         new_intent = self.generate_intent()
         handle_order_of_intent().last_intent(new_intent)
-        msg = generate_msg_to_say(new_intent, '').msg()
+        msg = generate_msg_to_say(new_intent).msg()
         return msg
 
 
@@ -183,7 +201,7 @@ class time_info_handler(base_intent_handler):
     def return_msg(self):
         new_intent = self.generate_intent()
         handle_order_of_intent().last_intent(new_intent)
-        msg = generate_msg_to_say(new_intent,'').msg()
+        msg = generate_msg_to_say(new_intent).msg()
         return msg
 
 class introduce_myself_handler(base_intent_handler):
@@ -201,7 +219,7 @@ class introduce_myself_handler(base_intent_handler):
     def return_msg(self):
         new_intent = self.generate_intent()
         handle_order_of_intent().last_intent(new_intent)
-        msg = generate_msg_to_say(new_intent,self.target_name).msg()
+        msg = generate_msg_to_say(new_intent).msg()
         return msg
 
 class ask_advice(base_intent_handler):
@@ -221,44 +239,35 @@ class ask_advice(base_intent_handler):
     def return_msg(self):
         new_intent = self.generate_intent()
         handle_order_of_intent().last_intent(new_intent)
-        msg = generate_msg_to_say(new_intent,'').msg()
+        msg = generate_msg_to_say(new_intent).msg()
         return msg
 
 class ask_duration_handler(base_intent_handler):
     def __init__(self, base_json):
-        self.base_json = base_json
-        super(ask_duration_handler, self).__init__()
-        self.base_json = base_json
-        self.intent = self.base_json['outcomes'][0]['intent']
-        entity = self.base_json['outcomes'][0]['entities']
+        super(ask_duration_handler, self).__init__(base_json)
         try:
-            self.target_name = entity[TARGET_NAME][0]['value']
+            self.target_name = self.entity[TARGET_NAME][0]['value']
         except:
             self.target_name = ''
         try:
-            self.activity_info = entity[ACTIVITY_INFO][0]['value']
+            self.activity_info = self.entity[ACTIVITY_INFO][0]['value']
         except:
             self.activity_info = ''
-        pass
     def generate_intent(self):
         if  self.me.get_doing_now_info() in self.activity_info:
-            data = self.me.doing_now.reply_info(self.intent)
-            return [data]
+            msg = self.me.doing_now.reply(self.intent)
 
         for act in self.me.get_doing_info():
             if act.get_name() in self.activity_info:
-                data = act.reply_info(self.intent)
-                return [data]
-        data = [
-            {'intent':TIME_INFO,'entity':''},
-            {'intent':STOP_CONVERSATION,'entity':''}
-            ]
-        return data
+                msg = act.reply(self.intent)
+        for act in self.me.hobby.get_all():
+            if act.get_name() in self.activity_info:
+                msg = act.reply(self.intent)
+        return msg
     def return_msg(self):
         time = '9 months'
-        new_intent = self.generate_intent()
-        handle_order_of_intent().last_intent(new_intent)
-        msg = generate_msg_to_say(new_intent,time).msg()
+        msg = self.generate_intent()
+        handle_order_of_intent().last_intent(self.json_data)
         return msg
 
 class ask_contact_info_handler(base_intent_handler):

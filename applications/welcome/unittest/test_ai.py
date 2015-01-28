@@ -164,16 +164,20 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = 'this job is ok'
         self.check_message_with_entity('do you like your job?', ASK_OPINION_ABOUT_SOMETHING,TARGET_NAME, 'it', expected_msg)
 
-        expected_msg = '9 months.'
+        expected_msg = '1 year'
         self.check_message_with_entity('how long have you been working?', ASK_DURATION, ACTIVITY_INFO, 'working', expected_msg)
 
         expected_msg = 'i like running'
         self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
 
-        """
-        expected_msg = 'i run 20 km every weekend'
-        self.check_message_with_no_entity('Nice. How long do you run?', ASK_DISTANCE , expected_msg)
-        """
+        expected_msg = 'i run 20 km in weekend'
+        self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'because it fun and good for health'
+        self.check_message_with_entity('why do you like running?', ASK_WHY_LIKE,ACTIVITY_INFO,'running', expected_msg)
+
+        expected_msg = '1 year'
+        self.check_message_with_entity('how long have you been running?', ASK_DURATION, ACTIVITY_INFO, 'running', expected_msg)
 
     def testAskIfSomeOneLikeTheirJob(self):
         json_data = self.json_no_entity('', ASK_JOB)
@@ -223,7 +227,7 @@ class TestGoToSomeWhere(unittest.TestCase):
 
         # Say yes
         # How long have you been here
-        expected_msg = '9 months.'
+        expected_msg = '9 months'
         self.check_message_with_entity('how long have u been traveling?', ASK_DURATION,  ACTIVITY_INFO , 'traveling', expected_msg)
 
 

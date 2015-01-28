@@ -125,7 +125,7 @@ class act_base(object):
     def reply_info(self,intent):
         pass
 
-    def reply_info(self, intent):
+    def reply(self, intent):
         if intent == ASK_DURATION:
             return self.duration_info()
         return ''
@@ -139,11 +139,8 @@ class traveling_act(act_base):
         self.end_time = 'next month'
         self.resource = ['money','time']
     def duration_info(self):
-        intent = TIME_INFO
-        entity = DATETIME
-        value = '3 months'
-        data = {'intent':intent, 'entity':entity, 'value':'3 months'}
-        return data
+        msg = '9 months'
+        return msg
 
 class working_act(act_base):
     """
@@ -153,11 +150,8 @@ class working_act(act_base):
         super(working_act, self).__init__('working', ['earn a living'], ['time'], '')
         pass
     def duration_info(self):
-        intent = TIME_INFO
-        entity = DATETIME
-        value = '1 year'
-        data = {'intent':intent, 'entity':entity, 'value':value}
-        return data
+        msg = '1 year'
+        return msg
 
 class reading_act(act_base):
     def __init__(self,name):
@@ -204,11 +198,12 @@ class running_act(act_base):
         super(running_act,self).__init__('running', [health_obj,fun_obj], ['energy', 'time'], '')
         self.fun = 'fun or boring'
         self.have_time_for_other_thing = 'yes'
+        self.distance = '20 km'
+        self.timing = 'weekend'
         #necesssary thing
         self.place = ''
         self.time = ''
         self.weather = ''
-        pass
     def need_smth(self):
         """
         return necessary thing that is missing
@@ -217,13 +212,40 @@ class running_act(act_base):
             return 'ask_time'
         else:
             return 'nothing'
-    def get_intent(self):
-        return self.name
+    def get_distance(self):
+        msg = 'i run ' + self.distance + ' in ' + self.timing
+        return msg
+    def why(self):
+        msg = 'because it fun and good for health'
+        return msg
+
+    def duration_info(self):
+        return '1 year'
+
+    def reply(self,intent):
+        if intent == ASK_DISTANCE:
+            return self.get_distance()
+        elif intent == ASK_WHY_LIKE:
+            return self.why()
+        elif intent == ASK_DURATION:
+            return self.duration_info()
+        return ''
+
     def suggest_time_to_do(self):
         return 'now'
     def suggest_thing_to_prepare(self):
         return 'decide place, time, check weather'
 
+class hobby(object):
+    def __init__(self):
+        self.list = [running_act()]
+    def get_by_name(self, name):
+        for temp in self.list:
+            if name in temp.get_name():
+                return temp
+        return ''
+    def get_all(self):
+        return self.list
 
 class human_obj(user_obj):
     """
@@ -236,7 +258,7 @@ class human_obj(user_obj):
         super(human_obj, self).__init__(name)
         self.doing_now = waiting_act(activity_info)
         self.doing = [traveling_act(), working_act()]
-        self.hobby = [running_act()]
+        self.hobby = hobby()
         pass
     def get_doing_now_info(self):
         return self.doing_now.get_name()

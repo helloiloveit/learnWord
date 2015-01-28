@@ -16,9 +16,12 @@ class base_intent_handler(object):
     """
     base for handling intent
     """
-    def __init__(self):
+    def __init__(self, json_data):
         self.me = user_factory().me()
         self.user = user_factory().user()
+        self.entity = json_data['outcomes'][0]['entities']
+        self.intent = json_data['outcomes'][0]['intent']
+        self.json_data = json_data
     def generate_intent(self):
         pass
     def return_msg(self):
@@ -33,6 +36,8 @@ class handle_order_of_intent(object):
         pass
     def get_last_intent(self):
         return session.topic_list[-1]
+    def intent_list(self):
+        return session.topic_list
 
 
 

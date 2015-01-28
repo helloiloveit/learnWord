@@ -104,6 +104,7 @@
 
 
         request.done(function( msg ) {
+            $("#avatar_saying").val(msg);
             var msg = new SpeechSynthesisUtterance(msg);
             window.speechSynthesis.speak(msg);
             return msg;

@@ -4,6 +4,7 @@ __author__ = 'huyheo'
 #*****************
 TO_GO_SOMEWHERE = 'go_to_some_where'
 TIME_INFO = 'time_info'
+DISTANCE_INFO ='distance_info'
 METHOD_TO_GO = 'method_to_go'
 
 #personal assistant
@@ -21,11 +22,14 @@ ASK_TIME = 'ask_time'
 
 ASK_WHAT_TO_DO = 'ask_what_to_do'
 ASK_HOBBY = 'ask_hobby'
+#ask distance, duration
 ASK_DURATION= 'ask_duration_of_doing_smth'
+ASK_DISTANCE= 'ask_distance_of_doing_smth'
+
 ASK_CONTACT_INFO = 'ask_contact_info'
 ASK_WHAT_ARE_U_DOING = 'ask_what_are_u_doing'
 ASK_WHERE_ARE_U_FROM ='ask_where_are_u_from'
-
+ASK_WHY_LIKE = 'ask_why_like'
 #greeting
 GREETING = 'greeting'
 
@@ -67,7 +71,7 @@ TARGET_NAME = 'target_name'
 DATETIME = 'datetime'
 ACTIVITY_INFO = 'activity_info'
 CONTACT_TYPE = 'contact_type'
-
+DISTANCE ='distance'
 
 #introduce
 NAME_INFO = 'contact'

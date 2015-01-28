@@ -134,6 +134,10 @@ def handle_intent(intent, json_data):
         msg = 'no idea'
     elif intent == ASK_HOBBY:
         msg = ask_hobby_handler(json_data).return_msg()
+    elif intent == ASK_DISTANCE:
+        msg = ask_distance_handler(json_data).return_msg()
+    elif intent == ASK_WHY_LIKE:
+        msg = ask_why_like_handler(json_data).return_msg()
     elif intent ==  DONT_NO:
         msg = 'thanks'
 
@@ -151,7 +155,7 @@ def handle_intent(intent, json_data):
     return msg
 
 def handle_user_saying():
-    return get_asnwer(request.vars.info)
+    return get_answer(request.vars.info)
 
 
 
