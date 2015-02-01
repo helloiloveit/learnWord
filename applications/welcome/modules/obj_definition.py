@@ -4,8 +4,8 @@ __author__ = 'huyheo'
 import logging
 from gluon import *
 from intent_def import *
-
-
+from utility import *
+from base_handler import *
 log = logging.getLogger("h")
 log.setLevel(logging.DEBUG)
 
@@ -158,7 +158,24 @@ class reading_act(act_base):
         super(reading_act,self).__init__(READING_ACT, [health_obj,fun_obj], ['energy', 'time'], '')
 
 
-
+class bus(object):
+    """
+    simulate a bus
+    """
+    def __init__(self, name):
+        self.name = name
+        # load infor from db if existed
+        self.arrive_at_destination_time= ''
+        self.depart_from_station_time = ''
+        self.arrive_at_destination_time =''
+    def get_arrive_at_station_time(self, position):
+        return ''
+    def get_duration_of_arrival_time(self):
+        return '10 min'
+    def get_depart_from_station_time(self):
+        return 'after 10 min'
+    def ask_arrive_at_station_time(self):
+        return 'Could you tell me when will the bus arrive?'
 
 class waiting_act(act_base):
     """
@@ -166,24 +183,28 @@ class waiting_act(act_base):
     exp: waiting
     """
     def __init__(self,name):
-        super(waiting_act,self).__init__(WAITING_ACT, [health_obj,fun_obj], ['energy', 'time'], '')
-        self.target = 'bus'
+        super(waiting_act,self).__init__(WAITING_ACT, [fun_obj], ['energy', 'time'], '')
+        self.waiting_for = bus('bus name')
         self.status = 'boring'
-        self.motivation = 'go to to Hoan Kiem lake'
-        self.have_time = 'yes'
         #necesssary thing
-        self.time_arrive = ''
-        self.how_long = ''
-        self.seat_number = ''
-        pass
+        self.arrive_at_station_time = self.waiting_for.get_arrive_at_station_time('')
+        self.depart_from_station_time =self.waiting_for.get_depart_from_station_time()
+        self.importance_thing =[self.arrive_at_station_time]
+        self.not_importance = [self.depart_from_station_time]
     def need_smth(self):
         """
         return necessary thing that is missing
         """
-        if self.time_arrive == '':
-            return 'ask_time'
-        else:
-            return 'nothing'
+        return 'ask_time'
+    def say_smth(self):
+        msg =''
+        for temp in self.importance_thing:
+            if temp == '':
+                msg = self.waiting_for.ask_arrive_at_station_time()
+                return msg
+        return ''
+
+
     def get_intent(self):
         return self.name
     def get_target(self):
@@ -194,8 +215,8 @@ class running_act(act_base):
     define action
     exp: waiting
     """
-    def __init__(self):
-        super(running_act,self).__init__('running', [health_obj,fun_obj], ['energy', 'time'], '')
+    def __init__(self, name):
+        super(running_act,self).__init__(RUNNING_ACT, [health_obj,fun_obj], ['energy', 'time'], '')
         self.fun = 'fun or boring'
         self.have_time_for_other_thing = 'yes'
         self.distance = '20 km'
@@ -204,6 +225,12 @@ class running_act(act_base):
         self.place = ''
         self.time = ''
         self.weather = ''
+        self.answer_topic = {
+            ASK_DISTANCE:self.get_distance,
+            ASK_WHY_LIKE:self.why,
+            ASK_DURATION:self.duration_info,
+            ASK_HOW_TO_DO: self.how_to_do
+        }
     def need_smth(self):
         """
         return necessary thing that is missing
@@ -212,33 +239,68 @@ class running_act(act_base):
             return 'ask_time'
         else:
             return 'nothing'
-    def get_distance(self):
+
+
+    def how_to_do(self, json_data):
+        msg = 'i practice it every week'
+        data = data_format.saying(msg, PRACTISE_INFO, 'practise')
+        return data
+    def get_distance(self, json_data):
         msg = 'i run ' + self.distance + ' in ' + self.timing
-        return msg
-    def why(self):
+        data = data_format.saying(msg, DISTANCE_INFO, 'distance')
+        return data
+    def why(self, json_data):
         msg = 'because it fun and good for health'
+        data= data_format.saying(msg, MOTIVATION_INFO, 'motivation')
+        return data
+    def duration_info(self, json_data):
+        msg =  '1 year'
+        data= data_format.saying(msg, DURATION_INFO, 'motivation')
+        return data
+
+
+    ###############
+    def handler(self,json_data):
+        intent = ai_json(json_data).get_intent(0)
+        msg = self.answer_topic[intent](json_data)
         return msg
-
-    def duration_info(self):
-        return '1 year'
-
-    def reply(self,intent):
-        if intent == ASK_DISTANCE:
-            return self.get_distance()
-        elif intent == ASK_WHY_LIKE:
-            return self.why()
-        elif intent == ASK_DURATION:
-            return self.duration_info()
+    def ask(self):
+        user_obj =user_factory().user()
         return ''
 
-    def suggest_time_to_do(self):
-        return 'now'
-    def suggest_thing_to_prepare(self):
-        return 'decide place, time, check weather'
+
 
 class hobby(object):
-    def __init__(self):
-        self.list = [running_act()]
+    def __init__(self,name):
+        self.name = name
+        self.load_db(name)
+        self.answer_topic = {
+            ASK_HOBBY: self.introduce,
+            LIKE_SMTH: self.ans_like_smth
+        }
+        self.load_db(name)
+
+    def save_to_db(self, act):
+        session.user_act = act
+    def load_db(self, name):
+        if name == 'ai':
+            self.list = [running_act(name)]
+        else:
+            if session.user_act:
+                self.list = [running_act(name)]
+            else:
+                self.list = []
+    def ans_like_smth(self,json_data):
+        """
+        save answer of hobby to db
+        say smth to answer
+        """
+        activity_info = ai_json(json_data).get_entity(ACTIVITY_INFO)
+
+        msg = 'nice'
+        self.save_to_db(activity_info)
+
+        return msg
     def get_by_name(self, name):
         for temp in self.list:
             if name in temp.get_name():
@@ -246,6 +308,30 @@ class hobby(object):
         return ''
     def get_all(self):
         return self.list
+    def introduce(self, json_data):
+        if not len(self.list):
+            message = 'Sorry i dont know yet'
+            topic = 'hobby'
+        else:
+            if self.name == 'huy':
+                message =  'you like' + ' ' + self.list[0].get_name()
+            elif self.name == 'ai':
+                message =  'i like' + ' ' + self.list[0].get_name()
+            topic = self.list[0].get_name()
+        data = data_format.saying(message, LIKE_SMTH, topic)
+        return data
+    def ask_hobby(self):
+        return 'what is your hobby?'
+    def generate_question(self):
+        msg = ''
+        if not len(self.get_all()):
+            msg = self.ask_hobby()
+        data = data_format.saying(msg, ASK_HOBBY, 'hobby')
+        return data
+    def handler(self, json_data):
+        intent = ai_json(json_data).get_intent(0)
+        msg = self.answer_topic[intent](json_data)
+        return msg
 
 class human_obj(user_obj):
     """
@@ -253,13 +339,15 @@ class human_obj(user_obj):
     - state
     - activity
     """
-    def __init__(self, name, activity_info):
+    def __init__(self, name ,act_name):
         #super class
         super(human_obj, self).__init__(name)
-        self.doing_now = waiting_act(activity_info)
+        self.doing_now = waiting_act(act_name)
         self.doing = [traveling_act(), working_act()]
-        self.hobby = hobby()
+        self.hobby = hobby(name)
         pass
+    def get_doing_now(self):
+        return self.doing_now
     def get_doing_now_info(self):
         return self.doing_now.get_name()
     def get_doing_info(self):

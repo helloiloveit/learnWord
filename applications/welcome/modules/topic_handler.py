@@ -7,12 +7,12 @@ from gluon import *
 
 from obj_definition import *
 from base_handler import *
+from intent_def import *
 
 log = logging.getLogger("h")
 log.setLevel(logging.DEBUG)
 
 session = current.session
-
 
 
 class talk_about_people(object):
@@ -44,11 +44,12 @@ class talk_about_people(object):
             msg = self.me.get_job().get_name()
         return msg
 
-class greeting_handler(object):
+class greeting_handler(base_intent_handler):
     def __init__(self, json_data):
-        pass
+        super(greeting_handler, self).__init__(json_data)
     def return_msg(self):
-        msg = 'hello'
+        reply_msg = 'hello'
+        msg = reply_msg+ '. ' + 'how are you'
         return msg
 
 
@@ -87,24 +88,36 @@ class generate_msg_to_say(object):
             total_msg += msg
         return total_msg
 
+class ask_how_to_do_handler(base_intent_handler):
+    def __init__(self, json_data):
+        super(ask_how_to_do_handler, self).__init__(json_data)
+    def return_msg(self):
+        msg = self.__class__
+        return msg
 
 class ask_distance_handler(base_intent_handler):
     def __init__(self, json_data):
         super(ask_distance_handler, self).__init__(json_data)
-        self.target_name = self.entity[ACTIVITY_INFO][0]['value']
+        self.target_name = ai_json(json_data).get_entity(ACTIVITY_INFO)
+        temp= self.streamlize_name(self.target_name)
+        self.topic_handler = running_act
+    def streamlize_name(self, name):
+        if name in RUNNING_ACT:
+            return RUNNING_ACT
     def generate_intent(self):
         pass
     def return_msg(self):
-        msg  = self.me.hobby.get_by_name(self.target_name).reply(self.intent)
+        msg  = self.topic_handler().handler(self.json_data)
         return msg
 
 class ask_why_like_handler(base_intent_handler):
     def __init__(self, json_data):
         super(ask_why_like_handler, self).__init__(json_data)
         self.activity_info = self.entity[ACTIVITY_INFO][0]['value']
+        self.topic_handler = running_act
         # should search for this activity info in db
     def return_msg(self):
-        msg = self.me.hobby.get_by_name(self.activity_info).reply(self.intent)
+        msg  = self.topic_handler().handler(self.json_data)
         return msg
 
 
@@ -113,13 +126,19 @@ class ask_why_like_handler(base_intent_handler):
 class ask_hobby_handler(base_intent_handler):
     def __init__(self, base_json):
         super(ask_hobby_handler, self).__init__(base_json)
-        self.base_json = base_json
     def return_msg(self):
-        hobby = self.me.hobby.get_all()
-        saying = 'i like '
-        if type(hobby) == list:
-            for temp in hobby:
-                saying += temp.get_name()
+        contact_info = ai_json(self.json_data).get_entity(CONTACT_TYPE)
+        if contact_info in ['my', 'mine']:
+            hobby = self.user.hobby
+        else:
+            hobby = self.me.hobby
+        #saying = brain().return_message(hobby, self.intent)
+        reply = hobby.handler(self.json_data)
+        memory_handler().save_to_short_memory(ANSWER_FLAG, 'ai',self.json_data, reply)
+        ask = self.user.hobby.generate_question()
+        memory_handler().save_to_short_memory(ASK_FLAG, 'huy',self.json_data, ask)
+        saying = reply['saying'] + '. ' + ask['saying']
+        #set expected intent
         return saying
 
 
@@ -161,23 +180,44 @@ class receive_offer_help_handler(base_intent_handler):
         return mssage by call need_smth() of user activity
         """
         new_intent = self.generate_intent()
-        handle_order_of_intent().last_intent(new_intent)
+        memory_handler().set_last_intent(new_intent)
         msg = generate_msg_to_say(new_intent).msg()
+        return msg
+class like_smth_handler(base_intent_handler):
+    def __init__(self, base_json):
+        super(like_smth_handler, self).__init__(base_json)
+    def return_msg(self):
+        """
+        get object of liking
+        save info to db
+        """
+        act_name = ai_json(self.json_data).get_entity(ACTIVITY_INFO)
+        response = self.user.hobby.response_to_msg(self.intent)
+        new_msg = self.user.hobby.make_new()
+        msg = 'really?'
+
         return msg
 
 class ask_what_are_u_doing_handler(base_intent_handler):
     def __init__(self, base_json):
         super(ask_what_are_u_doing_handler, self).__init__(base_json)
     def generate_intent(self):
-        intent = self.me.get_doing_now_info()
-        data = [{'intent':intent,'entity':''}]
+        act = self.me.get_doing_now()
+        data = [{'intent':act.get_name(),'entity':''}]
         return data
     def return_msg(self):
         new_intent = self.generate_intent()
-        handle_order_of_intent().last_intent(new_intent)
-        msg = generate_msg_to_say(new_intent).msg()
+        reply_msg = generate_msg_to_say(new_intent).msg()
+        memory_handler().set_last_intent(new_intent)
+        new_msg = brain().create_message(self.me.get_doing_now())
+        msg = reply_msg + '. ' + new_msg
         return msg
 
+class emotional_expression(base_intent_handler):
+    def __init__(self, base_json):
+        super(emotional_expression, self).__init__(base_json)
+    def return_msg(self):
+        return 'good to know your emotional state'
 
 class time_info_handler(base_intent_handler):
     def __init__(self, base_json):
@@ -200,17 +240,14 @@ class time_info_handler(base_intent_handler):
 
     def return_msg(self):
         new_intent = self.generate_intent()
-        handle_order_of_intent().last_intent(new_intent)
+        memory_handler().set_last_intent(new_intent)
         msg = generate_msg_to_say(new_intent).msg()
         return msg
 
 class introduce_myself_handler(base_intent_handler):
     def __init__(self, base_json):
         self.base_json = base_json
-
-        entity = self.base_json['outcomes'][0]['entities']
-        self.target_name = entity[NAME_INFO][0]['value']
-        pass
+        self.target_name = ai_json(base_json).get_entity( NAME_INFO)
 
     def generate_intent(self):
         data = [{'intent':NICE_TO_MEET_YOU,'entity':''}]
@@ -218,7 +255,7 @@ class introduce_myself_handler(base_intent_handler):
 
     def return_msg(self):
         new_intent = self.generate_intent()
-        handle_order_of_intent().last_intent(new_intent)
+        memory_handler().set_last_intent(new_intent)
         msg = generate_msg_to_say(new_intent).msg()
         return msg
 
@@ -238,36 +275,29 @@ class ask_advice(base_intent_handler):
 
     def return_msg(self):
         new_intent = self.generate_intent()
-        handle_order_of_intent().last_intent(new_intent)
+        memory_handler().set_last_intent(new_intent)
         msg = generate_msg_to_say(new_intent).msg()
         return msg
 
 class ask_duration_handler(base_intent_handler):
     def __init__(self, base_json):
         super(ask_duration_handler, self).__init__(base_json)
-        try:
-            self.target_name = self.entity[TARGET_NAME][0]['value']
-        except:
-            self.target_name = ''
-        try:
-            self.activity_info = self.entity[ACTIVITY_INFO][0]['value']
-        except:
-            self.activity_info = ''
+        self.target_name = ai_json(self.json_data).get_entity(TARGET_NAME)
+        self.activity_info = ai_json(self.json_data).get_entity(ACTIVITY_INFO)
     def generate_intent(self):
         if  self.me.get_doing_now_info() in self.activity_info:
             msg = self.me.doing_now.reply(self.intent)
-
         for act in self.me.get_doing_info():
             if act.get_name() in self.activity_info:
                 msg = act.reply(self.intent)
         for act in self.me.hobby.get_all():
             if act.get_name() in self.activity_info:
-                msg = act.reply(self.intent)
+                msg = act.handler(self.json_data)
         return msg
     def return_msg(self):
         time = '9 months'
         msg = self.generate_intent()
-        handle_order_of_intent().last_intent(self.json_data)
+        memory_handler().set_last_intent(self.json_data)
         return msg
 
 class ask_contact_info_handler(base_intent_handler):

@@ -5,6 +5,7 @@ __author__ = 'huyheo'
 TO_GO_SOMEWHERE = 'go_to_some_where'
 TIME_INFO = 'time_info'
 DISTANCE_INFO ='distance_info'
+DURATION_INFO = 'duration_info'
 METHOD_TO_GO = 'method_to_go'
 
 #personal assistant
@@ -30,6 +31,8 @@ ASK_CONTACT_INFO = 'ask_contact_info'
 ASK_WHAT_ARE_U_DOING = 'ask_what_are_u_doing'
 ASK_WHERE_ARE_U_FROM ='ask_where_are_u_from'
 ASK_WHY_LIKE = 'ask_why_like'
+ASK_HOW_TO_DO = 'ask_how_to_do'
+
 #greeting
 GREETING = 'greeting'
 
@@ -46,14 +49,25 @@ INTRODUCE_MYSELF = 'introduce_myself'
 #stop conversation
 STOP_CONVERSATION = 'stop_conversation'
 
+MOTIVATION_INFO = 'motivation_info'
+PRACTISE_INFO = 'practise_info'
+#emotion
+EMOTIONAL_EXPRESSION = 'emotional_expression'
+
+#express
+LIKE_SMTH = 'like_smth'
+
 
 #activity
 READING_ACT = 'reading_act'
 WAITING_ACT = 'waiting_act'
 STUDYING_ACT = 'studying_act'
-RUNNING_ACT = 'running_act'
+RUNNING_ACT = 'running'
 WORKING_ACT = 'working_act'
 
+
+#digital assistant
+ASK_WHAT_MAKE_HAPPY = 'ask_what_make_happy'
 
 
 
@@ -73,10 +87,18 @@ ACTIVITY_INFO = 'activity_info'
 CONTACT_TYPE = 'contact_type'
 DISTANCE ='distance'
 
+FEELING = 'feeling'
+LEVEL_OF_EXPRESSION = 'level_of_expression'
+
 #introduce
 NAME_INFO = 'contact'
 
 
+
+
+#flag
+ASK_FLAG = 'ask'
+ANSWER_FLAG = 'asnwer'
 
 
 #****** End entity **********

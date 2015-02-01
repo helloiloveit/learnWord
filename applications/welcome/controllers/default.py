@@ -10,7 +10,7 @@
 #########################################################################
 
 from topic_handler import *
-from intent_def import *
+
 
 def index():
     """
@@ -62,8 +62,7 @@ def handle_user_saying_json():
     """
 
     """
-    if not session.topic_list:
-        session.topic_list =[]
+    memory_handler.intialize_db_for_memory()
 
     import json
     data = request.vars.keys()[0]
@@ -93,6 +92,23 @@ def handle_topic_data(json_data):
 
     return msg
 
+handler_dic = {LIKE_SMTH: like_smth_handler,
+               GREETING: greeting_handler,
+               OFFER_HELP: receive_offer_help_handler,
+               TIME_INFO: time_info_handler,
+               INTRODUCE_MYSELF:introduce_myself_handler,
+               ASK_DURATION: ask_duration_handler,
+               ASK_CONTACT_INFO: ask_contact_info_handler,
+               ASK_WHAT_ARE_U_DOING: ask_what_are_u_doing_handler,
+               ASK_HOBBY: ask_hobby_handler,
+               ASK_DISTANCE: ask_distance_handler,
+               ASK_WHY_LIKE: ask_why_like_handler,
+               ASK_HOW_TO_DO: ask_how_to_do_handler,
+               EMOTIONAL_EXPRESSION: emotional_expression,
+               #assistant
+               ASK_WHAT_SHOULD_I_DO: ask_advice
+
+               }
 
 def handle_intent(intent, json_data):
     """
@@ -100,11 +116,38 @@ def handle_intent(intent, json_data):
     need a better algorithm for handle too many case
     Exp: When talk about smth...only some intent are epxected . So it will requires less computing power
     """
+    intent = ai_json(json_data).get_intent(0)
     if session.scenario_flag == True:
         """
         correct AI information should be initialized here
         """
         human_object = human_obj('ai')
+
+    #in case there's expected intent
+    if memory_handler().get_expected_intent():
+        if intent in memory_handler().get_expected_intent():
+            msg = memory_handler().get_handler().handler(json_data)
+            memory_handler().set_expected_intent(None)
+            return msg
+        else:
+            msg = 'im expecting you to say about %s '% (memory_handler().get_expected_intent())
+            return msg
+    else:
+        for topic in memory_handler().get_topic_list():
+            if intent in topic_intent_dic[topic]['intent']:
+                msg = topic_intent_dic[topic]['class']('ai').handler(json_data)
+                return msg['saying']
+
+
+    # normal case
+    try:
+        handler = handler_dic[intent]
+        msg = handler(json_data).return_msg()
+        return msg
+    except:
+        print'not implement this intent yet'
+        pass
+
     if intent == TO_GO_SOMEWHERE:
         msg = handler_go_to_some_where(json_data)
     elif intent == ASK_AGE:
@@ -116,34 +159,14 @@ def handle_intent(intent, json_data):
     elif intent == ASK_OPINION_ABOUT_SOMETHING:
         #msg = handler_talk_about_user(json_data)
         msg = ask_opinion_about_sth(json_data).return_msg()
-    elif intent == GREETING:
-        msg = greeting_handler(json_data).return_msg()
-    elif intent == OFFER_HELP:
-        msg = receive_offer_help_handler(json_data).return_msg()
-    elif intent == TIME_INFO:
-        msg = time_info_handler(json_data).return_msg()
-    elif intent == INTRODUCE_MYSELF:
-        msg = introduce_myself_handler(json_data).return_msg()
-    elif intent == ASK_DURATION:
-        msg = ask_duration_handler(json_data).return_msg()
-    elif intent == ASK_CONTACT_INFO:
-        msg = ask_contact_info_handler(json_data).return_msg()
-    elif intent == ASK_WHAT_ARE_U_DOING:
-        msg = ask_what_are_u_doing_handler(json_data).return_msg()
     elif intent == ASK_WHAT_TO_DO:
         msg = 'no idea'
-    elif intent == ASK_HOBBY:
-        msg = ask_hobby_handler(json_data).return_msg()
-    elif intent == ASK_DISTANCE:
-        msg = ask_distance_handler(json_data).return_msg()
-    elif intent == ASK_WHY_LIKE:
-        msg = ask_why_like_handler(json_data).return_msg()
     elif intent ==  DONT_NO:
         msg = 'thanks'
 
+
+
     #personal assistant
-    elif intent == ASK_WHAT_SHOULD_I_DO:
-        msg = ask_advice(json_data).return_msg()
     elif intent == ASK_WHY:
         msg = 'youre productive and creative at the airport'
 

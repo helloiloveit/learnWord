@@ -12,6 +12,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         session.by_what = None
         session.place = None
         session.topic_list = []
+        session.intent_list = []
 
     def json_data_go_to_place(self,saying, intent, target_place, urgent):
         json_data = {u'outcomes': [{u'entities': {u'level_of_urgent': [{u'value': urgent}],
@@ -149,7 +150,7 @@ class TestGoToSomeWhere(unittest.TestCase):
     def testTalkAboutPersonalThing(self):
 
 
-        expected_msg = 'hello'
+        expected_msg = 'hello. how are you'
         self.check_message_with_no_entity('hello', GREETING, expected_msg)
 
         expected_msg = 'ai'
@@ -167,17 +168,43 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = '1 year'
         self.check_message_with_entity('how long have you been working?', ASK_DURATION, ACTIVITY_INFO, 'working', expected_msg)
 
-        expected_msg = 'i like running'
+        expected_msg = 'i like running. what is your hobby?'
         self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
+
+        expected_msg = 'nice'
+        self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'working',  expected_msg)
 
         expected_msg = 'i run 20 km in weekend'
         self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'i practice it every week'
+        self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
 
         expected_msg = 'because it fun and good for health'
         self.check_message_with_entity('why do you like running?', ASK_WHY_LIKE,ACTIVITY_INFO,'running', expected_msg)
 
         expected_msg = '1 year'
         self.check_message_with_entity('how long have you been running?', ASK_DURATION, ACTIVITY_INFO, 'running', expected_msg)
+
+    def testTalkHobby(self):
+        expected_msg = 'hello. how are you'
+        self.check_message_with_no_entity('hello', GREETING, expected_msg)
+
+        expected_msg = 'i like running. what is your hobby?'
+        self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
+
+        expected_msg = 'nice'
+        self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'working',  expected_msg)
+
+        expected_msg = 'i run 20 km in weekend'
+        self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'i practice it every week'
+        self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
+
+
+
+
 
     def testAskIfSomeOneLikeTheirJob(self):
         json_data = self.json_no_entity('', ASK_JOB)
@@ -233,13 +260,12 @@ class TestGoToSomeWhere(unittest.TestCase):
 
     def testBasicConversationInPublicPlace2(self):
 
-        json_data = self.json_no_entity('', GREETING)
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'hello')
+        expected_msg = 'hello. how are you'
+        self.check_message_with_no_entity('hello', GREETING , expected_msg)
 
         json_data = self.json_no_entity('whatre u doing', ASK_WHAT_ARE_U_DOING)
         msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'im waiting')
+        self.assertEqual(msg, 'im waiting. Could you tell me when will the bus arrive?')
 
         json_data = self.json_no_entity('hello may i help you?', OFFER_HELP)
         msg = handle_topic_data(json_data)

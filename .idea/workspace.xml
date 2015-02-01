@@ -26,41 +26,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="talk.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/talk.html">
+      <file leaf-file-name="default.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="36" selection-start="3081" selection-end="3081" vertical-scroll-proportion="-19.375" vertical-offset="1140" max-vertical-offset="2760">
+            <state line="12" column="0" selection-start="559" selection-end="559" vertical-scroll-proportion="-7.2" vertical-offset="0" max-vertical-offset="4380">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="topic_handler.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="topic_handler.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/topic_handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="264" column="0" selection-start="7946" selection-end="7946" vertical-scroll-proportion="-37.8" vertical-offset="2940" max-vertical-offset="6405">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_STT.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/test_STT.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="24" selection-start="1980" selection-end="1980" vertical-scroll-proportion="0.2659146" vertical-offset="1260" max-vertical-offset="7695">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6930">
               <folding>
-                <element signature="n#style#0;n#p#3;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#4;n#!!top" expanded="true" />
+                <element signature="e#24#38#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="127.0.0.1.2015-01-28.10-53-02.43c8d3f6-beba-4eee-a885-55809e986ede" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/applications/welcome/errors/127.0.0.1.2015-01-28.10-53-02.43c8d3f6-beba-4eee-a885-55809e986ede">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -68,7 +49,16 @@
       <file leaf-file-name="base_handler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/base_handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="6" selection-start="182" selection-end="182" vertical-scroll-proportion="-7.2" vertical-offset="0" max-vertical-offset="855">
+            <state line="97" column="15" selection-start="2613" selection-end="2613" vertical-scroll-proportion="0.0" vertical-offset="1455" max-vertical-offset="1620">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utility.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/welcome/modules/utility.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="13" selection-start="243" selection-end="243" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="990">
               <folding />
             </state>
           </provider>
@@ -77,7 +67,36 @@
       <file leaf-file-name="obj_definition.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="191" column="22" selection-start="4934" selection-end="4934" vertical-scroll-proportion="-27.0" vertical-offset="2160" max-vertical-offset="4110">
+            <state line="268" column="17" selection-start="7602" selection-end="7602" vertical-scroll-proportion="0.0" vertical-offset="3135" max-vertical-offset="5460">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ai_brain.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/welcome/modules/ai_brain.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="1" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="990">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="intent_relation_def.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="22" selection-start="186" selection-end="186" vertical-scroll-proportion="-8.4" vertical-offset="0" max-vertical-offset="675">
+              <folding>
+                <element signature="e#24#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="intent_def.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="65" column="4" selection-start="1381" selection-end="1381" vertical-scroll-proportion="-39.0" vertical-offset="0" max-vertical-offset="1650">
               <folding />
             </state>
           </provider>
@@ -86,16 +105,7 @@
       <file leaf-file-name="test_ai.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="151" column="29" selection-start="6441" selection-end="6441" vertical-scroll-proportion="-14.48" vertical-offset="1903" max-vertical-offset="4365">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="intent_def.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="8" selection-start="1397" selection-end="1397" vertical-scroll-proportion="-43.8" vertical-offset="0" max-vertical-offset="1320">
+            <state line="175" column="0" selection-start="7540" selection-end="7540" vertical-scroll-proportion="0.0" vertical-offset="2025" max-vertical-offset="4755">
               <folding />
             </state>
           </provider>
@@ -111,10 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/gluon/globals.py" />
-        <option value="$PROJECT_DIR$/applications/chuotnhat/unittest/test_noti_handler.py" />
-        <option value="$PROJECT_DIR$/applications/chuotnhat/views/default/edit_question.html" />
-        <option value="$PROJECT_DIR$/applications/chuotnhat/views/default/fb_test.html" />
         <option value="$PROJECT_DIR$/applications/chuotnhat/views/default/temp.html" />
         <option value="$PROJECT_DIR$/applications/chuotnhat/views/default/question_list.html" />
         <option value="$PROJECT_DIR$/applications/chuotnhat/views/default/fb_edit_user_profile.html" />
@@ -154,14 +160,18 @@
         <option value="$PROJECT_DIR$/applications/welcome/modules/intent_definition.py" />
         <option value="$PROJECT_DIR$/web2py.py" />
         <option value="$PROJECT_DIR$/gluon/widget.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_def.py" />
         <option value="$PROJECT_DIR$/applications/welcome/views/default/talk.html" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/base_handler.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/unittest/test_ai.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/obj_definition.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/topic_handler.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/controllers/default.py" />
         <option value="$PROJECT_DIR$/applications/welcome/views/default/test_STT.html" />
+        <option value="$PROJECT_DIR$/applications/welcome/models/db.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/utility.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/unittest/test_ai.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/base_handler.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/obj_definition.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/ai_brain.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_def.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/controllers/default.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/topic_handler.py" />
       </list>
     </option>
   </component>
@@ -196,17 +206,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Problems" />
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -374,6 +373,10 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utility.py" />
+              <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -393,8 +396,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="errors" />
+              <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web2py" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="learnEnglish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="welcome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ai_brain.py" />
+              <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -421,6 +450,17 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Problems" />
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -441,8 +481,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/applications/welcome/static/images" />
       <recent name="$PROJECT_DIR$/applications/welcome/modules" />
+      <recent name="$PROJECT_DIR$/applications/welcome/static/images" />
       <recent name="$PROJECT_DIR$/applications/welcome" />
       <recent name="$PROJECT_DIR$/applications/welcome/views/default" />
       <recent name="$PROJECT_DIR$/applications/chuotnhat/views/default" />
@@ -660,9 +700,9 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16370699" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23695894" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2366167" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24834749" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25684607" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26628897" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
@@ -672,7 +712,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14039956" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14025696" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -706,41 +746,37 @@
           <line>269</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="16" />
+      <option name="time" value="17" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/examples/routes.parametric.example.py">
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="0" selection-start="5860" selection-end="5860" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3255" />
+        <state line="27" column="17" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="690">
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/routes.patterns.example.py">
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="3203" selection-end="3203" vertical-scroll-proportion="0.0" vertical-offset="1155" max-vertical-offset="3045" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="40" selection-start="829" selection-end="829" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1665" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1803" selection-end="1803" vertical-scroll-proportion="0.0" vertical-offset="604" max-vertical-offset="1725">
+        <state line="65" column="0" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="1650">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/test_STT.html">
+    <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="26" selection-start="173" selection-end="173" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="270" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/talk.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="11" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="2745" />
+        <state line="175" column="0" selection-start="7540" selection-end="7540" vertical-scroll-proportion="0.0" vertical-offset="2025" max-vertical-offset="4755">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/index.html">
@@ -895,69 +931,6 @@
         <state line="318" column="4" selection-start="10210" selection-end="10210" vertical-scroll-proportion="0.7174447" vertical-offset="4021" max-vertical-offset="4860" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/errors/127.0.0.1.2015-01-28.10-10-17.93433679-6907-4868-a55b-6d1431755705">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/errors/127.0.0.1.2015-01-28.10-42-28.6bfeba0d-ab55-4708-bcc2-cbbfdf2dde0c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1265">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/errors/127.0.0.1.2015-01-28.10-22-12.7e513bfa-68c8-430c-a579-2fae029be12b">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1265">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="8" selection-start="1397" selection-end="1397" vertical-scroll-proportion="-43.8" vertical-offset="0" max-vertical-offset="1320">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="29" selection-start="6441" selection-end="6441" vertical-scroll-proportion="-14.48" vertical-offset="1903" max-vertical-offset="4365">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="191" column="22" selection-start="4934" selection-end="4934" vertical-scroll-proportion="-27.0" vertical-offset="2160" max-vertical-offset="4110">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/errors/127.0.0.1.2015-01-28.10-53-02.43c8d3f6-beba-4eee-a885-55809e986ede">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1265">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/base_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="6" selection-start="182" selection-end="182" vertical-scroll-proportion="-7.2" vertical-offset="0" max-vertical-offset="855">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="0" selection-start="3763" selection-end="3763" vertical-scroll-proportion="-22.8" vertical-offset="1320" max-vertical-offset="4020">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/static/images/mic-animate.gif">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -970,31 +943,102 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/webspeechdemo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="36" selection-start="582" selection-end="582" vertical-scroll-proportion="0.33492824" vertical-offset="0" max-vertical-offset="5940">
+        <state line="28" column="36" selection-start="582" selection-end="582" vertical-scroll-proportion="0.33492824" vertical-offset="0" max-vertical-offset="5940" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/admin/static/css/web2py_bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.8400621" vertical-offset="2370" max-vertical-offset="4050" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/talk.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="107" column="36" selection-start="3081" selection-end="3081" vertical-scroll-proportion="0.102564104" vertical-offset="1473" max-vertical-offset="2760" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/test_STT.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="195" column="20" selection-start="5021" selection-end="5021" vertical-scroll-proportion="0.14644107" vertical-offset="2674" max-vertical-offset="7755" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/admin/controllers/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="27720" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/languages/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1920" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/models/db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="0" selection-start="3700" selection-end="3700" vertical-scroll-proportion="0.7300116" vertical-offset="0" max-vertical-offset="1726" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="175" column="0" selection-start="7540" selection-end="7540" vertical-scroll-proportion="0.0" vertical-offset="2025" max-vertical-offset="4755">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/ai_brain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="1" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="990">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="268" column="17" selection-start="7602" selection-end="7602" vertical-scroll-proportion="0.0" vertical-offset="3135" max-vertical-offset="5460">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/utility.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="243" selection-end="243" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="990">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/base_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="15" selection-start="2613" selection-end="2613" vertical-scroll-proportion="0.0" vertical-offset="1455" max-vertical-offset="1620">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="22" selection-start="186" selection-end="186" vertical-scroll-proportion="-8.4" vertical-offset="0" max-vertical-offset="675">
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="4" selection-start="1381" selection-end="1381" vertical-scroll-proportion="-39.0" vertical-offset="0" max-vertical-offset="1650">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="559" selection-end="559" vertical-scroll-proportion="-7.2" vertical-offset="0" max-vertical-offset="4380">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/topic_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="264" column="0" selection-start="7946" selection-end="7946" vertical-scroll-proportion="-37.8" vertical-offset="2940" max-vertical-offset="6405">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/talk.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="36" selection-start="3081" selection-end="3081" vertical-scroll-proportion="-19.375" vertical-offset="1140" max-vertical-offset="2760">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/views/default/test_STT.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="24" selection-start="1980" selection-end="1980" vertical-scroll-proportion="0.2659146" vertical-offset="1260" max-vertical-offset="7695">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6930">
           <folding>
-            <element signature="n#style#0;n#p#3;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#4;n#!!top" expanded="true" />
+            <element signature="e#24#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
