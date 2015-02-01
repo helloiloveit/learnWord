@@ -5,9 +5,9 @@ import logging
 from gluon import *
 
 
-from obj_definition import *
 from base_handler import *
 from intent_def import *
+from obj_definition import *
 
 log = logging.getLogger("h")
 log.setLevel(logging.DEBUG)
