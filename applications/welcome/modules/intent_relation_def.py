@@ -14,6 +14,10 @@ act_generator ={
 
 expected_intent_gen = {
     ASK_HOBBY:LIKE_SMTH,
+    ASK_DISTANCE: [
+                    DISTANCE_INFO,
+                    DOING_SMTH
+                   ],
     None:None
 }
 

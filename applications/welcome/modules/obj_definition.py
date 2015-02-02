@@ -217,10 +217,9 @@ class running_act(act_base):
     """
     def __init__(self, name):
         super(running_act,self).__init__(RUNNING_ACT, [health_obj,fun_obj], ['energy', 'time'], '')
+        self.user_name = name
         self.fun = 'fun or boring'
         self.have_time_for_other_thing = 'yes'
-        self.distance = '20 km'
-        self.timing = 'weekend'
         #necesssary thing
         self.place = ''
         self.time = ''
@@ -229,8 +228,19 @@ class running_act(act_base):
             ASK_DISTANCE:self.get_distance,
             ASK_WHY_LIKE:self.why,
             ASK_DURATION:self.duration_info,
-            ASK_HOW_TO_DO: self.how_to_do
+            ASK_HOW_TO_DO: self.how_to_do,
+            DISTANCE_INFO:self.receive_distance
         }
+        self.load_db(name)
+    def load_db(self, user_name):
+        if user_name == 'ai':
+            self.distance = '20 km'
+            self.timing = 'weekend'
+        else:
+            self.distance = session.distance_info
+            self.timing = ''
+    def save_db(self, distance):
+        session.distance_info = distance
     def need_smth(self):
         """
         return necessary thing that is missing
@@ -240,6 +250,12 @@ class running_act(act_base):
         else:
             return 'nothing'
 
+    def receive_distance(self, json_data):
+        msg = 'nice'
+        data = data_format.saying(msg, COMPLIMENT, 'compliment')
+        distance_info = ai_json(json_data).get_entity(DISTANCE)
+        self.save_db(distance_info)
+        return data
 
     def how_to_do(self, json_data):
         msg = 'i practice it every week'
@@ -247,7 +263,7 @@ class running_act(act_base):
         return data
     def get_distance(self, json_data):
         msg = 'i run ' + self.distance + ' in ' + self.timing
-        data = data_format.saying(msg, DISTANCE_INFO, 'distance')
+        data = data_format.saying(msg, DISTANCE_INFO, RUNNING_ACT   )
         return data
     def why(self, json_data):
         msg = 'because it fun and good for health'
@@ -265,8 +281,12 @@ class running_act(act_base):
         msg = self.answer_topic[intent](json_data)
         return msg
     def ask(self):
-        user_obj =user_factory().user()
-        return ''
+        data = ''
+        if self.distance == None:
+            msg = 'how long do you run'
+            data = data_format.saying(msg, ASK_DISTANCE, RUNNING_ACT)
+
+        return data
 
 
 
@@ -281,15 +301,12 @@ class hobby(object):
         self.load_db(name)
 
     def save_to_db(self, act):
-        session.user_act = act
+        session.user_act = [act]
     def load_db(self, name):
         if name == 'ai':
             self.list = [running_act(name)]
         else:
-            if session.user_act:
-                self.list = [running_act(name)]
-            else:
-                self.list = []
+            self.list = session.user_act
     def ans_like_smth(self,json_data):
         """
         save answer of hobby to db
@@ -299,8 +316,9 @@ class hobby(object):
 
         msg = 'nice'
         self.save_to_db(activity_info)
+        data = data_format.saying(msg, COMPLIMENT, WORKING_ACT)
 
-        return msg
+        return data
     def get_by_name(self, name):
         for temp in self.list:
             if name in temp.get_name():
@@ -324,7 +342,7 @@ class hobby(object):
         return 'what is your hobby?'
     def generate_question(self):
         msg = ''
-        if not len(self.get_all()):
+        if not self.list:
             msg = self.ask_hobby()
         data = data_format.saying(msg, ASK_HOBBY, 'hobby')
         return data
@@ -345,6 +363,9 @@ class human_obj(user_obj):
         self.doing_now = waiting_act(act_name)
         self.doing = [traveling_act(), working_act()]
         self.hobby = hobby(name)
+        self.answer_topic = {
+            ASK_WHAT_ARE_U_DOING: self.what_are_u_doing
+        }
         pass
     def get_doing_now(self):
         return self.doing_now
@@ -352,6 +373,15 @@ class human_obj(user_obj):
         return self.doing_now.get_name()
     def get_doing_info(self):
         return self.doing
+    def what_are_u_doing(self, json_data):
+        msg = 'im waiting.'
+        data = data_format.saying(msg, DOING_SMTH, 'doing')
+        return data
+    def handler(self, json_data):
+        intent = ai_json(json_data).get_intent(0)
+        msg = self.answer_topic[intent](json_data)
+        return msg
+
 
 
 

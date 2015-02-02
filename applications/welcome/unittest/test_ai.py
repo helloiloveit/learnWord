@@ -13,6 +13,9 @@ class TestGoToSomeWhere(unittest.TestCase):
         session.place = None
         session.topic_list = []
         session.intent_list = []
+        # set temporary variable for db = none
+        session.user_act = None
+        session.distance_info = None
 
     def json_data_go_to_place(self,saying, intent, target_place, urgent):
         json_data = {u'outcomes': [{u'entities': {u'level_of_urgent': [{u'value': urgent}],
@@ -146,7 +149,6 @@ class TestGoToSomeWhere(unittest.TestCase):
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'you could go there')
     """
-
     def testTalkAboutPersonalThing(self):
 
 
@@ -174,8 +176,11 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = 'nice'
         self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'working',  expected_msg)
 
-        expected_msg = 'i run 20 km in weekend'
+        expected_msg = 'i run 20 km in weekend. how long do you run'
         self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'nice'
+        self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
 
         expected_msg = 'i practice it every week'
         self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
@@ -185,8 +190,9 @@ class TestGoToSomeWhere(unittest.TestCase):
 
         expected_msg = '1 year'
         self.check_message_with_entity('how long have you been running?', ASK_DURATION, ACTIVITY_INFO, 'running', expected_msg)
-
     def testTalkHobby(self):
+
+
         expected_msg = 'hello. how are you'
         self.check_message_with_no_entity('hello', GREETING, expected_msg)
 
@@ -196,8 +202,11 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = 'nice'
         self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'working',  expected_msg)
 
-        expected_msg = 'i run 20 km in weekend'
+        expected_msg = 'i run 20 km in weekend. how long do you run'
         self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'nice'
+        self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
 
         expected_msg = 'i practice it every week'
         self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
@@ -265,7 +274,7 @@ class TestGoToSomeWhere(unittest.TestCase):
 
         json_data = self.json_no_entity('whatre u doing', ASK_WHAT_ARE_U_DOING)
         msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'im waiting. Could you tell me when will the bus arrive?')
+        self.assertEqual(msg, 'im waiting.')
 
         json_data = self.json_no_entity('hello may i help you?', OFFER_HELP)
         msg = handle_topic_data(json_data)

@@ -6,8 +6,6 @@ from gluon import *
 
 
 from base_handler import *
-from intent_def import *
-from obj_definition import *
 
 log = logging.getLogger("h")
 log.setLevel(logging.DEBUG)
@@ -132,7 +130,6 @@ class ask_hobby_handler(base_intent_handler):
             hobby = self.user.hobby
         else:
             hobby = self.me.hobby
-        #saying = brain().return_message(hobby, self.intent)
         reply = hobby.handler(self.json_data)
         memory_handler().save_to_short_memory(ANSWER_FLAG, 'ai',self.json_data, reply)
         ask = self.user.hobby.generate_question()
@@ -202,15 +199,10 @@ class ask_what_are_u_doing_handler(base_intent_handler):
     def __init__(self, base_json):
         super(ask_what_are_u_doing_handler, self).__init__(base_json)
     def generate_intent(self):
-        act = self.me.get_doing_now()
-        data = [{'intent':act.get_name(),'entity':''}]
         return data
     def return_msg(self):
-        new_intent = self.generate_intent()
-        reply_msg = generate_msg_to_say(new_intent).msg()
-        memory_handler().set_last_intent(new_intent)
-        new_msg = brain().create_message(self.me.get_doing_now())
-        msg = reply_msg + '. ' + new_msg
+        reply_msg = self.me.handler(self.json_data)
+        msg = reply_msg['saying']
         return msg
 
 class emotional_expression(base_intent_handler):

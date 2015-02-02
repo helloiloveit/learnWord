@@ -10,6 +10,7 @@
 #########################################################################
 
 from topic_handler import *
+from ai_brain import *
 
 
 def index():
@@ -126,8 +127,7 @@ def handle_intent(intent, json_data):
     #in case there's expected intent
     if memory_handler().get_expected_intent():
         if intent in memory_handler().get_expected_intent():
-            msg = memory_handler().get_handler().handler(json_data)
-            memory_handler().set_expected_intent(None)
+            msg = brain().think_with_expected( json_data)
             return msg
         else:
             msg = 'im expecting you to say about %s '% (memory_handler().get_expected_intent())
@@ -135,8 +135,8 @@ def handle_intent(intent, json_data):
     else:
         for topic in memory_handler().get_topic_list():
             if intent in topic_intent_dic[topic]['intent']:
-                msg = topic_intent_dic[topic]['class']('ai').handler(json_data)
-                return msg['saying']
+                msg = brain().think(topic, json_data)
+                return msg
 
 
     # normal case

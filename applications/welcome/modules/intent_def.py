@@ -7,6 +7,7 @@ TIME_INFO = 'time_info'
 DISTANCE_INFO ='distance_info'
 DURATION_INFO = 'duration_info'
 METHOD_TO_GO = 'method_to_go'
+DOING_SMTH = 'doing_smth'
 
 #personal assistant
 ASK_WHAT_SHOULD_I_DO = 'ask_what_should_i_do'
@@ -44,7 +45,7 @@ DONT_NO ='say_dont_no'
 
 #introduce
 INTRODUCE_MYSELF = 'introduce_myself'
-
+COMPLIMENT = 'compliment'
 
 #stop conversation
 STOP_CONVERSATION = 'stop_conversation'

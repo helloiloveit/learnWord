@@ -49,11 +49,21 @@ class memory_handler(object):
     def count(self):
         return len(session.intent_list)
     # expected intent
-    def set_expected_intent(self, intent):
+    def set_expected_intent(self, intent, topic):
+        if not intent:
+            session.expected_intent = None
+            return
         expected_intent = expected_intent_gen[intent]
-        session.expected_intent = expected_intent
+        data = {
+            'class':topic,
+            'intent':expected_intent
+        }
+        session.expected_intent = data
     def get_expected_intent(self):
-        return session.expected_intent
+        try:
+            return session.expected_intent['intent']
+        except:
+            return ''
     def set_next_handler(self,user, intent):
         temp = {'user':'',
                 'handler':''}
@@ -75,7 +85,9 @@ class memory_handler(object):
         get info from session
         return obj to handle intent
         """
-        return hobby('huy')
+        topic_name = session.expected_intent['class']
+        class_name = topic_intent_dic[topic_name]['class']
+        return class_name('huy')
 
     def save_to_short_memory(self, flag, user, json_data, message):
         if not message['saying']:
@@ -84,7 +96,7 @@ class memory_handler(object):
         memory_handler().set_last_intent(json_data)
         memory_handler().set_last_topic(message['topic'])
         if flag == ASK_FLAG:
-            memory_handler().set_expected_intent(message['intent'])
+            memory_handler().set_expected_intent(message['intent'], message['topic'])
 
 
 

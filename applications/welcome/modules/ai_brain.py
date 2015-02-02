@@ -35,20 +35,31 @@ class brain(object):
         exp: talke about hobby: make question of hobby to user
         """
 
+    def think_with_expected(self, json_data):
+        msg = memory_handler().get_handler().handler(json_data)
+        memory_handler().set_expected_intent(None, None)
+        return msg['saying']
 
-    def think(self, topic_obj, message_data):
+    def think(self, topic_name, json_data):
         """
         each ai character will be shown here
         tend to ask more
         or listen more
         """
         msg = ''
-        reply_msg = message_data['saying']
+        topic_class = topic_intent_dic[topic_name]['class']
+        reply_data = topic_class('ai').handler(json_data)
+        reply_msg = reply_data['saying']
+        ask_data = topic_class('huy').ask()
         """
         ask_msg = topic_obj.ask()
         msg = reply_msg + '. ' + ask_msg
         """
-        msg = reply_msg
+        if   ask_data:
+            memory_handler().save_to_short_memory(ASK_FLAG, 'ai', '',ask_data)
+            msg = reply_msg + '. ' + ask_data['saying']
+        else:
+            msg = reply_msg
 
         return msg
 
