@@ -225,12 +225,14 @@ class running_act(act_base):
         self.time = ''
         self.weather = ''
         self.answer_topic = {
-            ASK_DISTANCE:self.get_distance,
-            ASK_WHY_LIKE:self.why,
-            ASK_DURATION:self.duration_info,
-            ASK_HOW_TO_DO: self.how_to_do,
-            DISTANCE_INFO:self.receive_distance
+            ASK_DISTANCE:{'handler': self.get_distance, 'intent':DISTANCE_INFO, 'topic':RUNNING_ACT},
+            ASK_WHY_LIKE:{'handler': self.why, 'intent':MOTIVATION_INFO, 'topic': RUNNING_ACT},
+            ASK_DURATION:{'handler': self.duration_info, 'intent':DURATION_INFO,'topic':RUNNING_ACT},
+            ASK_HOW_TO_DO:{'handler':self.how_to_do, 'intent':PRACTISE_INFO, 'topic':RUNNING_ACT},
+            DISTANCE_INFO:{'handler':self.receive_distance, 'intent': COMPLIMENT, 'topic':RUNNING_ACT},
+            DOING_SMTH:{'handler':self.doing_smth, 'intent': COMPLIMENT, 'topic':RUNNING_ACT}
         }
+
         self.load_db(name)
     def load_db(self, user_name):
         if user_name == 'ai':
@@ -238,9 +240,12 @@ class running_act(act_base):
             self.timing = 'weekend'
         else:
             self.distance = session.distance_info
-            self.timing = ''
-    def save_db(self, distance):
-        session.distance_info = distance
+            self.timing = session.timing_info
+    def save_db(self, distance, time_info):
+        if distance:
+            session.distance_info = distance
+        if time_info:
+            session.timing_info = time_info
     def need_smth(self):
         """
         return necessary thing that is missing
@@ -252,39 +257,46 @@ class running_act(act_base):
 
     def receive_distance(self, json_data):
         msg = 'nice'
-        data = data_format.saying(msg, COMPLIMENT, 'compliment')
         distance_info = ai_json(json_data).get_entity(DISTANCE)
-        self.save_db(distance_info)
-        return data
+        self.save_db(distance_info,'')
+        return msg
+    def doing_smth(self, json_data):
+        msg = 'nice'
+        datetime = ai_json(json_data).get_entity(DATETIME)
+        self.save_db('', datetime)
+        return msg
 
     def how_to_do(self, json_data):
         msg = 'i practice it every week'
-        data = data_format.saying(msg, PRACTISE_INFO, 'practise')
-        return data
+        return msg
     def get_distance(self, json_data):
         msg = 'i run ' + self.distance + ' in ' + self.timing
-        data = data_format.saying(msg, DISTANCE_INFO, RUNNING_ACT   )
-        return data
+        return msg
     def why(self, json_data):
         msg = 'because it fun and good for health'
-        data= data_format.saying(msg, MOTIVATION_INFO, 'motivation')
-        return data
+        return msg
     def duration_info(self, json_data):
         msg =  '1 year'
-        data= data_format.saying(msg, DURATION_INFO, 'motivation')
-        return data
-
-
+        return msg
+    def ask_distance(self):
+        return 'how long do you run'
+    def ask_timing(self):
+        return 'when do you run'
     ###############
     def handler(self,json_data):
         intent = ai_json(json_data).get_intent(0)
-        msg = self.answer_topic[intent](json_data)
-        return msg
+        dic_info = self.answer_topic[intent]
+        msg = dic_info['handler'](json_data)
+        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+        return data
     def ask(self):
         data = ''
         if self.distance == None:
-            msg = 'how long do you run'
+            msg = self.ask_distance()
             data = data_format.saying(msg, ASK_DISTANCE, RUNNING_ACT)
+        elif self.timing == None:
+            msg = self.ask_timing()
+            data = data_format.saying(msg, ASK_TIME, RUNNING_ACT)
 
         return data
 
@@ -340,7 +352,7 @@ class hobby(object):
         return data
     def ask_hobby(self):
         return 'what is your hobby?'
-    def generate_question(self):
+    def ask(self):
         msg = ''
         if not self.list:
             msg = self.ask_hobby()

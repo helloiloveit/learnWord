@@ -132,7 +132,7 @@ class ask_hobby_handler(base_intent_handler):
             hobby = self.me.hobby
         reply = hobby.handler(self.json_data)
         memory_handler().save_to_short_memory(ANSWER_FLAG, 'ai',self.json_data, reply)
-        ask = self.user.hobby.generate_question()
+        ask = self.user.hobby.ask()
         memory_handler().save_to_short_memory(ASK_FLAG, 'huy',self.json_data, ask)
         saying = reply['saying'] + '. ' + ask['saying']
         #set expected intent

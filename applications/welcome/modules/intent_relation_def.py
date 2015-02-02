@@ -18,6 +18,10 @@ expected_intent_gen = {
                     DISTANCE_INFO,
                     DOING_SMTH
                    ],
+    ASK_TIME: [
+        TIME_INFO,
+        DOING_SMTH
+    ],
     None:None
 }
 

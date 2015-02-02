@@ -26,7 +26,7 @@ ASK_WHAT_TO_DO = 'ask_what_to_do'
 ASK_HOBBY = 'ask_hobby'
 #ask distance, duration
 ASK_DURATION= 'ask_duration_of_doing_smth'
-ASK_DISTANCE= 'ask_distance_of_doing_smth'
+ASK_DISTANCE= 'ask_distance'
 
 ASK_CONTACT_INFO = 'ask_contact_info'
 ASK_WHAT_ARE_U_DOING = 'ask_what_are_u_doing'

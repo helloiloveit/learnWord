@@ -16,6 +16,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         # set temporary variable for db = none
         session.user_act = None
         session.distance_info = None
+        session.timing_info = None
 
     def json_data_go_to_place(self,saying, intent, target_place, urgent):
         json_data = {u'outcomes': [{u'entities': {u'level_of_urgent': [{u'value': urgent}],
@@ -182,14 +183,13 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = 'nice'
         self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
 
-        expected_msg = 'i practice it every week'
-        self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
-
+        """
         expected_msg = 'because it fun and good for health'
         self.check_message_with_entity('why do you like running?', ASK_WHY_LIKE,ACTIVITY_INFO,'running', expected_msg)
 
         expected_msg = '1 year'
         self.check_message_with_entity('how long have you been running?', ASK_DURATION, ACTIVITY_INFO, 'running', expected_msg)
+        """
     def testTalkHobby(self):
 
 
@@ -208,8 +208,11 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = 'nice'
         self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
 
-        expected_msg = 'i practice it every week'
+        expected_msg = 'i practice it every week. when do you run'
         self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'nice'
+        self.check_message_with_entity('i run in the weekend too', DOING_SMTH , DATETIME, 'weekend',  expected_msg)
 
 
 

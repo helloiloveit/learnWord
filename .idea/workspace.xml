@@ -26,10 +26,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="default.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="default.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="129" column="37" selection-start="3875" selection-end="3875" vertical-scroll-proportion="-12.0" vertical-offset="1635" max-vertical-offset="4380">
+            <state line="127" column="0" selection-start="3730" selection-end="3730" vertical-scroll-proportion="0.57888764" vertical-offset="1395" max-vertical-offset="4380">
               <folding>
                 <element signature="e#531#558#0" expanded="true" />
               </folding>
@@ -40,7 +40,7 @@
       <file leaf-file-name="topic_handler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/topic_handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="0" selection-start="4002" selection-end="4002" vertical-scroll-proportion="-11.4" vertical-offset="1695" max-vertical-offset="6810">
+            <state line="102" column="6" selection-start="3013" selection-end="3013" vertical-scroll-proportion="-22.2" vertical-offset="975" max-vertical-offset="6810">
               <folding>
                 <element signature="e#24#38#0" expanded="true" />
               </folding>
@@ -48,10 +48,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ai_brain.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ai_brain.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/ai_brain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="0" selection-start="884" selection-end="884" vertical-scroll-proportion="0.33598185" vertical-offset="274" max-vertical-offset="1155">
+            <state line="38" column="0" selection-start="884" selection-end="884" vertical-scroll-proportion="-22.8" vertical-offset="0" max-vertical-offset="1155">
               <folding>
                 <element signature="e#24#38#0" expanded="true" />
               </folding>
@@ -71,7 +71,7 @@
       <file leaf-file-name="intent_relation_def.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="24" selection-start="698" selection-end="698" vertical-scroll-proportion="-21.0" vertical-offset="0" max-vertical-offset="690">
+            <state line="22" column="18" selection-start="374" selection-end="374" vertical-scroll-proportion="-11.4" vertical-offset="0" max-vertical-offset="750">
               <folding />
             </state>
           </provider>
@@ -80,7 +80,7 @@
       <file leaf-file-name="intent_def.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="0" selection-start="1088" selection-end="1088" vertical-scroll-proportion="-16.04" vertical-offset="319" max-vertical-offset="1665">
+            <state line="28" column="28" selection-start="652" selection-end="652" vertical-scroll-proportion="-16.8" vertical-offset="0" max-vertical-offset="1665">
               <folding />
             </state>
           </provider>
@@ -89,7 +89,7 @@
       <file leaf-file-name="obj_definition.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="344" column="0" selection-start="9936" selection-end="9936" vertical-scroll-proportion="-18.0" vertical-offset="4650" max-vertical-offset="5850">
+            <state line="264" column="37" selection-start="7807" selection-end="7807" vertical-scroll-proportion="-22.04" vertical-offset="3349" max-vertical-offset="6030">
               <folding />
             </state>
           </provider>
@@ -98,7 +98,7 @@
       <file leaf-file-name="test_ai.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="194" column="0" selection-start="8525" selection-end="8525" vertical-scroll-proportion="-15.44" vertical-offset="2524" max-vertical-offset="4890">
+            <state line="214" column="76" selection-start="9449" selection-end="9449" vertical-scroll-proportion="-28.2" vertical-offset="2505" max-vertical-offset="4935">
               <folding />
             </state>
           </provider>
@@ -157,14 +157,14 @@
         <option value="$PROJECT_DIR$/applications/welcome/views/default/test_STT.html" />
         <option value="$PROJECT_DIR$/applications/welcome/models/db.py" />
         <option value="$PROJECT_DIR$/applications/welcome/modules/utility.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_def.py" />
         <option value="$PROJECT_DIR$/applications/welcome/modules/base_handler.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/controllers/default.py" />
         <option value="$PROJECT_DIR$/applications/welcome/modules/topic_handler.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/unittest/test_ai.py" />
-        <option value="$PROJECT_DIR$/applications/welcome/modules/obj_definition.py" />
         <option value="$PROJECT_DIR$/applications/welcome/modules/ai_brain.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/unittest/test_ai.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/obj_definition.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/modules/intent_def.py" />
+        <option value="$PROJECT_DIR$/applications/welcome/controllers/default.py" />
       </list>
     </option>
   </component>
@@ -694,6 +694,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16370699" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2366167" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14025696" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24834749" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2658228" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -704,7 +705,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14025696" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -976,48 +976,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="37" selection-start="3875" selection-end="3875" vertical-scroll-proportion="-12.0" vertical-offset="1635" max-vertical-offset="4380">
-          <folding>
-            <element signature="e#531#558#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/topic_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="0" selection-start="4002" selection-end="4002" vertical-scroll-proportion="-11.4" vertical-offset="1695" max-vertical-offset="6810">
-          <folding>
-            <element signature="e#24#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/unittest/test_ai.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="0" selection-start="8525" selection-end="8525" vertical-scroll-proportion="-15.44" vertical-offset="2524" max-vertical-offset="4890">
+        <state line="214" column="76" selection-start="9449" selection-end="9449" vertical-scroll-proportion="-28.2" vertical-offset="2505" max-vertical-offset="4935">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/obj_definition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="344" column="0" selection-start="9936" selection-end="9936" vertical-scroll-proportion="-18.0" vertical-offset="4650" max-vertical-offset="5850">
+        <state line="264" column="37" selection-start="7807" selection-end="7807" vertical-scroll-proportion="-22.04" vertical-offset="3349" max-vertical-offset="6030">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1088" selection-end="1088" vertical-scroll-proportion="-16.04" vertical-offset="319" max-vertical-offset="1665">
+        <state line="28" column="28" selection-start="652" selection-end="652" vertical-scroll-proportion="-16.8" vertical-offset="0" max-vertical-offset="1665">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_relation_def.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="24" selection-start="698" selection-end="698" vertical-scroll-proportion="-21.0" vertical-offset="0" max-vertical-offset="690">
+        <state line="22" column="18" selection-start="374" selection-end="374" vertical-scroll-proportion="-11.4" vertical-offset="0" max-vertical-offset="750">
           <folding />
         </state>
       </provider>
@@ -1031,9 +1013,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/ai_brain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="884" selection-end="884" vertical-scroll-proportion="0.33598185" vertical-offset="274" max-vertical-offset="1155">
+        <state line="38" column="0" selection-start="884" selection-end="884" vertical-scroll-proportion="-22.8" vertical-offset="0" max-vertical-offset="1155">
           <folding>
             <element signature="e#24#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/modules/topic_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="6" selection-start="3013" selection-end="3013" vertical-scroll-proportion="-22.2" vertical-offset="975" max-vertical-offset="6810">
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/welcome/controllers/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="127" column="0" selection-start="3730" selection-end="3730" vertical-scroll-proportion="0.57888764" vertical-offset="1395" max-vertical-offset="4380">
+          <folding>
+            <element signature="e#531#558#0" expanded="true" />
           </folding>
         </state>
       </provider>
