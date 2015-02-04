@@ -38,7 +38,24 @@ class place_obj(object):
     def access_time(self):
         return '8-12AM, 13-17 PM'
 
-class job_obj(object):
+
+
+class obj_intent_base(object):
+    def __init__(self):
+        pass
+
+    def handler(self, json_data):
+        intent = ai_json(json_data).get_intent(0)
+        dic_info = self.answer_topic[intent]
+        msg = dic_info['handler'](json_data)
+        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+        return data
+
+
+
+
+
+class job_obj(obj_intent_base):
     def __init__(self, name):
         self.name = name
         #get information from somewhere
@@ -47,7 +64,13 @@ class job_obj(object):
         elif self.name == 'worker':
             self.initialze_info(7, 10, 'bad')
 
+        self.answer_topic = {
+            ASK_JOB:{'handler':self.what_is, 'intent': IT_IS_SMTH, 'topic':JOB_TOPIC}
+        }
 
+    def what_is(self, json_data):
+        msg =  self.name
+        return msg
 
     def initialze_info(self, salary, working_hour, social_status):
         self.salary =salary
@@ -72,8 +95,11 @@ class user_obj(object):
     def intialize_info(self, name, age, work, position):
         self.name = name
         self.age = age
-        self.work = job_obj(work)
-        self.position = work
+        if work:
+            self.work = job_obj(work)
+        else:
+            self.work = None
+        self.position = position
         pass
     def get_position(self):
         return self.position
@@ -101,10 +127,101 @@ class user_obj(object):
                 return 'this job is ok'
 
 class health_obj(object):
-    def __init__(self):
+    def __init__(self, name):
+        if name == RUNNING_ACT:
+            self.status = 'good'
+        else:
+            self.status = 'unknown'
+    def get_status(self ):
+        msg = 'it is ' + self.status + ' for health'
+        return msg
+
+    def handler(self, json_data):
+        data = ''
+        intent = ai_json(json_data).get_intent(0)
+        if intent == ASK_HEALTH_STS:
+            msg = self.get_status()
+            data = data_format.saying(msg, ADJECTIVE_INFO, HEALTH_OBJ)
+        return data
+
+
+
+
+class distance_obj(object):
+    def __init__(self, name):
+        """
+        init according to name of object
+        """
+        self.distance = ''
+        self.average = ''
+        if name == RUNNING_ACT:
+            self.average = 5
+    def get_value(self):
+        return self.distance
+    def set_value(self, value):
+        self.distance = value
+
+    def handler(self, json_data):
+        msg = self.distance
+        data = data_format.saying(msg, DISTANCE_INFO, RUNNING_ACT)
+        return data
+
+class greeting_obj(object):
+    def __init__(self, name):
+        self.answer_topic = {
+            GREETING:{'handler':self.reply, 'intent': GREETING, 'topic':GREETING_ACT},
+            EMOTIONAL_EXPRESSION:{'handler':self.reply_emotional, 'intent': GREETING, 'topic':GREETING_ACT},
+        }
+        self.load_db()
+
+    def load_db(self):
+        self.greeting_flag = session.greeting_flag
+        self.ask_topic =[
+            {'value':self.greeting_flag, 'handler':self.ask_greeting, 'intent':GREETING, 'topic':GREETING_ACT}
+        ]
+
+    def save_db(self, greeting):
+        session.greeting_flag = greeting
+        self.load_db()
+    def reply_emotional(self, json_data):
+        info = ai_json(json_data).get_entity(FEELING)
+        msg ='great'
+        if info == 'happy':
+            msg = 'great'
+        elif info == 'bad':
+            msg = 'sorry to know that'
+        self.save_db(True)
+        return msg
+    def reply(self, json_data):
+        msg = 'hello'
+        level = ai_json(json_data).get_entity(GREETING_LEVEL)
+        activity_info =ai_json(json_data).get_entity(ACTIVITY_INFO)
+        if level or activity_info:
+            msg = 'im doing very well'
+        return msg
+
+    def ask_greeting(self):
+        msg ='And you. How are u doing?'
+        return msg
+
+    def handler(self, json_data):
+        intent = ai_json(json_data).get_intent(0)
+        dic_info = self.answer_topic[intent]
+        msg = dic_info['handler'](json_data)
+        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+        return data
         pass
-    def check_if_good_or_bad(self, activity):
-        return 'good'
+    def ask(self):
+        data = ''
+        for dic_info in self.ask_topic:
+            if not dic_info['value']:
+                msg = dic_info['handler']()
+                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+                return data
+
+
+        return data
+
 class fun_obj(object):
     def __init__(self):
         pass
@@ -112,11 +229,17 @@ class fun_obj(object):
         return 'fun'
 
 class act_base(object):
+    """
+    base info for an activity
+    """
     def __init__(self, name,
                  why_doing,
                  resouce_consuming,
                  impact_to_other):
         self.name = name
+        self.start_time =''
+        self.end_time =''
+        self.happening = ''
         self.motivation = why_doing
         self.resource_consuming  = resouce_consuming,
         self.impact_to_other = impact_to_other
@@ -210,6 +333,24 @@ class waiting_act(act_base):
     def get_target(self):
         return self.target
 
+class timming_obj(object):
+    """
+    handle time info for act
+    """
+    def __init__(self):
+        self.start =''
+        self.end =''
+        self.repeat=''
+        self.answer_topic = {
+
+        }
+    def handler(self, json_data):
+        intent = ai_json(json_data).get_intent(0)
+        if intent == ASK_TIME:
+            msg = 'i run in' + self.timing
+        pass
+
+
 class running_act(act_base):
     """
     define action
@@ -218,19 +359,22 @@ class running_act(act_base):
     def __init__(self, name):
         super(running_act,self).__init__(RUNNING_ACT, [health_obj,fun_obj], ['energy', 'time'], '')
         self.user_name = name
-        self.fun = 'fun or boring'
-        self.have_time_for_other_thing = 'yes'
-        #necesssary thing
-        self.place = ''
-        self.time = ''
-        self.weather = ''
+        self.health_sts = health_obj(RUNNING_ACT)
         self.answer_topic = {
+            #maybe same to every action
+            ASK_HEALTH_STS:{'handler':self.health_sts},
+
+
+            #end same
             ASK_DISTANCE:{'handler': self.get_distance, 'intent':DISTANCE_INFO, 'topic':RUNNING_ACT},
             ASK_WHY_LIKE:{'handler': self.why, 'intent':MOTIVATION_INFO, 'topic': RUNNING_ACT},
             ASK_DURATION:{'handler': self.duration_info, 'intent':DURATION_INFO,'topic':RUNNING_ACT},
             ASK_HOW_TO_DO:{'handler':self.how_to_do, 'intent':PRACTISE_INFO, 'topic':RUNNING_ACT},
             DISTANCE_INFO:{'handler':self.receive_distance, 'intent': COMPLIMENT, 'topic':RUNNING_ACT},
-            DOING_SMTH:{'handler':self.doing_smth, 'intent': COMPLIMENT, 'topic':RUNNING_ACT}
+            DOING_SMTH:{'handler':self.doing_smth, 'intent': COMPLIMENT, 'topic':RUNNING_ACT},
+            ASK_TIME:{'handler':self.get_time, 'intent': TIME_INFO, 'topic':RUNNING_ACT},
+            TIME_INFO:{'handler':self.receive_time, 'intent': DATETIME, 'topic':RUNNING_ACT}
+
         }
 
         self.load_db(name)
@@ -238,14 +382,25 @@ class running_act(act_base):
         if user_name == 'ai':
             self.distance = '20 km'
             self.timing = 'weekend'
+            self.start_time = '2 years'
         else:
             self.distance = session.distance_info
             self.timing = session.timing_info
-    def save_db(self, distance, time_info):
+            self.start_time = session.start_time
+        self.ask_topic =[
+            {'value':self.distance, 'handler':self.ask_distance, 'intent':ASK_DISTANCE, 'topic':RUNNING_ACT},
+            {'value':self.timing, 'handler':self.ask_timing, 'intent':ASK_TIME, 'topic':RUNNING_ACT},
+            {'value':self.start_time, 'handler':self.ask_start_time, 'intent':ASK_TIME, 'topic':RUNNING_ACT}
+
+        ]
+    def save_db(self, distance, time_info , start_time):
         if distance:
             session.distance_info = distance
         if time_info:
             session.timing_info = time_info
+        if start_time:
+            self.start_time = start_time
+        self.load_db(self.user_name)
     def need_smth(self):
         """
         return necessary thing that is missing
@@ -258,12 +413,12 @@ class running_act(act_base):
     def receive_distance(self, json_data):
         msg = 'nice'
         distance_info = ai_json(json_data).get_entity(DISTANCE)
-        self.save_db(distance_info,'')
+        self.save_db(distance_info,'','')
         return msg
     def doing_smth(self, json_data):
         msg = 'nice'
         datetime = ai_json(json_data).get_entity(DATETIME)
-        self.save_db('', datetime)
+        self.save_db('', datetime,'')
         return msg
 
     def how_to_do(self, json_data):
@@ -272,6 +427,20 @@ class running_act(act_base):
     def get_distance(self, json_data):
         msg = 'i run ' + self.distance + ' in ' + self.timing
         return msg
+    def get_time(self,json_data):
+        start_stop_info = ai_json(json_data).get_entity(START_STOP_INFO)
+        if start_stop_info:
+            msg = 'i started running ' + self.start_time + ' ago'
+            return msg
+        msg = 'i run in ' + self.timing
+        return msg
+    def receive_time(self,json_data):
+        msg = 'nice'
+        start_time = ai_json(json_data).get_entity(DATETIME)
+        session.start_time = start_time
+        self.save_db('','',start_time)
+        return msg
+
     def why(self, json_data):
         msg = 'because it fun and good for health'
         return msg
@@ -282,21 +451,27 @@ class running_act(act_base):
         return 'how long do you run'
     def ask_timing(self):
         return 'when do you run'
+    def ask_start_time(self):
+        return 'when did you start running'
     ###############
     def handler(self,json_data):
         intent = ai_json(json_data).get_intent(0)
         dic_info = self.answer_topic[intent]
+        if intent == ASK_HEALTH_STS:
+            data = dic_info['handler'].handler(json_data)
+            return data
+
         msg = dic_info['handler'](json_data)
         data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
         return data
     def ask(self):
         data = ''
-        if self.distance == None:
-            msg = self.ask_distance()
-            data = data_format.saying(msg, ASK_DISTANCE, RUNNING_ACT)
-        elif self.timing == None:
-            msg = self.ask_timing()
-            data = data_format.saying(msg, ASK_TIME, RUNNING_ACT)
+        for dic_info in self.ask_topic:
+            if not dic_info['value']:
+                msg = dic_info['handler']()
+                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+                return data
+
 
         return data
 
@@ -314,6 +489,7 @@ class hobby(object):
 
     def save_to_db(self, act):
         session.user_act = [act]
+        self.load_db(self.name)
     def load_db(self, name):
         if name == 'ai':
             self.list = [running_act(name)]
@@ -353,10 +529,10 @@ class hobby(object):
     def ask_hobby(self):
         return 'what is your hobby?'
     def ask(self):
-        msg = ''
+        data = ''
         if not self.list:
             msg = self.ask_hobby()
-        data = data_format.saying(msg, ASK_HOBBY, 'hobby')
+            data = data_format.saying(msg, ASK_HOBBY, 'hobby')
         return data
     def handler(self, json_data):
         intent = ai_json(json_data).get_intent(0)

@@ -65,17 +65,21 @@ WAITING_ACT = 'waiting_act'
 STUDYING_ACT = 'studying_act'
 RUNNING_ACT = 'running'
 WORKING_ACT = 'working_act'
+GREETING_ACT ='greeting_act'
 
-
+ASK_HEALTH_STS = 'ask_health_sts'
 #digital assistant
 ASK_WHAT_MAKE_HAPPY = 'ask_what_make_happy'
 
-
+#time
+IT_IS_SMTH = 'it_is_smth'
 
 
 #subect
 IT_SUBJECT = 'it'
 
+#adjective
+ADJECTIVE_INFO = 'adjective_info'
 
 
 #wit.ai
@@ -90,7 +94,10 @@ DISTANCE ='distance'
 
 FEELING = 'feeling'
 LEVEL_OF_EXPRESSION = 'level_of_expression'
+GREETING_LEVEL ='greeting_level'
 
+#time
+START_STOP_INFO = 'start_stop_info'
 #introduce
 NAME_INFO = 'contact'
 
@@ -103,3 +110,9 @@ ANSWER_FLAG = 'asnwer'
 
 
 #****** End entity **********
+
+
+#define object
+HEALTH_OBJ = 'health_obj'
+HOBBY_TOPIC = 'hobby_topic'
+JOB_TOPIC = 'job_topic'

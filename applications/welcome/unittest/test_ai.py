@@ -5,7 +5,7 @@ file_path = os.path.join(os.getcwd(),'applications','welcome','unittest','setup_
 execfile(file_path, globals())
 from intent_def import *
 
-class TestGoToSomeWhere(unittest.TestCase):
+class Base_Test(unittest.TestCase):
     def setUp(self):
         set_up_basic_environment()
         session.time_to_go = None
@@ -14,10 +14,11 @@ class TestGoToSomeWhere(unittest.TestCase):
         session.topic_list = []
         session.intent_list = []
         # set temporary variable for db = none
+        session.expected_intent = None
         session.user_act = None
         session.distance_info = None
         session.timing_info = None
-
+        session.greeting_flag = None
     def json_data_go_to_place(self,saying, intent, target_place, urgent):
         json_data = {u'outcomes': [{u'entities': {u'level_of_urgent': [{u'value': urgent}],
                                                   u'target_place': [{u'value': target_place}]},
@@ -85,6 +86,10 @@ class TestGoToSomeWhere(unittest.TestCase):
     def check_reply_from_ai(self, intention, place, urgent, value, expected_return):
         question_msg = handler_user_saying(intention, place, urgent,value)
         self.assertEqual(question_msg, expected_return)
+
+class TestGoToSomeWhere(Base_Test):
+    def setUp(self):
+        super(TestGoToSomeWhere, self).setUp()
     """
     def testAskBasicInfo(self):
         user_ask = 'i want to go to school'
@@ -153,8 +158,6 @@ class TestGoToSomeWhere(unittest.TestCase):
     def testTalkAboutPersonalThing(self):
 
 
-        expected_msg = 'hello. how are you'
-        self.check_message_with_no_entity('hello', GREETING, expected_msg)
 
         expected_msg = 'ai'
         self.check_message_with_no_entity('what your name', ASK_NAME, expected_msg)
@@ -174,6 +177,7 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = 'i like running. what is your hobby?'
         self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
 
+        """
         expected_msg = 'nice'
         self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'working',  expected_msg)
 
@@ -183,7 +187,6 @@ class TestGoToSomeWhere(unittest.TestCase):
         expected_msg = 'nice'
         self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
 
-        """
         expected_msg = 'because it fun and good for health'
         self.check_message_with_entity('why do you like running?', ASK_WHY_LIKE,ACTIVITY_INFO,'running', expected_msg)
 
@@ -193,26 +196,58 @@ class TestGoToSomeWhere(unittest.TestCase):
     def testTalkHobby(self):
 
 
-        expected_msg = 'hello. how are you'
-        self.check_message_with_no_entity('hello', GREETING, expected_msg)
 
         expected_msg = 'i like running. what is your hobby?'
         self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
 
-        expected_msg = 'nice'
-        self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'working',  expected_msg)
+        expected_msg = 'nice.'
+        self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'running',  expected_msg)
 
         expected_msg = 'i run 20 km in weekend. how long do you run'
         self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
 
-        expected_msg = 'nice'
+        expected_msg = 'nice. when do you run'
         self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
 
-        expected_msg = 'i practice it every week. when do you run'
+        expected_msg = 'nice. when did you start running'
+        self.check_message_with_entity('i run in the weekend', DOING_SMTH , DATETIME, 'weekend',  expected_msg)
+
+        expected_msg = 'nice.'
+        self.check_message_with_entity('2 years ago', TIME_INFO, DATETIME,'2 years', expected_msg)
+
+        expected_msg = 'i practice it every week.'
         self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
 
-        expected_msg = 'nice'
-        self.check_message_with_entity('i run in the weekend too', DOING_SMTH , DATETIME, 'weekend',  expected_msg)
+        expected_msg = 'i run in weekend.'
+        self.check_message_with_entity('when do you run?', ASK_TIME , ACTIVITY_INFO, 'run',  expected_msg)
+
+
+        expected_msg = 'because it fun and good for health.'
+        self.check_message_with_entity('why do you like running?', ASK_WHY_LIKE,ACTIVITY_INFO,'running', expected_msg)
+
+        expected_msg = '1 year.'
+        self.check_message_with_entity('how long have you been running?', ASK_DURATION, ACTIVITY_INFO, 'running', expected_msg)
+
+        expected_msg = 'it is good for health.'
+        self.check_message_with_no_entity('is it good for health', ASK_HEALTH_STS, expected_msg)
+
+        expected_msg = 'i started running 2 years ago.'
+        self.check_message_with_entity('when did you start running?', ASK_TIME, START_STOP_INFO,'start', expected_msg)
+
+        """
+        expected_msg = 'yeah i love it. Its addictive.'
+        self.check_message_with_no_entity('do you enjoy it so far', ASK_OPINION_ABOUT_SOMETHING, expected_msg)
+        """
+
+    """
+    def testWhatAreUDoing(self):
+        expected_msg = 'hello.'
+        self.check_message_with_no_entity('hello', GREETING, expected_msg)
+
+
+        expected_msg = 'im traveling.'
+        self.check_message_with_entity('what are u doing', ASK_WHAT_ARE_U_DOING, CONTACT_TYPE, 'you', expected_msg)
+    """
 
 
 
@@ -272,8 +307,6 @@ class TestGoToSomeWhere(unittest.TestCase):
 
     def testBasicConversationInPublicPlace2(self):
 
-        expected_msg = 'hello. how are you'
-        self.check_message_with_no_entity('hello', GREETING , expected_msg)
 
         json_data = self.json_no_entity('whatre u doing', ASK_WHAT_ARE_U_DOING)
         msg = handle_topic_data(json_data)
@@ -307,6 +340,16 @@ class TestGoToSomeWhere(unittest.TestCase):
 
 
 
+class TestGreeting(Base_Test):
+    def setUp(self):
+        super(TestGreeting, self).setUp()
+
+    def testGreeting(self):
+        expected_msg = 'im doing very well. And you. How are u doing?'
+        self.check_message_with_entity('hello how are you doing', GREETING, GREETING_LEVEL,'how', expected_msg)
+
+        expected_msg = 'sorry to know that.'
+        self.check_message_with_entity('im doing terrible', EMOTIONAL_EXPRESSION,FEELING,'bad', expected_msg)
 
 
 
@@ -318,6 +361,7 @@ class TestGoToSomeWhere(unittest.TestCase):
 
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(TestGoToSomeWhere))
+suite.addTest(unittest.makeSuite(TestGreeting))
 unittest.TextTestRunner(verbosity=2).run(suite)
 
 

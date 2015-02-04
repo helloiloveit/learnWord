@@ -25,6 +25,8 @@ class base_intent_handler(object):
         self.json_data = json_data
     def generate_intent(self):
         pass
+    def ask(self):
+        pass
     def return_msg(self):
         return 'not implement this intent yet'
 

@@ -22,6 +22,10 @@ expected_intent_gen = {
         TIME_INFO,
         DOING_SMTH
     ],
+    GREETING:[
+        GREETING,
+        EMOTIONAL_EXPRESSION
+    ],
     None:None
 }
 
@@ -34,13 +38,21 @@ topic_intent_dic = {
     },
     RUNNING_ACT: {
         'intent':[
+                    ASK_HEALTH_STS,
                     ASK_DURATION,
                     ASK_DISTANCE,
                     ASK_WHY_LIKE,
-                    ASK_HOW_TO_DO
-
+                    ASK_HOW_TO_DO,
+                    ASK_TIME
                  ],
         'class' : running_act
+    },
+    GREETING_ACT:{
+        'intent':[
+            GREETING,
+            EMOTIONAL_EXPRESSION
+        ],
+        'class':greeting_obj
     }
 }
 

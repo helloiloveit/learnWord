@@ -19,9 +19,10 @@ class talk_about_people(object):
         - introduce it self
         - talk about hobby...etc
     """
-    def __init__(self, name):
+    def __init__(self, json_data):
+        self.json_data = json_data
         self.me = user_obj('ai')
-        self.talk_to = user_obj('huy')
+        self.user = user_obj('huy')
     def handle_user_saying(self, intention, entity):
         """
         same topic or new topic
@@ -32,23 +33,36 @@ class talk_about_people(object):
         elif 'old topic':
             msg = ' old topic'
         return msg
-
-    def handler_user_saying(self, intent):
+    def ask(self):
+        if not self.user.get_age():
+            msg = 'ask age'
+        elif not self.user.get_job():
+            msg = 'ask job'
+        return msg
+    def return_msg(self):
+        intent = ai_json(self.json_data).get_intent(0)
         if intent == ASK_AGE:
             msg = self.me.get_age()
         elif intent == ASK_NAME:
             msg = self.me.get_name()
         elif intent == ASK_JOB:
-            msg = self.me.get_job().get_name()
+            msg = self.me.get_job().handler(self.json_data)
         return msg
 
 class greeting_handler(base_intent_handler):
     def __init__(self, json_data):
         super(greeting_handler, self).__init__(json_data)
     def return_msg(self):
-        reply_msg = 'hello'
-        msg = reply_msg+ '. ' + 'how are you'
-        return msg
+        handler = greeting_obj('')
+        msg = handler.handler(self.json_data)
+        ask = handler.ask()
+        if ask:
+            data =  msg['saying'] + '. ' + ask['saying']
+            memory_handler().save_to_short_memory(ASK_FLAG, 'ai', '',ask)
+        else:
+            data = msg['saying']
+        return data
+
 
 
 
@@ -86,11 +100,27 @@ class generate_msg_to_say(object):
             total_msg += msg
         return total_msg
 
+class health_sts_handler(base_intent_handler):
+    def __init__(self, json_data):
+        super(health_sts_handler, self).__init__(json_data)
+    def return_msg(self):
+        msg = 'not implement yet %s'%(self.__class__)
+        return msg
+
+
+
 class ask_how_to_do_handler(base_intent_handler):
     def __init__(self, json_data):
         super(ask_how_to_do_handler, self).__init__(json_data)
     def return_msg(self):
         msg = self.__class__
+        return msg
+
+class ask_what_make_happy(base_intent_handler):
+    def __init__(self, json_data):
+        pass
+    def return_msg(self):
+        msg = 'learn new thing each day. Sir'
         return msg
 
 class ask_distance_handler(base_intent_handler):
@@ -160,6 +190,7 @@ class ask_opinion_about_sth(base_intent_handler):
 
 
     def return_msg(self):
+        import pdb; pdb.set_trace()
         msg = self.me.give_opinion(self.target)
         return msg
 
@@ -277,6 +308,7 @@ class ask_duration_handler(base_intent_handler):
         self.target_name = ai_json(self.json_data).get_entity(TARGET_NAME)
         self.activity_info = ai_json(self.json_data).get_entity(ACTIVITY_INFO)
     def generate_intent(self):
+        msg =''
         if  self.me.get_doing_now_info() in self.activity_info:
             msg = self.me.doing_now.reply(self.intent)
         for act in self.me.get_doing_info():
