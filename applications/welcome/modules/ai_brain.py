@@ -15,14 +15,11 @@ session = current.session
 
 
 handler_dic = {LIKE_SMTH: like_smth_handler,
-               GREETING: greeting_handler,
                OFFER_HELP: receive_offer_help_handler,
                TIME_INFO: time_info_handler,
-               INTRODUCE_MYSELF:introduce_myself_handler,
                ASK_DURATION: ask_duration_handler,
                ASK_CONTACT_INFO: ask_contact_info_handler,
                ASK_WHAT_ARE_U_DOING: ask_what_are_u_doing_handler,
-               ASK_HOBBY: ask_hobby_handler,
                ASK_DISTANCE: ask_distance_handler,
                ASK_WHY_LIKE: ask_why_like_handler,
                ASK_HOW_TO_DO: ask_how_to_do_handler,
@@ -34,7 +31,11 @@ handler_dic = {LIKE_SMTH: like_smth_handler,
               # ask personal info
                 ASK_AGE: talk_about_people,
                 ASK_NAME: talk_about_people,
-                ASK_JOB: talk_about_people
+                ASK_JOB: talk_about_people,
+                INTRODUCE_MYSELF: talk_about_people,
+                GREETING: talk_about_people,
+                ASK_HOBBY: talk_about_people,
+                NICE_TO_MEET_YOU: talk_about_people
 
                }
 
@@ -59,13 +60,22 @@ class brain(object):
         exp: talke about hobby: make question of hobby to user
         """
 
-    def merge_sentence(self, reply, ask):
+    def merge_sentence(self, reply, ask, json_data):
         if   ask:
             memory_handler().save_to_short_memory(ASK_FLAG, 'ai', '',ask)
             msg = reply['saying'] + '. ' + ask['saying']
         else:
             msg = reply['saying'] + '.'
+            memory_handler().save_to_short_memory(ANSWER_FLAG,'ai',json_data,reply )
         return msg
+
+    def not_ask_intent(self,intent, handler):
+        not_ask = [GREETING,  INTRODUCE_MYSELF]
+        if intent in not_ask:
+            ask_data = None
+        else:
+            ask_data = handler.ask()
+        return ask_data
 
     def think_with_expected(self, json_data):
         """
@@ -75,7 +85,9 @@ class brain(object):
         reply_data = topic_handler.handler(json_data)
         memory_handler().set_expected_intent(None, None)
         ask_data = topic_handler.ask()
-        msg = self.merge_sentence(reply_data, ask_data)
+        if not ask_data:
+            ask_data = talk_about_people('').ask()
+        msg = self.merge_sentence(reply_data, ask_data, json_data)
         return msg
 
     def think_with_not_prepare_topic(self, json_data):
@@ -84,14 +96,12 @@ class brain(object):
         """
         intent= ai_json(json_data).get_intent(0)
         handler = handler_dic[intent](json_data)
-        reply = handler.return_msg()
-        ask_data = handler.ask()
-        msg = reply
-        try:
-            msg = msg['saying']
-        except:
-            msg = msg
+        reply_data = handler.return_msg()
+
+        ask_data = self.not_ask_intent(intent, handler)
+        msg = self.merge_sentence(reply_data, ask_data, json_data)
         return msg
+
     def think(self, topic_name, json_data):
         """
         each ai character will be shown here
@@ -99,10 +109,11 @@ class brain(object):
         or listen more
         """
         msg = ''
+        intent= ai_json(json_data).get_intent(0)
         topic_class = topic_intent_dic[topic_name]['class']
         reply_data = topic_class('ai').handler(json_data)
-        ask_data = topic_class('huy').ask()
-        msg = self.merge_sentence(reply_data, ask_data)
+        ask_data = self.not_ask_intent(intent, topic_class('huy'))
+        msg = self.merge_sentence(reply_data, ask_data, json_data)
 
         return msg
 

@@ -72,7 +72,7 @@ class memory_handler(object):
         if user == 'ai':
             if intent == ASK_HOBBY:
                 temp = {'user':'ai',
-                        'handler':hobby}
+                        'handler':hobby_obj}
         return temp
     def set_last_topic(self, topic):
         """

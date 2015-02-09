@@ -51,6 +51,17 @@ def talk():
     return dict()
 
 def test_STT():
+    session.time_to_go = None
+    session.by_what = None
+    session.place = None
+    session.topic_list = []
+    session.intent_list = []
+    # set temporary variable for db = none
+    session.expected_intent = None
+    session.user_act = None
+    session.distance_info = None
+    session.timing_info = None
+    session.greeting_flag = None
     return dict()
 
 

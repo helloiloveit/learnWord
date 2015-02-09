@@ -19,10 +19,12 @@ class talk_about_people(object):
         - introduce it self
         - talk about hobby...etc
     """
+
     def __init__(self, json_data):
         self.json_data = json_data
         self.me = user_obj('ai')
         self.user = user_obj('huy')
+        self.handler = None
     def handle_user_saying(self, intention, entity):
         """
         same topic or new topic
@@ -34,11 +36,15 @@ class talk_about_people(object):
             msg = ' old topic'
         return msg
     def ask(self):
+        msg = ''
         if not self.user.get_age():
-            msg = 'ask age'
-        elif not self.user.get_job():
-            msg = 'ask job'
+            msg = self.user.ask()
+        elif not job_obj('huy').get_job():
+            msg = job_obj('huy').ask()
+        elif self.handler:
+            msg = self.handler.ask()
         return msg
+
     def return_msg(self):
         intent = ai_json(self.json_data).get_intent(0)
         if intent == ASK_AGE:
@@ -47,6 +53,18 @@ class talk_about_people(object):
             msg = self.me.get_name()
         elif intent == ASK_JOB:
             msg = self.me.get_job().handler(self.json_data)
+        elif intent == INTRODUCE_MYSELF:
+            msg = self.me.handler(self.json_data)
+        elif intent == GREETING:
+            self.handler = greeting_obj('')
+            msg = self.handler.handler(self.json_data)
+        elif intent == NICE_TO_MEET_YOU:
+            self.handler = greeting_obj('')
+            msg = self.handler.handler(self.json_data)
+        elif intent == ASK_HOBBY:
+            hobby = hobby_obj('ai')
+            msg  = hobby.handler(self.json_data)
+            self.handler = hobby
         return msg
 
 class greeting_handler(base_intent_handler):
@@ -155,6 +173,7 @@ class ask_hobby_handler(base_intent_handler):
     def __init__(self, base_json):
         super(ask_hobby_handler, self).__init__(base_json)
     def return_msg(self):
+        import pdb; pdb.set_trace()
         contact_info = ai_json(self.json_data).get_entity(CONTACT_TYPE)
         if contact_info in ['my', 'mine']:
             hobby = self.user.hobby
@@ -190,7 +209,6 @@ class ask_opinion_about_sth(base_intent_handler):
 
 
     def return_msg(self):
-        import pdb; pdb.set_trace()
         msg = self.me.give_opinion(self.target)
         return msg
 

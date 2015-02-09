@@ -155,44 +155,8 @@ class TestGoToSomeWhere(Base_Test):
         msg = handle_topic_data(json_data)
         self.assertEqual(msg, 'you could go there')
     """
-    def testTalkAboutPersonalThing(self):
 
 
-
-        expected_msg = 'ai'
-        self.check_message_with_no_entity('what your name', ASK_NAME, expected_msg)
-
-        expected_msg = '1 years old'
-        self.check_message_with_no_entity('how old are you', ASK_AGE, expected_msg)
-
-        expected_msg = 'worker'
-        self.check_message_with_no_entity('whats your job', ASK_JOB, expected_msg)
-
-        expected_msg = 'this job is ok'
-        self.check_message_with_entity('do you like your job?', ASK_OPINION_ABOUT_SOMETHING,TARGET_NAME, 'it', expected_msg)
-
-        expected_msg = '1 year'
-        self.check_message_with_entity('how long have you been working?', ASK_DURATION, ACTIVITY_INFO, 'working', expected_msg)
-
-        expected_msg = 'i like running. what is your hobby?'
-        self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
-
-        """
-        expected_msg = 'nice'
-        self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'working',  expected_msg)
-
-        expected_msg = 'i run 20 km in weekend. how long do you run'
-        self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
-
-        expected_msg = 'nice'
-        self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
-
-        expected_msg = 'because it fun and good for health'
-        self.check_message_with_entity('why do you like running?', ASK_WHY_LIKE,ACTIVITY_INFO,'running', expected_msg)
-
-        expected_msg = '1 year'
-        self.check_message_with_entity('how long have you been running?', ASK_DURATION, ACTIVITY_INFO, 'running', expected_msg)
-        """
     def testTalkHobby(self):
 
 
@@ -249,18 +213,6 @@ class TestGoToSomeWhere(Base_Test):
         self.check_message_with_entity('what are u doing', ASK_WHAT_ARE_U_DOING, CONTACT_TYPE, 'you', expected_msg)
     """
 
-
-
-
-
-    def testAskIfSomeOneLikeTheirJob(self):
-        json_data = self.json_no_entity('', ASK_JOB)
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'worker')
-
-        json_data = self.json_data_with_entity_info('is it a good job', ASK_OPINION_ABOUT_SOMETHING, TARGET_NAME, 'it')
-        msg = handle_topic_data(json_data)
-        self.assertEqual(msg, 'this job is ok')
 
 
     def testBasicConversationInPublicPlace(self):
@@ -336,7 +288,57 @@ class TestGoToSomeWhere(Base_Test):
         expected_msg = 'youre productive and creative at the airport'
         self.check_message_with_no_entity('why', ASK_WHY, expected_msg)
 
+class TestTalkHobby(Base_Test):
+    def setUp(self):
+        super(TestTalkHobby, self).setUp()
 
+    def testTalkHobby(self):
+
+
+        expected_msg = 'hello.'
+        self.check_message_with_no_entity('hello.', GREETING, expected_msg)
+
+        expected_msg = 'i like running. what is your hobby?'
+        self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
+
+        expected_msg = 'nice.'
+        self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'running',  expected_msg)
+
+        expected_msg = 'i run 20 km in weekend. how long do you run'
+        self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'nice. when do you run'
+        self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
+
+        expected_msg = 'nice. when did you start running'
+        self.check_message_with_entity('i run in the weekend', DOING_SMTH , DATETIME, 'weekend',  expected_msg)
+
+        expected_msg = 'nice.'
+        self.check_message_with_entity('2 years ago', TIME_INFO, DATETIME,'2 years', expected_msg)
+
+        expected_msg = 'i practice it every week.'
+        self.check_message_with_entity('Woa. How could you run 20 km?', ASK_HOW_TO_DO , ACTIVITY_INFO, 'run',  expected_msg)
+
+        expected_msg = 'i run in weekend.'
+        self.check_message_with_entity('when do you run?', ASK_TIME , ACTIVITY_INFO, 'run',  expected_msg)
+
+
+        expected_msg = 'because it fun and good for health.'
+        self.check_message_with_entity('why do you like running?', ASK_WHY_LIKE,ACTIVITY_INFO,'running', expected_msg)
+
+        expected_msg = '1 year.'
+        self.check_message_with_entity('how long have you been running?', ASK_DURATION, ACTIVITY_INFO, 'running', expected_msg)
+
+        expected_msg = 'it is good for health.'
+        self.check_message_with_no_entity('is it good for health', ASK_HEALTH_STS, expected_msg)
+
+        expected_msg = 'i started running 2 years ago.'
+        self.check_message_with_entity('when did you start running?', ASK_TIME, START_STOP_INFO,'start', expected_msg)
+
+        """
+        expected_msg = 'yeah i love it. Its addictive.'
+        self.check_message_with_no_entity('do you enjoy it so far', ASK_OPINION_ABOUT_SOMETHING, expected_msg)
+        """
 
 
 
@@ -352,6 +354,89 @@ class TestGreeting(Base_Test):
         self.check_message_with_entity('im doing terrible', EMOTIONAL_EXPRESSION,FEELING,'bad', expected_msg)
 
 
+class TestJob(Base_Test):
+    def setUp(self):
+        super(TestJob, self).setUp()
+
+    def testTalkAboutJob(self):
+        expected_msg = 'ai'
+        self.check_message_with_no_entity('what your name', ASK_NAME, expected_msg)
+
+        expected_msg = '1 years old'
+        self.check_message_with_no_entity('how old are you', ASK_AGE, expected_msg)
+
+        expected_msg = 'worker'
+        self.check_message_with_no_entity('whats your job', ASK_JOB, expected_msg)
+
+        expected_msg = 'this job is ok'
+        self.check_message_with_entity('do you like your job?', ASK_OPINION_ABOUT_SOMETHING,TARGET_NAME, 'it', expected_msg)
+
+        expected_msg = 'because its well paid.'
+        self.check_message_with_no_entity('why you like your job?', ASK_WHY_LIKE, expected_msg)
+
+        expected_msg = '1 years.'
+        self.check_message_with_entity('how long have you been working?', ASK_DURATION, ACTIVITY_INFO, 'working', expected_msg)
+
+        expected_msg = 'i started this job 1 year ago.'
+        self.check_message_with_entity('When did you start this job', ASK_TIME, START_STOP_INFO, 'start', expected_msg)
+
+        expected_msg = 'yes.'
+        self.check_message_with_entity('Do you want to find a new job?', ASK_IF_WANT_TO_DO_SMTH, ACTIVITY_INFO, 'find a new job', expected_msg)
+
+        expected_msg = 'yes im looking for new job.'
+        self.check_message_with_entity('Are u looking for it now?', ASK_IF_DOING_SMTH, TARGET_NAME, 'it', expected_msg)
+
+class TestIntroduction(Base_Test):
+    def setUp(self):
+        super(TestIntroduction, self).setUp()
+    def testMakeFriend(self):
+        expected_msg = 'hello.'
+        self.check_message_with_no_entity('hello.', GREETING, expected_msg)
+
+        expected_msg = 'im ai. Nice to meet you. huy.'
+        self.check_message_with_entity('im huy. Nice to meet you', INTRODUCE_MYSELF, CONTACT_TYPE,'huy', expected_msg)
+
+        expected_msg = 'nice to meet you.'
+        self.check_message_with_no_entity('Nice to meet you.', NICE_TO_MEET_YOU, expected_msg)
+
+
+        expected_msg = '1 years old'
+        self.check_message_with_no_entity('how old are you', ASK_AGE, expected_msg)
+
+        expected_msg = 'worker'
+        self.check_message_with_no_entity('whats your job', ASK_JOB, expected_msg)
+
+        expected_msg = 'this job is ok'
+        self.check_message_with_entity('do you like your job?', ASK_OPINION_ABOUT_SOMETHING,TARGET_NAME, 'it', expected_msg)
+
+        expected_msg = 'because its well paid.'
+        self.check_message_with_no_entity('why you like your job?', ASK_WHY_LIKE, expected_msg)
+
+        expected_msg = '1 years.'
+        self.check_message_with_entity('how long have you been working?', ASK_DURATION, ACTIVITY_INFO, 'working', expected_msg)
+
+        expected_msg = 'i like running. what is your hobby?'
+        self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
+
+class TestIntroductionAIStartConversation(Base_Test):
+    def setUp(self):
+        super(TestIntroductionAIStartConversation, self).setUp()
+    def testMakeFriend(self):
+        expected_msg = 'hello.'
+        self.check_message_with_no_entity('hello.', GREETING, expected_msg)
+
+        expected_msg = 'im ai. Nice to meet you. huy.'
+        self.check_message_with_entity('im huy. Nice to meet you', INTRODUCE_MYSELF, CONTACT_TYPE,'huy', expected_msg)
+
+        expected_msg = 'nice to meet you. how old are you?'
+        self.check_message_with_no_entity('Nice to meet you.', NICE_TO_MEET_YOU, expected_msg)
+
+
+        expected_msg = 'nice. what is your job?'
+        self.check_message_with_entity('im 33 years old', AGE_INFO,AGE_OF_PERSON, '33', expected_msg)
+
+        expected_msg = 'engineer nice.'
+        self.check_message_with_entity('im an engineer', INTRODUCE_MYSELF, JOB_INFO, 'engineer', expected_msg)
 
 
 
@@ -360,8 +445,12 @@ class TestGreeting(Base_Test):
 
 
 suite = unittest.TestSuite()
-suite.addTest(unittest.makeSuite(TestGoToSomeWhere))
-suite.addTest(unittest.makeSuite(TestGreeting))
+#suite.addTest(unittest.makeSuite(TestGoToSomeWhere))
+#suite.addTest(unittest.makeSuite(TestGreeting))
+#suite.addTest(unittest.makeSuite(TestJob))
+#suite.addTest(unittest.makeSuite(TestIntroduction))
+#suite.addTest(unittest.makeSuite(TestTalkHobby))
+suite.addTest(unittest.makeSuite(TestIntroductionAIStartConversation))
 unittest.TextTestRunner(verbosity=2).run(suite)
 
 

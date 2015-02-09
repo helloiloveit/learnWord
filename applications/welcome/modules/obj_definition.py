@@ -43,12 +43,17 @@ class place_obj(object):
 class obj_intent_base(object):
     def __init__(self):
         pass
-
+    def ask(self):
+        pass
     def handler(self, json_data):
         intent = ai_json(json_data).get_intent(0)
-        dic_info = self.answer_topic[intent]
+        try:
+            dic_info = self.answer_topic[intent]
+        except:
+            log.error('This intent is not defined yet')
+            raise
         msg = dic_info['handler'](json_data)
-        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
         return data
 
 
@@ -63,13 +68,66 @@ class job_obj(obj_intent_base):
             self.initialze_info(19, 10, 'ok')
         elif self.name == 'worker':
             self.initialze_info(7, 10, 'bad')
-
+        self.job_info = None
         self.answer_topic = {
-            ASK_JOB:{'handler':self.what_is, 'intent': IT_IS_SMTH, 'topic':JOB_TOPIC}
+            ASK_JOB:{'handler':self.what_is, 'intent': IT_IS_SMTH, 'topic':JOB_TOPIC},
+            ASK_WHY_LIKE:{'handler':self.why_like, 'intent':MOTIVATION_INFO, 'topic':JOB_TOPIC},
+            ASK_DURATION:{'handler':self.duration, 'intent':TIME_INFO, 'topic':JOB_TOPIC},
+            ASK_TIME:{'handler':self.ask_time, 'intent':TIME_INFO, 'topic':JOB_TOPIC},
+            ASK_IF_WANT_TO_DO_SMTH:{'handler':self.ask_if_want_to_change_job, 'intent':YES_NO_INFO, 'topic':JOB_TOPIC},
+            ASK_IF_DOING_SMTH:{'handler':self.ask_if_searing_for_new_job, 'intent':YES_NO_INFO, 'topic':JOB_TOPIC},
+            INTRODUCE_MYSELF:{'handler':self.introduce, 'intent':YES_NO_INFO, 'topic':JOB_TOPIC},
         }
+        self.ask_topic =[
+            {'value':self.get_job, 'handler':self.ask_job, 'intent':ASK_JOB, 'topic':JOB_TOPIC}
+        ]
+        self.load_db()
+    def save_db(self, job):
+        if job:
+            session.db_job = job
+        self.load_db()
+
+    def load_db(self):
+        if session.db_job:
+            self.job_info = session.db_job
+
+    def get_job(self):
+        if self.name is not 'ai' and not self.job_info:
+            return None
+        else:
+            return self.job_info
+    def ask_if_want_to_change_job(self, json_data):
+        msg= 'yes'
+        return msg
+    def ask_if_searing_for_new_job(self, json_data):
+        msg ='yes im looking for new job'
+        return msg
+
+    def why_like(self, json_data):
+        msg = 'because its well paid'
+        return msg
+
+    def duration(self, json_data):
+        msg ='1 years'
+        return msg
+
+    def ask_time(self, json_data):
+        msg = 'i started this job 1 year ago'
+        return msg
 
     def what_is(self, json_data):
         msg =  self.name
+        return msg
+
+
+    def introduce(self, json_data):
+        job_info = ai_json(json_data).get_entity(JOB_INFO)
+        msg = job_info + ' nice'
+        self.save_db(job_info)
+        return msg
+
+    def ask_job(self):
+        msg = 'what is your job?'
         return msg
 
     def initialze_info(self, salary, working_hour, social_status):
@@ -79,17 +137,49 @@ class job_obj(obj_intent_base):
     def get_name(self):
         return self.name
 
+    def ask(self):
+        data = ''
+        for dic_info in self.ask_topic:
+            if not dic_info['value']():
+                msg = dic_info['handler']()
+                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
+                return data
 
 
-class user_obj(object):
+        return data
+
+
+class user_obj(obj_intent_base):
     def __init__(self, name):
         # load from DB
         if name =='huy':
-            self.intialize_info(name, '33', 'programmer', 'ho dac di')
+            #self.intialize_info(name, '33', 'programmer', 'ho dac di')
+            self.intialize_info(name, '', '', '')
         elif name =='ai':
             self.intialize_info(name, '1', 'worker', 'ho dac di')
         else:
             pass
+        self.answer_topic = {
+            INTRODUCE_MYSELF:{'handler':self.introduce, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC},
+            AGE_INFO:{'handler':self.age_info, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC}
+        }
+        self.ask_topic =[
+            {'value':self.get_age, 'handler':self.ask_age, 'intent':ASK_AGE, 'topic':USER_TOPIC}
+        ]
+        self.load_db()
+
+    def save_db(self, name, age, job):
+        if  name:
+            session.db_username = name
+        if  age:
+            session.db_age = age
+        if  job:
+            session.db_job_name = job
+        self.load_db()
+    def load_db(self):
+        if self.name is not 'ai':
+            self.age = session.db_age
+            self.job = job_obj(session.db_job_name)
 
 
     def intialize_info(self, name, age, work, position):
@@ -101,15 +191,47 @@ class user_obj(object):
             self.work = None
         self.position = position
         pass
+
+    def introduce(self, json_data):
+        contact = ai_json(json_data).get_entity(CONTACT_TYPE)
+        msg ='im '+ self.name + '. Nice to meet you. ' + contact
+        return msg
+
     def get_position(self):
         return self.position
     def get_age(self):
+        if not self.age:
+            return None
         return self.age + ' years old'
+    def age_info(self, json_data):
+        age_info = ai_json(json_data).get_entity(AGE_OF_PERSON)
+        msg = 'nice'
+        self.save_db('',age_info,'')
+        return msg
+    # ask
+    def ask_age(self):
+        msg = 'how old are you?'
+        return msg
+    # get info
     def get_name(self):
+        if not self.name:
+            return ''
         return self.name
     def get_job(self):
+        if not self.job:
+            return ''
         return self.work
 
+    def ask(self):
+        data = ''
+        for dic_info in self.ask_topic:
+            if not dic_info['value']():
+                msg = dic_info['handler']()
+                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
+                return data
+
+
+        return data
 
     def get_available_time(self):
         return '1 2 3 4 5 6 7 8 9 10'
@@ -141,7 +263,7 @@ class health_obj(object):
         intent = ai_json(json_data).get_intent(0)
         if intent == ASK_HEALTH_STS:
             msg = self.get_status()
-            data = data_format.saying(msg, ADJECTIVE_INFO, HEALTH_OBJ)
+            data = data_format.saying(msg, ADJECTIVE_INFO, HEALTH_OBJ, '')
         return data
 
 
@@ -163,7 +285,7 @@ class distance_obj(object):
 
     def handler(self, json_data):
         msg = self.distance
-        data = data_format.saying(msg, DISTANCE_INFO, RUNNING_ACT)
+        data = data_format.saying(msg, DISTANCE_INFO, RUNNING_ACT, '')
         return data
 
 class greeting_obj(object):
@@ -171,7 +293,9 @@ class greeting_obj(object):
         self.answer_topic = {
             GREETING:{'handler':self.reply, 'intent': GREETING, 'topic':GREETING_ACT},
             EMOTIONAL_EXPRESSION:{'handler':self.reply_emotional, 'intent': GREETING, 'topic':GREETING_ACT},
+            NICE_TO_MEET_YOU:{'handler':self.nice_to_meet_u, 'intent': GREETING, 'topic':GREETING_ACT}
         }
+        self.user = None
         self.load_db()
 
     def load_db(self):
@@ -183,6 +307,10 @@ class greeting_obj(object):
     def save_db(self, greeting):
         session.greeting_flag = greeting
         self.load_db()
+
+    def nice_to_meet_u(self, json_data):
+        msg = 'nice to meet you'
+        return msg
     def reply_emotional(self, json_data):
         info = ai_json(json_data).get_entity(FEELING)
         msg ='great'
@@ -208,15 +336,17 @@ class greeting_obj(object):
         intent = ai_json(json_data).get_intent(0)
         dic_info = self.answer_topic[intent]
         msg = dic_info['handler'](json_data)
-        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
         return data
         pass
     def ask(self):
         data = ''
+        if not self.user:
+            return data
         for dic_info in self.ask_topic:
             if not dic_info['value']:
                 msg = dic_info['handler']()
-                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
                 return data
 
 
@@ -399,7 +529,16 @@ class running_act(act_base):
         if time_info:
             session.timing_info = time_info
         if start_time:
-            self.start_time = start_time
+            session.start_time = start_time
+        return msg
+
+    def why(self, json_data):
+        msg = 'because it fun and good for health'
+        return msg
+    def duration_info(self, json_data):
+        msg =  '1 year'
+        return msg
+    def ask_distance(self):
         self.load_db(self.user_name)
     def need_smth(self):
         """
@@ -462,14 +601,14 @@ class running_act(act_base):
             return data
 
         msg = dic_info['handler'](json_data)
-        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+        data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
         return data
     def ask(self):
         data = ''
         for dic_info in self.ask_topic:
             if not dic_info['value']:
                 msg = dic_info['handler']()
-                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'])
+                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
                 return data
 
 
@@ -477,7 +616,7 @@ class running_act(act_base):
 
 
 
-class hobby(object):
+class hobby_obj(obj_intent_base):
     def __init__(self,name):
         self.name = name
         self.load_db(name)
@@ -486,6 +625,13 @@ class hobby(object):
             LIKE_SMTH: self.ans_like_smth
         }
         self.load_db(name)
+        self.answer_topic = {
+            ASK_HOBBY:{'handler':self.introduce, 'intent': LIKE_SMTH, 'topic':HOBBY_TOPIC},
+        }
+        self.ask_topic =[
+            {'value':self.get_hobby, 'handler':self.ask_hobby, 'intent':ASK_HOBBY, 'topic':HOBBY_TOPIC}
+
+        ]
 
     def save_to_db(self, act):
         session.user_act = [act]
@@ -504,7 +650,7 @@ class hobby(object):
 
         msg = 'nice'
         self.save_to_db(activity_info)
-        data = data_format.saying(msg, COMPLIMENT, WORKING_ACT)
+        data = data_format.saying(msg, COMPLIMENT, WORKING_ACT, '')
 
         return data
     def get_by_name(self, name):
@@ -515,29 +661,27 @@ class hobby(object):
     def get_all(self):
         return self.list
     def introduce(self, json_data):
-        if not len(self.list):
-            message = 'Sorry i dont know yet'
-            topic = 'hobby'
-        else:
-            if self.name == 'huy':
-                message =  'you like' + ' ' + self.list[0].get_name()
-            elif self.name == 'ai':
-                message =  'i like' + ' ' + self.list[0].get_name()
-            topic = self.list[0].get_name()
-        data = data_format.saying(message, LIKE_SMTH, topic)
-        return data
-    def ask_hobby(self):
-        return 'what is your hobby?'
+        msg = 'i like ' + self.get_hobby()
+        return msg
+
+    def get_hobby(self):
+        return self.list[0].name
+
+
+    def ask_hobby(selfc):
+        msg =  'what is your hobby?'
+        return msg
+
     def ask(self):
         data = ''
-        if not self.list:
-            msg = self.ask_hobby()
-            data = data_format.saying(msg, ASK_HOBBY, 'hobby')
+        for dic_info in self.ask_topic:
+            if not dic_info['value']:
+                msg = dic_info['handler']()
+                data = data_format.saying(msg, dic_info['intent'], dic_info['topic'], '')
+                return data
+
+
         return data
-    def handler(self, json_data):
-        intent = ai_json(json_data).get_intent(0)
-        msg = self.answer_topic[intent](json_data)
-        return msg
 
 class human_obj(user_obj):
     """
@@ -550,7 +694,7 @@ class human_obj(user_obj):
         super(human_obj, self).__init__(name)
         self.doing_now = waiting_act(act_name)
         self.doing = [traveling_act(), working_act()]
-        self.hobby = hobby(name)
+        self.hobby = hobby_obj(name)
         self.answer_topic = {
             ASK_WHAT_ARE_U_DOING: self.what_are_u_doing
         }
@@ -563,7 +707,7 @@ class human_obj(user_obj):
         return self.doing
     def what_are_u_doing(self, json_data):
         msg = 'im waiting.'
-        data = data_format.saying(msg, DOING_SMTH, 'doing')
+        data = data_format.saying(msg, DOING_SMTH, 'doing', '')
         return data
     def handler(self, json_data):
         intent = ai_json(json_data).get_intent(0)

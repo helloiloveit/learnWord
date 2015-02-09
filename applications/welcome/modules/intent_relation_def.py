@@ -26,15 +26,42 @@ expected_intent_gen = {
         GREETING,
         EMOTIONAL_EXPRESSION
     ],
+    ASK_AGE:[
+        AGE_INFO
+    ],
+    ASK_JOB:[
+        INTRODUCE_MYSELF
+    ],
     None:None
 }
 
 topic_intent_dic = {
+    USER_TOPIC:{
+        'intent':[
+            INTRODUCE_MYSELF
+        ],
+        'class': user_obj
+
+    },
+    JOB_TOPIC:{
+        'intent':
+            [
+                ASK_JOB,
+                ASK_WHY_LIKE,
+                ASK_DURATION,
+                ASK_TIME,
+                ASK_IF_WANT_TO_DO_SMTH,
+                ASK_IF_DOING_SMTH,
+                INTRODUCE_MYSELF
+
+            ],
+        'class': job_obj
+    },
     'hobby':{
         'intent':
                 [ASK_HOBBY,
                 LIKE_SMTH],
-        'class'  : hobby
+        'class'  : hobby_obj
     },
     RUNNING_ACT: {
         'intent':[
@@ -53,6 +80,13 @@ topic_intent_dic = {
             EMOTIONAL_EXPRESSION
         ],
         'class':greeting_obj
+    },
+    AGE_INFO:{
+        'intent':[
+            AGE_INFO
+
+        ],
+        'class':user_obj
     }
 }
 

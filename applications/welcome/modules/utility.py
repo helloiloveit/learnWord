@@ -16,8 +16,8 @@ class data_format(object):
     def __init__(self):
         pass
     @classmethod
-    def saying(self, msg, intent, topic):
-        data = {'saying':msg, 'intent':intent, 'topic':topic}
+    def saying(self, msg, intent, topic, user):
+        data = {'saying':msg, 'intent':intent, 'topic':topic, 'user':user}
         return data
 
 

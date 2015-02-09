@@ -8,11 +8,12 @@ DISTANCE_INFO ='distance_info'
 DURATION_INFO = 'duration_info'
 METHOD_TO_GO = 'method_to_go'
 DOING_SMTH = 'doing_smth'
-
+AGE_INFO = 'age_info'
 #personal assistant
 ASK_WHAT_SHOULD_I_DO = 'ask_what_should_i_do'
 ASK_WHY = 'ask_why'
-
+ASK_IF_WANT_TO_DO_SMTH = 'ask_if_want_to_do_smth'
+ASK_IF_DOING_SMTH = 'ask_if_doing_smth'
 
 #ask
 ASK_AGE = 'ask_age'
@@ -34,6 +35,8 @@ ASK_WHERE_ARE_U_FROM ='ask_where_are_u_from'
 ASK_WHY_LIKE = 'ask_why_like'
 ASK_HOW_TO_DO = 'ask_how_to_do'
 
+
+YES_NO_INFO = 'yes_no_info'
 #greeting
 GREETING = 'greeting'
 
@@ -91,6 +94,7 @@ DATETIME = 'datetime'
 ACTIVITY_INFO = 'activity_info'
 CONTACT_TYPE = 'contact_type'
 DISTANCE ='distance'
+AGE_OF_PERSON= 'age_of_person'
 
 FEELING = 'feeling'
 LEVEL_OF_EXPRESSION = 'level_of_expression'
@@ -100,6 +104,7 @@ GREETING_LEVEL ='greeting_level'
 START_STOP_INFO = 'start_stop_info'
 #introduce
 NAME_INFO = 'contact'
+JOB_INFO = 'job_info'
 
 
 
@@ -116,3 +121,4 @@ ANSWER_FLAG = 'asnwer'
 HEALTH_OBJ = 'health_obj'
 HOBBY_TOPIC = 'hobby_topic'
 JOB_TOPIC = 'job_topic'
+USER_TOPIC = 'user_topic'
