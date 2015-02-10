@@ -57,6 +57,9 @@ def test_STT():
     session.topic_list = []
     session.intent_list = []
     # set temporary variable for db = none
+    session.db_age = None
+    session.db_username =None
+    session.db_job = None
     session.expected_intent = None
     session.user_act = None
     session.distance_info = None

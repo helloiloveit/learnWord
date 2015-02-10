@@ -14,6 +14,9 @@ class Base_Test(unittest.TestCase):
         session.topic_list = []
         session.intent_list = []
         # set temporary variable for db = none
+        session.db_age = None
+        session.db_username =None
+        session.db_job = None
         session.expected_intent = None
         session.user_act = None
         session.distance_info = None
@@ -294,18 +297,14 @@ class TestTalkHobby(Base_Test):
 
     def testTalkHobby(self):
 
-
-        expected_msg = 'hello.'
-        self.check_message_with_no_entity('hello.', GREETING, expected_msg)
+        #set flag
+        session.TALK_ACTIVE_FLAG = False
 
         expected_msg = 'i like running. what is your hobby?'
         self.check_message_with_no_entity('what is your hobby?', ASK_HOBBY , expected_msg)
 
-        expected_msg = 'nice.'
+        expected_msg = 'nice. how long do you run'
         self.check_message_with_entity('i like running too', LIKE_SMTH , ACTIVITY_INFO, 'running',  expected_msg)
-
-        expected_msg = 'i run 20 km in weekend. how long do you run'
-        self.check_message_with_entity('Nice. How long do you run?', ASK_DISTANCE , ACTIVITY_INFO, 'run',  expected_msg)
 
         expected_msg = 'nice. when do you run'
         self.check_message_with_entity('10km only', DISTANCE_INFO , DISTANCE, '10km',  expected_msg)
@@ -390,23 +389,32 @@ class TestIntroduction(Base_Test):
     def setUp(self):
         super(TestIntroduction, self).setUp()
     def testMakeFriend(self):
+        session.TALK_ACTIVE_FLAG = False
         expected_msg = 'hello.'
         self.check_message_with_no_entity('hello.', GREETING, expected_msg)
 
         expected_msg = 'im ai. Nice to meet you. huy.'
         self.check_message_with_entity('im huy. Nice to meet you', INTRODUCE_MYSELF, CONTACT_TYPE,'huy', expected_msg)
 
-        expected_msg = 'nice to meet you.'
+        expected_msg = 'nice to meet you. How are u doing?'
         self.check_message_with_no_entity('Nice to meet you.', NICE_TO_MEET_YOU, expected_msg)
 
+        expected_msg = 'great.'
+        self.check_message_with_entity('im doing well', EMOTIONAL_EXPRESSION,FEELING,'well', expected_msg)
 
-        expected_msg = '1 years old'
+        expected_msg = 'im 1 year old. how old are you?'
         self.check_message_with_no_entity('how old are you', ASK_AGE, expected_msg)
 
-        expected_msg = 'worker'
+        expected_msg = 'nice.'
+        self.check_message_with_entity('im 33 years old', AGE_INFO,AGE_OF_PERSON, '33', expected_msg)
+
+        expected_msg = 'worker. what is your job?'
         self.check_message_with_no_entity('whats your job', ASK_JOB, expected_msg)
 
-        expected_msg = 'this job is ok'
+        expected_msg = 'engineer nice.'
+        self.check_message_with_entity('im an engineer', INTRODUCE_MYSELF, JOB_INFO, 'engineer', expected_msg)
+
+        expected_msg = 'its ok.'
         self.check_message_with_entity('do you like your job?', ASK_OPINION_ABOUT_SOMETHING,TARGET_NAME, 'it', expected_msg)
 
         expected_msg = 'because its well paid.'
@@ -422,15 +430,19 @@ class TestIntroductionAIStartConversation(Base_Test):
     def setUp(self):
         super(TestIntroductionAIStartConversation, self).setUp()
     def testMakeFriend(self):
+        session.TALK_ACTIVE_FLAG =  True
+
         expected_msg = 'hello.'
         self.check_message_with_no_entity('hello.', GREETING, expected_msg)
 
         expected_msg = 'im ai. Nice to meet you. huy.'
         self.check_message_with_entity('im huy. Nice to meet you', INTRODUCE_MYSELF, CONTACT_TYPE,'huy', expected_msg)
 
-        expected_msg = 'nice to meet you. how old are you?'
+        expected_msg = 'nice to meet you. How are u doing?'
         self.check_message_with_no_entity('Nice to meet you.', NICE_TO_MEET_YOU, expected_msg)
 
+        expected_msg = 'sorry to know that. how old are you?'
+        self.check_message_with_entity('im doing terrible', EMOTIONAL_EXPRESSION,FEELING,'bad', expected_msg)
 
         expected_msg = 'nice. what is your job?'
         self.check_message_with_entity('im 33 years old', AGE_INFO,AGE_OF_PERSON, '33', expected_msg)
@@ -448,8 +460,8 @@ suite = unittest.TestSuite()
 #suite.addTest(unittest.makeSuite(TestGoToSomeWhere))
 #suite.addTest(unittest.makeSuite(TestGreeting))
 #suite.addTest(unittest.makeSuite(TestJob))
-#suite.addTest(unittest.makeSuite(TestIntroduction))
-#suite.addTest(unittest.makeSuite(TestTalkHobby))
+suite.addTest(unittest.makeSuite(TestIntroduction))
+suite.addTest(unittest.makeSuite(TestTalkHobby))
 suite.addTest(unittest.makeSuite(TestIntroductionAIStartConversation))
 unittest.TextTestRunner(verbosity=2).run(suite)
 

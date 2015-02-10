@@ -52,12 +52,13 @@ topic_intent_dic = {
                 ASK_TIME,
                 ASK_IF_WANT_TO_DO_SMTH,
                 ASK_IF_DOING_SMTH,
-                INTRODUCE_MYSELF
+                INTRODUCE_MYSELF,
+                ASK_OPINION_ABOUT_SOMETHING
 
             ],
         'class': job_obj
     },
-    'hobby':{
+    HOBBY_TOPIC:{
         'intent':
                 [ASK_HOBBY,
                 LIKE_SMTH],

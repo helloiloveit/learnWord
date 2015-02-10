@@ -6,6 +6,7 @@ from gluon import *
 
 
 from base_handler import *
+from obj_definition import *
 
 log = logging.getLogger("h")
 log.setLevel(logging.DEBUG)
@@ -35,24 +36,24 @@ class talk_about_people(object):
         elif 'old topic':
             msg = ' old topic'
         return msg
-    def ask(self):
+    def ask(self, user_name):
         msg = ''
-        if not self.user.get_age():
-            msg = self.user.ask()
-        elif not job_obj('huy').get_job():
-            msg = job_obj('huy').ask()
-        elif self.handler:
-            msg = self.handler.ask()
+        if self.handler:
+            msg = self.handler.ask('huy')
+        elif not self.user.get_age('huy'):
+            msg = self.user.ask('huy')
+        elif not job_obj('huy').get_job('huy'):
+            msg = job_obj('huy').ask('huy')
         return msg
 
     def return_msg(self):
         intent = ai_json(self.json_data).get_intent(0)
         if intent == ASK_AGE:
-            msg = self.me.get_age()
+            msg = self.me.handler(self.json_data)
         elif intent == ASK_NAME:
             msg = self.me.get_name()
         elif intent == ASK_JOB:
-            msg = self.me.get_job().handler(self.json_data)
+            msg = job_obj('ai').handler(self.json_data)
         elif intent == INTRODUCE_MYSELF:
             msg = self.me.handler(self.json_data)
         elif intent == GREETING:
@@ -66,6 +67,35 @@ class talk_about_people(object):
             msg  = hobby.handler(self.json_data)
             self.handler = hobby
         return msg
+
+
+
+class user_factory(object):
+    def __init__(self):
+        pass
+    def me(self):
+        #return user_obj('ai')
+        return human_obj('ai', 'reading_act')
+    def user(self):
+        return human_obj('huy',READING_ACT)
+
+
+class base_intent_handler(object):
+    """
+    base for handling intent
+    """
+    def __init__(self, json_data):
+        self.me = user_factory().me()
+        self.user = user_factory().user()
+        self.intent = ai_json(json_data).get_intent(0)
+        self.entity = ai_json(json_data).get_entity_list(0)
+        self.json_data = json_data
+    def generate_intent(self):
+        pass
+    def ask(self):
+        pass
+    def return_msg(self):
+        return 'not implement this intent yet'
 
 class greeting_handler(base_intent_handler):
     def __init__(self, json_data):
@@ -173,7 +203,6 @@ class ask_hobby_handler(base_intent_handler):
     def __init__(self, base_json):
         super(ask_hobby_handler, self).__init__(base_json)
     def return_msg(self):
-        import pdb; pdb.set_trace()
         contact_info = ai_json(self.json_data).get_entity(CONTACT_TYPE)
         if contact_info in ['my', 'mine']:
             hobby = self.user.hobby
