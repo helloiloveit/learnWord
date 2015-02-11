@@ -12,6 +12,10 @@ act_generator ={
 }
 
 
+"""
+dic info for intent that is expected to receive from user
+
+"""
 expected_intent_gen = {
     ASK_HOBBY:LIKE_SMTH,
     ASK_DISTANCE: [
@@ -32,13 +36,26 @@ expected_intent_gen = {
     ASK_JOB:[
         INTRODUCE_MYSELF
     ],
+    ASK_NAME:[
+        INTRODUCE_MYSELF
+    ],
+    ASK_WHERE_ARE_U_FROM:[
+        COME_FROM_INFO
+    ],
     None:None
 }
 
+
+
+"""
+dic for info of intent that each topic could handle
+
+"""
 topic_intent_dic = {
     USER_TOPIC:{
         'intent':[
-            INTRODUCE_MYSELF
+            INTRODUCE_MYSELF,
+            ASK_WHERE_ARE_U_FROM
         ],
         'class': user_obj
 

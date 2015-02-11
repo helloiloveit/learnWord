@@ -430,7 +430,7 @@ class TestIntroductionAIStartConversation(Base_Test):
     def setUp(self):
         super(TestIntroductionAIStartConversation, self).setUp()
     def testMakeFriend(self):
-        session.TALK_ACTIVE_FLAG =  True
+        session.TALK_ACTIVE_FLAG = False
 
         expected_msg = 'hello.'
         self.check_message_with_no_entity('hello.', GREETING, expected_msg)
@@ -441,16 +441,34 @@ class TestIntroductionAIStartConversation(Base_Test):
         expected_msg = 'nice to meet you. How are u doing?'
         self.check_message_with_no_entity('Nice to meet you.', NICE_TO_MEET_YOU, expected_msg)
 
-        expected_msg = 'sorry to know that. how old are you?'
+        expected_msg = 'sorry to know that.'
         self.check_message_with_entity('im doing terrible', EMOTIONAL_EXPRESSION,FEELING,'bad', expected_msg)
 
-        expected_msg = 'nice. what is your job?'
+
+
+    def testSayHi(self):
+        session.TALK_ACTIVE_FLAG =  True
+
+        expected_msg = 'hello. How are u doing?'
+        self.check_message_with_no_entity('hello.', GREETING, expected_msg)
+
+        expected_msg = 'great. whats your name?'
+        self.check_message_with_entity('im doing well', EMOTIONAL_EXPRESSION,FEELING,'well', expected_msg)
+
+        expected_msg = 'im ai. Nice to meet you. Huy. how old are you?'
+        self.check_message_with_entity('im Huy', INTRODUCE_MYSELF,CONTACT_TYPE,'Huy',expected_msg)
+
+        expected_msg = 'nice. where are you from?'
         self.check_message_with_entity('im 33 years old', AGE_INFO,AGE_OF_PERSON, '33', expected_msg)
+
+        expected_msg = 'nice VietNam. what is your job?'
+        self.check_message_with_entity('im from VietNam', COME_FROM_INFO, COUNTRY_INFO, 'VietNam', expected_msg)
 
         expected_msg = 'engineer nice.'
         self.check_message_with_entity('im an engineer', INTRODUCE_MYSELF, JOB_INFO, 'engineer', expected_msg)
 
-
+        expected_msg = 'im from Vietnam.'
+        self.check_message_with_no_entity('where are you from.', ASK_WHERE_ARE_U_FROM, expected_msg)
 
 
 
@@ -460,8 +478,8 @@ suite = unittest.TestSuite()
 #suite.addTest(unittest.makeSuite(TestGoToSomeWhere))
 #suite.addTest(unittest.makeSuite(TestGreeting))
 #suite.addTest(unittest.makeSuite(TestJob))
-suite.addTest(unittest.makeSuite(TestIntroduction))
-suite.addTest(unittest.makeSuite(TestTalkHobby))
+#suite.addTest(unittest.makeSuite(TestIntroduction))
+#suite.addTest(unittest.makeSuite(TestTalkHobby))
 suite.addTest(unittest.makeSuite(TestIntroductionAIStartConversation))
 unittest.TextTestRunner(verbosity=2).run(suite)
 

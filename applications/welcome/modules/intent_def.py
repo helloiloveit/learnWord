@@ -31,10 +31,11 @@ ASK_DISTANCE= 'ask_distance'
 
 ASK_CONTACT_INFO = 'ask_contact_info'
 ASK_WHAT_ARE_U_DOING = 'ask_what_are_u_doing'
-ASK_WHERE_ARE_U_FROM ='ask_where_are_u_from'
+ASK_WHERE_ARE_U_FROM ='ask_where_from'
 ASK_WHY_LIKE = 'ask_why_like'
 ASK_HOW_TO_DO = 'ask_how_to_do'
 
+COME_FROM_INFO = 'come_from_info'
 
 YES_NO_INFO = 'yes_no_info'
 #greeting
@@ -92,10 +93,10 @@ ADJECTIVE_INFO = 'adjective_info'
 TARGET_NAME = 'target_name'
 DATETIME = 'datetime'
 ACTIVITY_INFO = 'activity_info'
-CONTACT_TYPE = 'contact_type'
+CONTACT_TYPE = 'contact'
 DISTANCE ='distance'
 AGE_OF_PERSON= 'age_of_person'
-
+COUNTRY_INFO = 'country_info'
 FEELING = 'feeling'
 LEVEL_OF_EXPRESSION = 'level_of_expression'
 GREETING_LEVEL ='greeting_level'

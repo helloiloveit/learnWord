@@ -40,6 +40,8 @@ class talk_about_people(object):
         msg = ''
         if self.handler:
             msg = self.handler.ask('huy')
+        elif not self.user.get_name(''):
+            msg = self.user.ask('')
         elif not self.user.get_age('huy'):
             msg = self.user.ask('huy')
         elif not job_obj('huy').get_job('huy'):
@@ -51,7 +53,7 @@ class talk_about_people(object):
         if intent == ASK_AGE:
             msg = self.me.handler(self.json_data)
         elif intent == ASK_NAME:
-            msg = self.me.get_name()
+            msg = self.me.handler(self.json_data)
         elif intent == ASK_JOB:
             msg = job_obj('ai').handler(self.json_data)
         elif intent == INTRODUCE_MYSELF:
@@ -66,6 +68,8 @@ class talk_about_people(object):
             hobby = hobby_obj('ai')
             msg  = hobby.handler(self.json_data)
             self.handler = hobby
+        elif intent == ASK_WHERE_ARE_U_FROM:
+            msg  = self.me.handler(self.json_data)
         return msg
 
 

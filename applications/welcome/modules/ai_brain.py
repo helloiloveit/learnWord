@@ -34,8 +34,8 @@ handler_dic = {LIKE_SMTH: like_smth_handler,
                 INTRODUCE_MYSELF: talk_about_people,
                 GREETING: talk_about_people,
                 ASK_HOBBY: talk_about_people,
-                NICE_TO_MEET_YOU: talk_about_people
-
+                NICE_TO_MEET_YOU: talk_about_people,
+                ASK_WHERE_ARE_U_FROM: talk_about_people
                }
 
 class brain(object):
@@ -70,6 +70,8 @@ class brain(object):
 
     def not_ask_intent(self,intent, handler):
         not_ask = [GREETING,  INTRODUCE_MYSELF]
+        if session.TALK_ACTIVE_FLAG:
+            not_ask = []
         if intent in not_ask:
             ask_data = None
         else:

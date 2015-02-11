@@ -168,6 +168,7 @@ class user_obj(obj_intent_base):
         if name =='huy':
             #self.intialize_info(name, '33', 'programmer', 'ho dac di')
             self.intialize_info(name, '', '', '')
+
         elif name =='ai':
             self.intialize_info(name, '1', 'worker', 'ho dac di')
         else:
@@ -175,33 +176,51 @@ class user_obj(obj_intent_base):
         self.answer_topic = {
             INTRODUCE_MYSELF:{'handler':self.introduce, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC},
             AGE_INFO:{'handler':self.age_info, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC},
-            ASK_AGE:{'handler':self.handle_ask_age, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC}
+            ASK_AGE:{'handler':self.handle_ask_age, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC},
+            ASK_NAME:{'handler':self.handle_ask_name, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC},
+            ASK_WHERE_ARE_U_FROM:{'handler':self.handle_ask_where_from, 'intent': INTRODUCE_MYSELF, 'topic':USER_TOPIC},
+            COME_FROM_INFO:{'handler':self.handle_where_from, 'intent': COMPLIMENT, 'topic':USER_TOPIC}
         }
         self.ask_topic =[
-            {'value':self.get_age, 'handler':self.ask_age, 'intent':ASK_AGE, 'topic':USER_TOPIC}
+            {'value':self.get_name, 'handler':self.ask_name, 'intent':ASK_NAME, 'topic':USER_TOPIC},
+            {'value':self.get_age, 'handler':self.ask_age, 'intent':ASK_AGE, 'topic':USER_TOPIC},
+            {'value':self.get_where_from, 'handler':self.ask_where_from, 'intent':ASK_WHERE_ARE_U_FROM, 'topic':USER_TOPIC}
         ]
         self.load_db()
 
-    def save_db(self, name, age, job):
+    def save_db(self, name, age, job, country):
         if  name:
             session.db_username = name
         if  age:
             session.db_age = age
         if  job:
             session.db_job_name = job
+        if country:
+            session.db_where_from = country
         self.load_db()
     def load_db(self):
         if self.name is not 'ai':
             self.age = session.db_age
             self.job = job_obj(session.db_job_name)
-
+    # get info
     def get_age(self, user_name):
-        if not self.age:
+        if not session.db_age:
             return None
-        return self.age
+        return session.db_age
+    def get_name(self, user_name):
+        if user_name == 'ai':
+            return 'ai'
+        if not session.db_username:
+            return ''
+        return session.db_username
+    def get_where_from(self, user_name):
+        if user_name =='ai':
+            return 'Vietnam'
+        else:
+            return session.db_where_from
 
     def intialize_info(self, name, age, work, position):
-        self.name = name
+        self.name =None
         self.age = age
         if work:
             self.work = job_obj(work)
@@ -209,16 +228,29 @@ class user_obj(obj_intent_base):
             self.work = None
         self.position = position
         pass
-
+    def handle_where_from(self, json_data):
+        country = ai_json(json_data).get_entity(COUNTRY_INFO)
+        msg = 'nice ' + country
+        topic = USER_TOPIC
+        self.save_db('','','',country)
+        return msg, topic
     def handle_ask_age(self, json_data):
         msg = 'im ' + self.get_age('ai') + ' year old'
         topic = USER_TOPIC
         return msg, topic
-
+    def handle_ask_name(self, json_data):
+        msg = 'im ' + self.get_name('ai')
+        topic = USER_TOPIC
+        return msg, topic
+    def handle_ask_where_from(self, json_data):
+        msg = 'im from Vietnam'
+        topic = USER_TOPIC
+        return msg, topic
     def introduce(self, json_data):
         contact = ai_json(json_data).get_entity(CONTACT_TYPE)
-        msg ='im '+ self.name + '. Nice to meet you. ' + contact
+        msg ='im '+ self.get_name('ai') + '. Nice to meet you. ' + contact
         topic = USER_TOPIC
+        self.save_db(contact, '', '', '')
         return msg, topic
 
     def get_position(self):
@@ -227,18 +259,20 @@ class user_obj(obj_intent_base):
     def age_info(self, json_data):
         age_info = ai_json(json_data).get_entity(AGE_OF_PERSON)
         msg = 'nice'
-        self.save_db('',age_info,'')
+        self.save_db('', age_info, '', '')
         topic = USER_TOPIC
         return msg, topic
     # ask
     def ask_age(self):
         msg = 'how old are you?'
         return msg
+    def ask_where_from(self):
+        msg = 'where are you from?'
+        return msg
+    def ask_name(self ):
+        msg = 'whats your name?'
+        return msg
     # get info
-    def get_name(self):
-        if not self.name:
-            return ''
-        return self.name
     def get_job(self):
         if not self.job:
             return ''

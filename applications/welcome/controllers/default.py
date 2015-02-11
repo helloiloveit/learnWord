@@ -51,6 +51,7 @@ def talk():
     return dict()
 
 def test_STT():
+    session.TALK_ACTIVE_FLAG = True
     session.time_to_go = None
     session.by_what = None
     session.place = None
