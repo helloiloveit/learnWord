@@ -85,7 +85,7 @@
       <file leaf-file-name="intent_def.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="33" selection-start="881" selection-end="881" vertical-scroll-proportion="0.25513196" vertical-offset="60" max-vertical-offset="1950">
+            <state line="40" column="8" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.31671554" vertical-offset="60" max-vertical-offset="1950">
               <folding />
             </state>
           </provider>
@@ -1067,7 +1067,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/welcome/modules/intent_def.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="33" selection-start="881" selection-end="881" vertical-scroll-proportion="0.25513196" vertical-offset="60" max-vertical-offset="1950">
+        <state line="40" column="8" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.31671554" vertical-offset="60" max-vertical-offset="1950">
           <folding />
         </state>
       </provider>
